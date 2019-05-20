@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import telaControladoras.DAOTelaLogin;
+import controllers.CtrTelaLogin;
 
 public class TelaLoguinController implements Initializable {
 
@@ -29,7 +29,7 @@ public class TelaLoguinController implements Initializable {
     @FXML
     private void evtLogar(ActionEvent event)
     {
-        DAOTelaLogin tl = new DAOTelaLogin();
+        CtrTelaLogin tl = new CtrTelaLogin();
         int nivel;
         String usu = txfUnsuario.toString(), sen = txfSenha.toString();
         nivel = tl.logarctr(usu , sen);

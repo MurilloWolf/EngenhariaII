@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package controllers;
 
 /**
  *
  * @author Aluno
  */
-public class DAOcadastroFuncionario {
+public class CtrcadastroFuncionario {
     
 }

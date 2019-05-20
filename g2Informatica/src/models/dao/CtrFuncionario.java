@@ -1,4 +1,4 @@
-package controllers;
+package models.dao;
 
 public class CtrFuncionario {
     

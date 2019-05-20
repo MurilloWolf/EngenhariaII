@@ -1,6 +1,6 @@
-package telaControladoras;
+package controllers;
 
-public class DAOTelaLogin {
+public class CtrTelaLogin {
     
     public int logarctr (String usuario , String senha)
     {
