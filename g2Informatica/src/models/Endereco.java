@@ -29,8 +29,16 @@ public class Endereco {
         this.numero = numero;
     }
 
+    Endereco(int codigo) {
+       Endereco end = buscarEnderecoPorCodigo(codigo);
+       this.uf = end.getUf();
+        this.cidade = end.getCidade();
+        this.bairro = end.getBairro();
+        this.rua = end.getRua();
+        this.numero = end.getNumero();
+    }
+
     Endereco() {
-       
     }
     
     
@@ -133,6 +141,30 @@ public class Endereco {
        }
        
        return false;
+    }
+    
+    public static Endereco buscarEnderecoPorCodigo(int codigo){
+       String sql = "";
+       try{
+           sql = "select * from Endereco where end_cod = "+codigo+";";
+          
+           
+          ResultSet rs = Banco.con.consultar(sql);
+          //se tem alguma linha da consulta , esse endereco ja esta cadastrado , nao precisa cadastrar novamente
+          if(rs.next())
+          {
+              Endereco end = new Endereco(rs.getString("end_ud"),rs.getString("end_cidade"), rs.getString("end_bairro"), rs.getString("end_rua"),rs.getString("end_numero"));
+              
+              return end;
+          }
+       
+    
+           
+       }catch(SQLException ex){
+           System.out.println("erro: "+ ex.toString());
+       }
+       
+       return null;
     }
     
 }

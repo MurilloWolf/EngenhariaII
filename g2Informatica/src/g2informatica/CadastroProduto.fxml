@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CadastroProdutoController">
+   <top>
+      <VBox style="-fx-background-color: #FFF;">
+         <children>
+            <Label text="Produtos">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ComboBox fx:id="cbFiltro" prefHeight="25.0" prefWidth="145.0" promptText="Filtro">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Label />
+                  <TextField fx:id="txtBuscar" prefHeight="25.0" prefWidth="304.0" promptText="Buscar ..." />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <TableView prefHeight="611.0" prefWidth="499.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="84.0" text="Codigo" />
+                <TableColumn prefWidth="218.0" text="Nome" />
+                  <TableColumn minWidth="0.0" prefWidth="130.0" text="Preço" />
+              </columns>
+            </TableView>
+         </top>
+      </BorderPane>
+   </center>
+   <left>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="604.0" prefWidth="488.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Cadastrar Produto">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Nome" />
+                  <TextField fx:id="txtNome" />
+                  <Label text="Precço" />
+                  <TextField fx:id="txtPreco" />
+                  <Label text="Label" />
+                  <TextField />
+                  <HBox alignment="CENTER" prefHeight="79.0" prefWidth="281.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="btnCadastrar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCadastrar" prefWidth="100.0" text="Cadastrar" textAlignment="CENTER" />
+                        <Button fx:id="btnAlterar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickAlterar" prefWidth="100.0" text="Alterar" textAlignment="CENTER" />
+                        <Button fx:id="btnExcluir" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickExcluir" prefWidth="100.0" text="Excluir" textAlignment="CENTER" />
+                        <Button fx:id="btnCancelar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCanccelar" prefHeight="40.0" prefWidth="94.0" text="Cancelar" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </left>
+</BorderPane>
