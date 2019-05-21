@@ -1,11 +1,32 @@
 package models;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.dao.DaoProduto;
+
 public class Produto 
 {
     
     private int cod;
     private String nome;
     private double preco;
+    
+    
+    public Produto(int codigo){
+        Produto pro = Produto.buscarPorCodigo(codigo);
+        
+        if(pro!=null){
+          nome = pro.getNome();
+          preco = pro.getPreco();
+        }
+        else{
+            nome = "";
+            preco = 0;
+            cod = 0;
+        }
+    }
 
     public Produto(int cod, String nome, double preco) {
         this.cod = cod;
@@ -56,4 +77,75 @@ public class Produto
     {
         return nome;
     }
+    
+    
+ //======================================================= Persistencia =======================================================    
+    public boolean inserir(){
+        DaoProduto novoProduto = new DaoProduto();
+        try {
+            return novoProduto.salvar(this);
+            
+        } catch (SQLException ex) {
+            
+            System.out.println("Erro : "+ex.toString());
+        }
+        return false;
+    }
+    
+    public boolean alterar(){
+        DaoProduto alterarProduto = new DaoProduto();
+        try {
+            return alterarProduto.alterar(this);
+        } catch (SQLException ex) {
+            
+              System.out.println("Erro : "+ex.toString());
+        }
+        return false;
+    }
+    
+     public static Produto buscarPorCodigo(int codigo){
+        DaoProduto buscaProduto = new DaoProduto();
+        
+        try {
+            return buscaProduto.getProduto(codigo);
+            
+        } catch (Exception ex) {
+            
+              System.out.println("Erro : "+ex.toString());
+        }
+        return null;
+    }
+     
+    public static ArrayList<Object> buscarPorNome(String filtro){
+        
+        DaoProduto buscaProduto = new DaoProduto();
+        
+        ArrayList<Object> resultado;
+        resultado = (ArrayList<Object>) (Object) buscaProduto.getProdutoPorNome(filtro);
+        
+        if(resultado != null && resultado.size() > 0)
+        {
+            return resultado;
+        }
+        
+        return null;
+        
+        
+    } 
+    public static ArrayList<Object> buscarPorPreco(String filtro){
+        DaoProduto buscaProduto = new DaoProduto();
+        
+        ArrayList<Object> resultado;
+        resultado = (ArrayList<Object>) (Object) buscaProduto.getProdutoPorNome(filtro);
+        
+        if(resultado != null && resultado.size() > 0)
+        {
+            return resultado;
+        }
+        
+        return null;
+        
+        
+    } 
+    
 }

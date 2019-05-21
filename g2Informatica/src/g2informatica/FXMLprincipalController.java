@@ -46,6 +46,25 @@ public class FXMLprincipalController implements Initializable {
         } catch (Exception e) {
             System.out.println(e);
         }
+        if (TelaLoginController.login.equals(""))
+            System.exit(0);
+        else
+        {
+            lbLoguin.setText("Login: " + TelaLoginController.login);
+            if(TelaLoginController.ni == 2)
+            {
+                //desativar o botao de parametrizaçao aqui quando estiver pronto
+            }
+            else if(TelaLoginController.ni == 1)
+            {
+                //ativar todos os botoes
+            }
+            else if(TelaLoginController.ni == 0)
+            {
+                //destiva tudo
+            }
+                
+        }
     }
 
     @FXML

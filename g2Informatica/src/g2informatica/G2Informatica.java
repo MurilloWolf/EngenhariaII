@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.Empresa;
 
 /**
  *
@@ -20,13 +21,36 @@ public class G2Informatica extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLprincipal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("TelaLogin.fxml"));
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-       // stage.show();
-        System.out.println(Banco.conectar());
+
+        //se conectar com o banco de dados
+        if(  Banco.conectar() ){
+            
+            System.out.println("Status:"+Empresa.getStatus());
+            //se ja há uma parametrização , login da tela inicial
+            if(Empresa.getStatus()){
+                stage.show();
+            }
+            else
+            {
+                
+                //login da tela de parametrizacao
+                System.out.println("Iniciar Parametrizacao");
+                root = FXMLLoader.load(getClass().getResource("Empresa.fxml"));
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+            }
+        
+        }
+      
+       
+        
     }
 
     /**
