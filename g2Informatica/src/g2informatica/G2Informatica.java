@@ -27,6 +27,7 @@ public class G2Informatica extends Application {
         stage.setScene(scene);
        // stage.show();
         System.out.println(Banco.conectar());
+        System.out.println(Banco.con.getMensagemErro());
     }
 
     /**
