@@ -55,6 +55,15 @@ public class FXMLprincipalController implements Initializable {
             {
                 //desativar o botao de parametrizaçao aqui quando estiver pronto
             }
+            else if(TelaLoguinController.ni == 1)
+            {
+                //ativar todos os botoes
+            }
+            else if(TelaLoguinController.ni == 0)
+            {
+                //destiva tudo
+            }
+                
         }
     }
 
