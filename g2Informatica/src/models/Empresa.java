@@ -13,26 +13,58 @@ import javax.imageio.ImageIO;
 
 public class Empresa {
     private String nome;
-    private String razao;
+    private String missao;
     private String logo; 
     private String CEP;
     private String email;
+    private String paginaFb;
+    private String instagram;
+    
+    
+    
     private String telefone;
     private int codigo;
+    private Endereco end;
 
     public Empresa() {
         codigo = 1;
     }
 
-    public Empresa(String nome, String razao, String logo, String CEP, String email, String telefone) {
+    public Empresa(String nome, String missao, String logo, String CEP, String email, String telefone) {
         this.nome = nome;
-        this.razao = razao;
+        this.missao = missao;
         this.logo = logo;
         this.CEP = CEP;
         this.codigo = 1;
         this.email = email;
         this.telefone = telefone;
+        this.end = new Endereco();
     }
+
+    public Empresa(String nome, String missao, String CEP, String email, String telefone, Endereco end) {
+        this.nome = nome;
+        this.missao = missao;
+        this.CEP = CEP;
+        this.email = email;
+        this.telefone = telefone;
+        this.end = end;
+    }
+
+    public Empresa(String nome, String missao, String email, String telefone, Endereco end, String pagina, String instagram) {
+        this.nome = nome;
+        this.missao = missao;
+        this.CEP = CEP;
+        this.email = email;
+        this.telefone = telefone;
+        this.end = end;
+        this.paginaFb = pagina;
+        this.instagram = instagram;
+    }
+    
+    
+
+    
+    
 
     public int getCodigo() {
         return codigo;
@@ -51,12 +83,12 @@ public class Empresa {
         this.nome = nome;
     }
 
-    public String getRazao() {
-        return razao;
+    public String getMissao() {
+        return missao;
     }
 
-    public void setRazao(String razao) {
-        this.razao = razao;
+    public void setMissao(String Missao) {
+        this.missao = missao;
     }
 
     public String getLogo() {
@@ -75,8 +107,29 @@ public class Empresa {
         this.CEP = CEP;
     }
 
+    public String getPaginaFb() {
+        return paginaFb;
+    }
 
+    public void setPaginaFb(String paginaFb) {
+        this.paginaFb = paginaFb;
+    }
 
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public Endereco getEnd() {
+        return end;
+    }
+
+    public void setEnd(Endereco end) {
+        this.end = end;
+    }
  
     public String getEmail() {
         return email;
@@ -102,6 +155,9 @@ public class Empresa {
         return nome;
     }
     
+    
+ // ======================================================== SQL ========================================================  
+    
     public Empresa getParametrizacao()
     {
         Empresa p = new Empresa();
@@ -114,7 +170,7 @@ public class Empresa {
         {
             if(rs.next())
             {
-                p = new Empresa(rs.getString("emp_nome"), rs.getString("emp_razao"), null, rs.getString("emp_cep"),rs.getString("emp_email"), rs.getString("emp_telefone"));
+                p = new Empresa(rs.getString("emp_nome"), rs.getString("emp_missao"), null, rs.getString("emp_cep"),rs.getString("emp_email"), rs.getString("emp_telefone"));
             }
         }
         catch(Exception e)
@@ -139,7 +195,7 @@ public class Empresa {
             sql = sql.replace("$3",getCEP());
             sql = sql.replace("$4",getEmail());
             sql = sql.replace("$5",getTelefone());
-            sql = sql.replace("$6",getRazao());
+            sql = sql.replace("$6",getMissao());
 
             System.out.println("Sql: "+sql);
       //  if(getLogo()!=null)
@@ -158,7 +214,7 @@ public class Empresa {
        
         sql = sql.replace("$9",getEmail());
         sql = sql.replace("$a",getTelefone());
-        sql = sql.replace("$b",getRazao());
+        sql = sql.replace("$b",getMissao());
         
      //   if(getLogo()!=null)
      //       salvarImagem(getNome(), SwingFXUtils.fromFXImage(getLogo(), null));

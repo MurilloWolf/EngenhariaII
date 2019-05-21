@@ -40,7 +40,7 @@ public class G2Informatica extends Application {
                 
                 //login da tela de parametrizacao
                 System.out.println("Iniciar Parametrizacao");
-                root = FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"));
+                root = FXMLLoader.load(getClass().getResource("Empresa.fxml"));
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
