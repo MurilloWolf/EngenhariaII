@@ -2,53 +2,57 @@ package models;
 
 public class Funcionario extends Pessoa
 {
-    private String tipo;
-    private String carteiraMotorista;
+    private String email;
+    private String telefone;
     private String cpf;
-    private String fone;
-    private int usr_cod;
+    private String rg;
+    private int end_cod;
+    private String id_loguin;//falta no banco
+    private String senha;//falta no banco
+    private String tipo;//falta no banco
+    private String nivel;//falta no banco
 
-    public Funcionario(String tipo, String carteiraMotorista, String cpf, String fone, int usr_cod, int cod, String nome) {
+    public Funcionario(int cod, String nome, String email, String telefone, String cpf, String rg, int end_cod, String id_loguin, String senha, String tipo, String nivel) {
         super(cod, nome);
-        this.tipo = tipo;
-        this.carteiraMotorista = carteiraMotorista;
+        this.email = email;
+        this.telefone = telefone;
         this.cpf = cpf;
-        this.fone = fone;
-        this.usr_cod = usr_cod;
+        this.rg = rg;
+        this.end_cod = end_cod;
+        this.id_loguin = id_loguin;
+        this.senha = senha;
+        this.tipo = tipo;
+        this.nivel = nivel;
     }
 
-    public Funcionario(String tipo, String carteiraMotorista, String cpf, String fone, int usr_cod, String nome) {
-        super(nome);
-        this.tipo = tipo;
-        this.carteiraMotorista = carteiraMotorista;
-        this.cpf = cpf;
-        this.fone = fone;
-        this.usr_cod = usr_cod;
-    }
-    
     public Funcionario() {
         super(-1, "");
-        this.tipo = "";
-        this.carteiraMotorista = "";
+        this.email = "";
+        this.telefone = "";
         this.cpf = "";
-        this.fone = "";
-        this.usr_cod = -1;
+        this.rg = "";
+        this.end_cod = -1;
+        this.id_loguin = "";
+        this.senha = "";
+        this.tipo = "";
+        this.nivel = "";
+    }
+    
+    
+    public String getEmail() {
+        return email;
     }
 
-    public String getTipo() {
-        return tipo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public String getCarteiraMotorista() {
-        return carteiraMotorista;
-    }
-
-    public void setCarteiraMotorista(String carteiraMotorista) {
-        this.carteiraMotorista = carteiraMotorista;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getCpf() {
@@ -59,19 +63,57 @@ public class Funcionario extends Pessoa
         this.cpf = cpf;
     }
 
-    public String getFone() {
-        return fone;
+    public String getRg() {
+        return rg;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
+    public void setRg(String rg) {
+        this.rg = rg;
     }
 
-    public int getUsr_cod() {
-        return usr_cod;
+    public int getEnd_cod() {
+        return end_cod;
     }
 
-    public void setUsr_cod(int usr_cod) {
-        this.usr_cod = usr_cod;
+    public void setEnd_cod(int end_cod) {
+        this.end_cod = end_cod;
     }
+
+    public String getId_loguin() {
+        return id_loguin;
+    }
+
+    public void setId_loguin(String id_loguin) {
+        this.id_loguin = id_loguin;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+    
+    
+    
+    
+    
+    
 }

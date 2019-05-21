@@ -19,7 +19,10 @@ public class TelaLoguinController implements Initializable {
     private Button btnLogar;
     @FXML
     private Button btnSair;
-
+    
+    protected static int ni;
+    protected static String login = "";
+    public static int cod;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -30,9 +33,30 @@ public class TelaLoguinController implements Initializable {
     private void evtLogar(ActionEvent event)
     {
         CtrTelaLogin tl = new CtrTelaLogin();
-        int nivel;
+        String nivel = "";
         String usu = txfUnsuario.toString(), sen = txfSenha.toString();
         nivel = tl.logarctr(usu , sen);
+        
+        if(nivel == "adm")
+        {
+            ni = 1;
+            login = usu;
+        }
+        else if(nivel == "funcionario")
+        {
+            ni = 2;
+            login = usu;
+        }
+        else if(nivel == "bloqueado")
+        {
+            ni = 0;
+            login = usu;
+        }
+        else if(nivel == "")
+        {
+            ni=0;
+            login = "";
+        }
     }
 
     @FXML
