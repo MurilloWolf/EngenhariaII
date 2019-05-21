@@ -1,5 +1,5 @@
 package models.dao;
 
-public class CtrFuncionario {
+public class DaoFuncionario {
     
 }
