@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" accessibleRole="PASSWORD_FIELD" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telas.TelaLoguinController">
+<AnchorPane id="AnchorPane" accessibleRole="PASSWORD_FIELD" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.TelaLoginController">
    <children>
       <Label layoutX="84.0" layoutY="29.0" text="Login G2 Informatica">
          <font>
@@ -23,7 +23,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button fx:id="btnLogar" layoutX="84.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtLogar" prefWidth="50.0" text="Logar" />
-      <Button fx:id="btnSair" layoutX="245.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtSair" prefWidth="50.0" text="Sair" />
+      <Button fx:id="btnLogar" layoutX="84.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtLogar" prefHeight="40.0" prefWidth="83.0" text="Logar" />
+      <Button fx:id="btnSair" layoutX="245.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtSair" prefHeight="40.0" prefWidth="83.0" text="Sair" />
    </children>
 </AnchorPane>

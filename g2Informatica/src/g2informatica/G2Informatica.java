@@ -21,7 +21,7 @@ public class G2Informatica extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLprincipal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("TelaLogin.fxml"));
         
         Scene scene = new Scene(root);
         
