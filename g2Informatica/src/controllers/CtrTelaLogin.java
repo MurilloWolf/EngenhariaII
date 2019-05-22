@@ -3,7 +3,7 @@ package controllers;
 import javax.swing.JOptionPane;
 import models.Funcionario;
 import models.Pessoa;
-import models.dao.CtrFuncionario;
+import models.dao.DaoFuncionario;
 
 public class CtrTelaLogin {
     
@@ -11,7 +11,7 @@ public class CtrTelaLogin {
     {
         String aux = "";
         Pessoa p = new Funcionario();
-        CtrFuncionario ctrP = new CtrFuncionario();
+        DaoFuncionario daoP = new DaoFuncionario();
         
         
         if (usuario == "" || senha == "") 
@@ -20,8 +20,8 @@ public class CtrTelaLogin {
         } 
         else
         {
-            p = ctrP.login(usuario, senha, p);
-            if (((Funcionario)p).getId_loguin().equals(usuario) && ((Funcionario)p).getId_loguin().equals(senha) && !((Funcionario)p).getNivel().equals("0"))
+            p = daoP.login(usuario, senha, p);
+            if (((Funcionario)p).getId_login().equals(usuario) && ((Funcionario)p).getSenha().equals(senha))
             {
                 aux=((Funcionario)p).getNivel();
             } 

@@ -7,19 +7,19 @@ public class Funcionario extends Pessoa
     private String cpf;
     private String rg;
     private int end_cod;
-    private String id_loguin;//falta no banco
+    private String id_login;//falta no banco
     private String senha;//falta no banco
     private String tipo;//falta no banco
     private String nivel;//falta no banco
 
-    public Funcionario(int cod, String nome, String email, String telefone, String cpf, String rg, int end_cod, String id_loguin, String senha, String tipo, String nivel) {
+    public Funcionario(int cod, String nome, String email, String telefone, String cpf, String rg, int end_cod, String id_login, String senha, String tipo, String nivel) {
         super(cod, nome);
         this.email = email;
         this.telefone = telefone;
         this.cpf = cpf;
         this.rg = rg;
         this.end_cod = end_cod;
-        this.id_loguin = id_loguin;
+        this.id_login = id_login;
         this.senha = senha;
         this.tipo = tipo;
         this.nivel = nivel;
@@ -32,7 +32,7 @@ public class Funcionario extends Pessoa
         this.cpf = "";
         this.rg = "";
         this.end_cod = -1;
-        this.id_loguin = "";
+        this.id_login = "";
         this.senha = "";
         this.tipo = "";
         this.nivel = "";
@@ -79,12 +79,12 @@ public class Funcionario extends Pessoa
         this.end_cod = end_cod;
     }
 
-    public String getId_loguin() {
-        return id_loguin;
+    public String getId_login() {
+        return id_login;
     }
 
-    public void setId_loguin(String id_loguin) {
-        this.id_loguin = id_loguin;
+    public void setId_login(String id_loguin) {
+        this.id_login = id_loguin;
     }
 
     public String getSenha() {
