@@ -31,6 +31,8 @@ public class Empresa {
     }
 
     public Empresa(String nome, String missao, String logo,  String email, String telefone) {
+                this.codigo =1;
+
         this.nome = nome;
         this.missao = missao;
         this.logo = logo;
@@ -43,13 +45,15 @@ public class Empresa {
     public Empresa(String nome, String missao,  String email, String telefone, Endereco end) {
         this.nome = nome;
         this.missao = missao;
-       
+               this.codigo =1;
+
         this.email = email;
         this.telefone = telefone;
         this.end = end;
     }
 
     public Empresa(String nome, String missao,String email, String telefone, Endereco end, String pagina, String instagram) {
+        this.codigo =1;
         this.nome = nome;
         this.missao = missao;
         this.email = email;
@@ -61,14 +65,14 @@ public class Empresa {
 
     public Empresa(String nome, String missao, String email, String telefone,String cnpj,String paginaFb,
             String site,String instagram, Endereco endereco){
-        
+        this.codigo=1;
         this.nome = nome;
         this.missao = missao;
     
         this.email = email;
         this.telefone = telefone;
         this.cnpj = cnpj;
-        this.end = end;
+        this.end = endereco;
         this.site = site;
         this.paginaFb = paginaFb;
         this.instagram = instagram;
@@ -217,8 +221,8 @@ public class Empresa {
               
                 //pode cadastrar, porque o endereco ja foi cadastrado
                 
-                sql = "insert into empresa (emp_cod,emp_nome,emp_email,emp_telefone,emp_missao,emp_cnpj,emp_site,emp_paginaFb,emp_instagram) "
-                        + "values ('$1','$2','$3','$4','$5','$6','$7','$8','$9')";
+                sql = "insert into Empresa (emp_cod,emp_nome,emp_email,emp_telefone,emp_missao,emp_cnpj,emp_site,emp_paginaFb,emp_instagram,Endereco_end_cod) "
+                        + "values ('$1','$2','$3','$4','$5','$6','$7','$8','$9',#1)";
 
                 sql = sql.replace("$1",getCodigo()+"");
                 sql = sql.replace("$2",getNome());
@@ -228,7 +232,8 @@ public class Empresa {
                 sql = sql.replace("$6",getCnpj());
                 sql = sql.replace("$7",getSite());
                 sql = sql.replace("$8",getPaginaFb());
-                sql = sql.replace("#9",getInstagram());
+                sql = sql.replace("$9",getInstagram());
+                sql = sql.replace("#1",end.getCodigo()+"");
 
                 System.out.println("Sql: "+sql);
                 //  if(getLogo()!=null)
@@ -246,7 +251,7 @@ public class Empresa {
     
     public boolean alterarParametrizacao() {
         String sql="update Empresa set emp_email='$2',emp_telefone='$3', emp_missao='$4' , emp_cnpj = '$5', emp_site ='$6', emp_paginaFb='$7', emp_instagram = '$8',"
-                + " emp_nome = '$9' where emp_cod = 1";
+                + " emp_nome = '$9' , Endereco_end_cod = '#1' where emp_cod = 1";
         
      
         sql = sql.replace("$2",getEmail());
@@ -257,6 +262,7 @@ public class Empresa {
         sql = sql.replace("$7",getPaginaFb());
         sql = sql.replace("$8",getInstagram());
         sql = sql.replace("$9",getNome());
+        sql = sql.replace("#1",end.getCodigo()+"");
        
         System.out.println("sql: "+sql);     
         
@@ -269,8 +275,12 @@ public class Empresa {
     }
     
     public static boolean getStatus(){
-        if(Banco.con.getMaxPK("Empresa","emp_cod") == 1)
+        
+        int numeroDeLinhas = Banco.con.getMaxPK("Empresa","emp_cod");
+        System.out.println("numero de linhas :"+numeroDeLinhas);
+        if( numeroDeLinhas == 1 )
             return true;
+        
         
         return false;
     }

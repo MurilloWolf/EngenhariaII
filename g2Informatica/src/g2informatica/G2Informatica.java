@@ -38,17 +38,17 @@ public class G2Informatica extends Application {
             }
             else
             {
-                
+                 /*
                 Endereco end = new Endereco(1);
                 System.out.println(end.getCidade());
-                /*
+                */
                 //login da tela de parametrizacao
                 System.out.println("Iniciar Parametrizacao");
                 root = FXMLLoader.load(getClass().getResource("Empresa.fxml"));
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-                */
+               
             }
         
         }

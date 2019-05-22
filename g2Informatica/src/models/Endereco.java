@@ -28,6 +28,7 @@ public class Endereco {
         this.bairro = bairro;
         this.rua = rua;
         this.numero = numero;
+        this.cep = cep ;
     }
 
     public Endereco(int codigo) {
@@ -102,14 +103,16 @@ public class Endereco {
     public boolean salvar() {
        String sql = "";
        try{
-           sql = "insert into Endereco (end_uf, end_cidade,end_bairro,end_rua,end_numero) values ('$1','$2','$3','$4','$5','$6')";
+           sql = "insert into Endereco (end_uf, end_cidade,end_bairro,end_rua,end_numero,end_cep) values ('$1','$2','$3','$4','$5','$6')";
            sql = sql.replace("$1", uf);
            sql = sql.replace("$2", cidade);
            sql = sql.replace("$3", bairro);
            sql = sql.replace("$4", rua);
            sql = sql.replace("$5", numero);
-           sql = sql.replace("$5", cep);
+           sql = sql.replace("$6", cep);
            
+           System.out.println("Sql Endereco:"+sql);
+
            return Banco.con.manipular(sql);
            
        }catch(Exception ex){
@@ -120,7 +123,7 @@ public class Endereco {
     }
     
     public boolean verificaEnderecoExistente(){
-        String sql = "";
+       String sql = "";
        try{
            sql = "select * from Endereco where end_uf = '$1' and end_cidade = '$2' and end_bairro = '$3' and end_rua = '$4' and end_numero = '$5' and end_cep = '$6';";
            sql = sql.replace("$1", uf);
@@ -128,13 +131,14 @@ public class Endereco {
            sql = sql.replace("$3", bairro);
            sql = sql.replace("$4", rua);
            sql = sql.replace("$5", numero);
-           sql = sql.replace("$5", cep);
+           sql = sql.replace("$6", cep);
 
            
           ResultSet rs = Banco.con.consultar(sql);
           //se tem alguma linha da consulta , esse endereco ja esta cadastrado , nao precisa cadastrar novamente
           if(rs.next())
           {
+              System.out.println("Sql Endereco:"+sql);
               return true;
           }
        
@@ -143,6 +147,8 @@ public class Endereco {
        }catch(SQLException ex){
            System.out.println("erro: "+ ex.toString());
        }
+       System.out.println("Sql Endereco:"+sql);
+
        
        return false;
     }
@@ -169,6 +175,28 @@ public class Endereco {
        }
        
        return null;
+    }
+    public  boolean  buscarEndereco(){
+       String sql = "";
+       try{
+           sql = "select * from Endereco where end_uf='"+getUf()+"' and end_cidade = '"+getCidade()+"' and end_bairro = '"+getBairro()+"' and end_rua = '"+getRua()+"' and end_numero = '"+getNumero()+"';";
+           System.out.println("Sql Buscar Endereco :"+sql);
+           
+          ResultSet rs = Banco.con.consultar(sql);
+          //se tem alguma linha da consulta , esse endereco ja esta cadastrado , nao precisa cadastrar novamente
+          if(rs.next())
+          {
+              this.codigo = rs.getInt("end_cod");
+              return true;
+          }
+       
+          
+           
+       }catch(SQLException ex){
+           System.out.println("erro: "+ ex.toString());
+       }
+       
+        return false;
     }
     
 }

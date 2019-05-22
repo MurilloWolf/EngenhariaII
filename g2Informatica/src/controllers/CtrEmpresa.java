@@ -30,27 +30,33 @@ public class CtrEmpresa {
         Endereco end = new Endereco(uf,cidade,bairro,rua,numero,cep);
         
         boolean existe  = end.verificaEnderecoExistente();
-        boolean resultado = false ; 
+        boolean resultado = true ; 
       
         if(!existe){
            resultado = end.salvar(); 
         }
         
-        if(resultado){
-            Empresa emp;
-            emp = new Empresa(nome, missao, email, telefone, cnpj, pagina ,site , instagram ,end );
-            
-            if(Empresa.getStatus()){
+        if(end.buscarEndereco()){
+            if(resultado){
+                Empresa emp;
+                emp = new Empresa(nome, missao, email, telefone, cnpj, pagina ,site , instagram ,end );
 
-                return emp.salvarParametrizacao();
-                
-            }else{
-                return emp.alterarParametrizacao();
+                //se nao tem parametrização salva 
+                if(!Empresa.getStatus()){
+
+                    // INSERT nova parametrizacao
+                    return emp.salvarParametrizacao();
+
+                }else{
+                    //UPDATE nova parametrizacao
+                    return emp.alterarParametrizacao();
+                }
             }
         }
-        else{
-            return false;
-        }
+        
+        return false;
+        
+       
         
        
     }
