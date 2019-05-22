@@ -138,6 +138,7 @@ public class Endereco {
           //se tem alguma linha da consulta , esse endereco ja esta cadastrado , nao precisa cadastrar novamente
           if(rs.next())
           {
+              this.setCodigo(rs.getInt("end_cod"));
               System.out.println("Sql Endereco:"+sql);
               return true;
           }

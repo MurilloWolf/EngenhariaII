@@ -13,9 +13,10 @@ public class DaoFuncionario {
         
         if(p instanceof Funcionario)
         {
-            sql += "Funcionario where fun_id = '$1' and fun_senha = '$2'";
+            sql += "Funcionario where fun_id_login = '$1' and fun_senha = '$2'";
             sql = sql.replace("$1", login);
             sql = sql.replace("$2", senha);
+            
             
             ResultSet rs = Banco.con.consultar(sql);
         

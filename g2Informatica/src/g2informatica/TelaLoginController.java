@@ -34,7 +34,7 @@ public class TelaLoginController implements Initializable {
      * Initializes the controller class.
      */
     
-   protected static int ni;
+    protected static int ni;
     protected static String login = "";
     public static int cod;
     
@@ -48,20 +48,20 @@ public class TelaLoginController implements Initializable {
     {
         CtrTelaLogin tl = new CtrTelaLogin();
         String nivel = "";
-        String usu = txfUnsuario.toString(), sen = txfSenha.toString();
+        String usu = txfUnsuario.getText().toString(), sen = txfSenha.getText().toString();
         nivel = tl.logarctr(usu , sen);
         
-        if(nivel == "adm")
+        if(nivel.equals("1"))
         {
             ni = 1;
             login = usu;
         }
-        else if(nivel == "funcionario")
+        else if(nivel == "2")
         {
             ni = 2;
             login = usu;
         }
-        else if(nivel == "bloqueado")
+        else if(nivel == "0")
         {
             ni = 0;
             login = usu;
@@ -71,12 +71,13 @@ public class TelaLoginController implements Initializable {
             ni=0;
             login = "";
         }
+        btnLogar.getScene().getWindow().hide();
     }
 
     @FXML
     private void evtSair(ActionEvent event)
     {
-        System.exit(0);
+        btnSair.getScene().getWindow().hide();
     }
     
     
