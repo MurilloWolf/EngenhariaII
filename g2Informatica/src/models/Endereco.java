@@ -20,8 +20,9 @@ public class Endereco {
     private String bairro;
     private String rua;
     private String numero;
+    private String cep;
 
-    public Endereco(String uf, String cidade, String bairro, String rua, String numero) {
+    public Endereco(String uf, String cidade, String bairro, String rua, String numero,String cep) {
         this.uf = uf;
         this.cidade = cidade;
         this.bairro = bairro;
@@ -29,7 +30,7 @@ public class Endereco {
         this.numero = numero;
     }
 
-    Endereco(int codigo) {
+    public Endereco(int codigo) {
        Endereco end = buscarEnderecoPorCodigo(codigo);
        this.uf = end.getUf();
         this.cidade = end.getCidade();
@@ -101,12 +102,13 @@ public class Endereco {
     public boolean salvar() {
        String sql = "";
        try{
-           sql = "insert into Endereco (end_uf, end_cidade,end_bairro,end_rua,end_numero) values ('$1','$2','$3','$4','$5')";
+           sql = "insert into Endereco (end_uf, end_cidade,end_bairro,end_rua,end_numero) values ('$1','$2','$3','$4','$5','$6')";
            sql = sql.replace("$1", uf);
            sql = sql.replace("$2", cidade);
            sql = sql.replace("$3", bairro);
            sql = sql.replace("$4", rua);
            sql = sql.replace("$5", numero);
+           sql = sql.replace("$5", cep);
            
            return Banco.con.manipular(sql);
            
@@ -120,12 +122,14 @@ public class Endereco {
     public boolean verificaEnderecoExistente(){
         String sql = "";
        try{
-           sql = "select * from Endereco where end_uf = '$1' and end_cidade = '$2' and end_bairro = '$3' and end_rua = '$4' and end_numero = '$5' ;";
+           sql = "select * from Endereco where end_uf = '$1' and end_cidade = '$2' and end_bairro = '$3' and end_rua = '$4' and end_numero = '$5' and end_cep = '$6';";
            sql = sql.replace("$1", uf);
            sql = sql.replace("$2", cidade);
            sql = sql.replace("$3", bairro);
            sql = sql.replace("$4", rua);
            sql = sql.replace("$5", numero);
+           sql = sql.replace("$5", cep);
+
            
           ResultSet rs = Banco.con.consultar(sql);
           //se tem alguma linha da consulta , esse endereco ja esta cadastrado , nao precisa cadastrar novamente
@@ -153,7 +157,7 @@ public class Endereco {
           //se tem alguma linha da consulta , esse endereco ja esta cadastrado , nao precisa cadastrar novamente
           if(rs.next())
           {
-              Endereco end = new Endereco(rs.getString("end_ud"),rs.getString("end_cidade"), rs.getString("end_bairro"), rs.getString("end_rua"),rs.getString("end_numero"));
+              Endereco end = new Endereco(rs.getString("end_uf"),rs.getString("end_cidade"), rs.getString("end_bairro"), rs.getString("end_rua"),rs.getString("end_numero"),rs.getString("end_cep"));
               
               return end;
           }

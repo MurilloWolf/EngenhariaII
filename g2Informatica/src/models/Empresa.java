@@ -15,12 +15,12 @@ public class Empresa {
     private String nome;
     private String missao;
     private String logo; 
-    private String CEP;
+
     private String email;
     private String paginaFb;
     private String instagram;
-    
-    
+    private String cnpj;
+    private String site;
     
     private String telefone;
     private int codigo;
@@ -30,34 +30,47 @@ public class Empresa {
         codigo = 1;
     }
 
-    public Empresa(String nome, String missao, String logo, String CEP, String email, String telefone) {
+    public Empresa(String nome, String missao, String logo,  String email, String telefone) {
         this.nome = nome;
         this.missao = missao;
         this.logo = logo;
-        this.CEP = CEP;
         this.codigo = 1;
         this.email = email;
         this.telefone = telefone;
         this.end = new Endereco();
     }
 
-    public Empresa(String nome, String missao, String CEP, String email, String telefone, Endereco end) {
+    public Empresa(String nome, String missao,  String email, String telefone, Endereco end) {
         this.nome = nome;
         this.missao = missao;
-        this.CEP = CEP;
+       
         this.email = email;
         this.telefone = telefone;
         this.end = end;
     }
 
-    public Empresa(String nome, String missao, String email, String telefone, Endereco end, String pagina, String instagram) {
+    public Empresa(String nome, String missao,String email, String telefone, Endereco end, String pagina, String instagram) {
         this.nome = nome;
         this.missao = missao;
-        this.CEP = CEP;
         this.email = email;
         this.telefone = telefone;
         this.end = end;
         this.paginaFb = pagina;
+        this.instagram = instagram;
+    }
+
+    public Empresa(String nome, String missao, String email, String telefone,String cnpj,String paginaFb,
+            String site,String instagram, Endereco endereco){
+        
+        this.nome = nome;
+        this.missao = missao;
+    
+        this.email = email;
+        this.telefone = telefone;
+        this.cnpj = cnpj;
+        this.end = end;
+        this.site = site;
+        this.paginaFb = paginaFb;
         this.instagram = instagram;
     }
     
@@ -99,14 +112,6 @@ public class Empresa {
         this.logo = logo;
     }
 
-    public String getCEP() {
-        return CEP;
-    }
-
-    public void setCEP(String CEP) {
-        this.CEP = CEP;
-    }
-
     public String getPaginaFb() {
         return paginaFb;
     }
@@ -146,6 +151,22 @@ public class Empresa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
     
     
     
@@ -170,7 +191,9 @@ public class Empresa {
         {
             if(rs.next())
             {
-                p = new Empresa(rs.getString("emp_nome"), rs.getString("emp_missao"), null, rs.getString("emp_cep"),rs.getString("emp_email"), rs.getString("emp_telefone"));
+                p = new Empresa(rs.getString("emp_nome"), rs.getString("emp_missao"),
+                        rs.getString("emp_email"), rs.getString("emp_telefone"),rs.getString("emp_cnpj"),
+                        rs.getString("emp_paginaFb"),rs.getString("emp_site"),rs.getString("emp_instagram"), new Endereco (rs.getInt("Endereco_end_cod")));
             }
         }
         catch(Exception e)
@@ -185,36 +208,59 @@ public class Empresa {
     
     public boolean salvarParametrizacao() {
         String sql= "";
-        if(Banco.con.getMaxPK("Empresa","emp_cod") <1){
+        boolean resultado = false;
+        
+        
             
-            sql = "insert into empresa (emp_cod,emp_nome,emp_cep,emp_email,emp_telefone,emp_missao) "
-                    + "values ('$1','$2','$3','$4','$5','$6')";
+            if(Banco.con.getMaxPK("Empresa","emp_cod") <1){
+            
+              
+                //pode cadastrar, porque o endereco ja foi cadastrado
+                
+                sql = "insert into empresa (emp_cod,emp_nome,emp_email,emp_telefone,emp_missao,emp_cnpj,emp_site,emp_paginaFb,emp_instagram) "
+                        + "values ('$1','$2','$3','$4','$5','$6','$7','$8','$9')";
 
-            sql = sql.replace("$1",getCodigo()+"");
-            sql = sql.replace("$2",getNome());
-            sql = sql.replace("$3",getCEP());
-            sql = sql.replace("$4",getEmail());
-            sql = sql.replace("$5",getTelefone());
-            sql = sql.replace("$6",getMissao());
+                sql = sql.replace("$1",getCodigo()+"");
+                sql = sql.replace("$2",getNome());
+                sql = sql.replace("$3",getEmail());
+                sql = sql.replace("$4",getTelefone());
+                sql = sql.replace("$5",getMissao());
+                sql = sql.replace("$6",getCnpj());
+                sql = sql.replace("$7",getSite());
+                sql = sql.replace("$8",getPaginaFb());
+                sql = sql.replace("#9",getInstagram());
 
-            System.out.println("Sql: "+sql);
-      //  if(getLogo()!=null)
-      //      salvarImagem(getNome(), SwingFXUtils.fromFXImage(getLogo(), null));
+                System.out.println("Sql: "+sql);
+                //  if(getLogo()!=null)
+                //      salvarImagem(getNome(), SwingFXUtils.fromFXImage(getLogo(), null));
+
+                    resultado = Banco.con.manipular(sql);
+                
+            }
+     
+       
         
-        }
-        
-        return Banco.con.manipular(sql);
+        return resultado;
 
     }
     
     public boolean alterarParametrizacao() {
-        String sql="update Empresa set emp_cep='$2',"+ "emp_email='$9',emp_telefone='$a', emp_missao='$b' where emp_cod = 1";
+        String sql="update Empresa set emp_email='$2',emp_telefone='$3', emp_missao='$4' , emp_cnpj = '$5', emp_site ='$6', emp_paginaFb='$7', emp_instagram = '$8',"
+                + " emp_nome = '$9' where emp_cod = 1";
         
-        sql = sql.replace("$2",getCEP());
+     
+        sql = sql.replace("$2",getEmail());
+        sql = sql.replace("$3",getTelefone());
+        sql = sql.replace("$4",getMissao());
+        sql = sql.replace("$5",getCnpj());
+        sql = sql.replace("$6",getSite());
+        sql = sql.replace("$7",getPaginaFb());
+        sql = sql.replace("$8",getInstagram());
+        sql = sql.replace("$9",getNome());
        
-        sql = sql.replace("$9",getEmail());
-        sql = sql.replace("$a",getTelefone());
-        sql = sql.replace("$b",getMissao());
+        System.out.println("sql: "+sql);     
+        
+        
         
      //   if(getLogo()!=null)
      //       salvarImagem(getNome(), SwingFXUtils.fromFXImage(getLogo(), null));
