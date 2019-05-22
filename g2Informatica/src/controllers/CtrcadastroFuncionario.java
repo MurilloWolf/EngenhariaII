@@ -45,11 +45,31 @@ public class CtrcadastroFuncionario {
         boolean flag = false;
         DaoFuncionario daof = new DaoFuncionario();
         
-        //if(e.alterar())
-           //if(dao)
-        
+        if(daof.AlterarF(p))
+        {
+            if(e.alterar())
+            {
+                flag = true;
+            }
+        }
         
         return flag;
     }
+    
+    public boolean ExcluirFuncionario(Endereco e, Pessoa p) throws SQLException
+    {
+        boolean flag = false;
+        DaoFuncionario daof = new DaoFuncionario();
+        
+        if(daof.ExcluirF(p))
+        {
+            if(e.apagar())
+            {
+                 flag = true;
+            }
+        }
+        return flag;
+    }
+    
     
 }

@@ -190,6 +190,21 @@ public class CadastroFuncionarioController implements Initializable {
 
             flag = true;
         }
+        
+        if(!btnExcluir.isDisable())
+        {
+            if (ctrcf.ExcluirFuncionario(e,p))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
+            {
+                JOptionPane.showMessageDialog(null, "Exclusao realisado com sucesso");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, Banco.con.getMensagemErro());
+            }
+
+            flag = true;
+        }
+        
     }
 
     @FXML

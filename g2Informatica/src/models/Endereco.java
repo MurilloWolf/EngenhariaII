@@ -214,13 +214,29 @@ public class Endereco {
     public boolean alterar() {
        String sql = "";
        try{
-           sql = "update Endereco set end_uf='$1', end_cidade='$2', end_bairro='$3', end_rua='$4', end_numero='$5', end_cep='$6' where pro_cod=" + getCodigo();
+           sql = "update Endereco set end_uf='$1', end_cidade='$2', end_bairro='$3', end_rua='$4', end_numero='$5', end_cep='$6' where end_cod=" + getCodigo();
            sql = sql.replace("$1", uf);
            sql = sql.replace("$2", cidade);
            sql = sql.replace("$3", bairro);
            sql = sql.replace("$4", rua);
            sql = sql.replace("$5", numero);
            sql = sql.replace("$6", cep);
+           
+           System.out.println("Sql Endereco:"+sql);
+
+           return Banco.con.manipular(sql);
+           
+       }catch(Exception ex){
+           System.out.println("erro: "+ ex.toString());
+           return false;
+       }
+       
+    }
+    public boolean apagar() {
+       String sql = "";
+       try{
+           sql = "delete from Endereco where end_cod=" + getCodigo();
+
            
            System.out.println("Sql Endereco:"+sql);
 
