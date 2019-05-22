@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CadastroProdutoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CadastroProdutoController">
    <top>
       <VBox style="-fx-background-color: #FFF;">
          <children>
@@ -60,8 +63,8 @@
                   <TextField fx:id="txtNome" />
                   <Label text="Precço" />
                   <TextField fx:id="txtPreco" />
-                  <Label text="Label" />
-                  <TextField />
+                  <Label text="Fornecedor" />
+                  <ComboBox fx:id="cbFornecedor" prefHeight="26.0" prefWidth="500.0" promptText="Fornecedores" />
                   <HBox alignment="CENTER" prefHeight="79.0" prefWidth="281.0" spacing="20.0">
                      <children>
                         <Button fx:id="btnCadastrar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCadastrar" prefWidth="100.0" text="Cadastrar" textAlignment="CENTER" />

@@ -28,6 +28,8 @@ public class FXMLprincipalController implements Initializable {
     private HBox pnDados;
     @FXML
     private Button btnParametrizacao;
+    @FXML
+    private Button btnProduto;
     
     
     @Override
@@ -91,6 +93,18 @@ public class FXMLprincipalController implements Initializable {
             System.out.println("Erro :"+e);
         }
             
+    }
+
+    @FXML
+    private void clickAbrirProdutos(ActionEvent event) {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("CadastroProduto.fxml"));
+            pnDados.getChildren().clear();
+            pnDados.getChildren().add(root);
+        }catch(Exception e ){
+            System.out.println("Erro :"+e);
+        }
+        
     }
     
 }

@@ -18,9 +18,10 @@
         <panes>
           <TitledPane animated="false" text="Cadastro">
                <content>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
                         <Button fx:id="btnCadFunc" mnemonicParsing="false" onAction="#evtCadFunc" prefHeight="25.0" prefWidth="180.0" text="Funcionario" />
+                        <Button fx:id="btnProduto" mnemonicParsing="false" onAction="#clickAbrirProdutos" prefHeight="26.0" prefWidth="343.0" text="Produto" />
                      </children>
                   </VBox>
                </content>
