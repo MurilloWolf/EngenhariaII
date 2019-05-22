@@ -26,6 +26,8 @@ public class FXMLprincipalController implements Initializable {
     private Button btnCadFunc;
     @FXML
     private HBox pnDados;
+    @FXML
+    private Button btnParametrizacao;
     
     
     @Override
@@ -77,6 +79,18 @@ public class FXMLprincipalController implements Initializable {
             pnDados.getChildren().add(root);
         } 
         catch (Exception e) {System.out.println(e);}
+    }
+
+    @FXML
+    private void clickAbrirParametrizacao(ActionEvent event) {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("Empresa.fxml"));
+            pnDados.getChildren().clear();
+            pnDados.getChildren().add(root);
+        }catch(Exception e ){
+            System.out.println("Erro :"+e);
+        }
+            
     }
     
 }

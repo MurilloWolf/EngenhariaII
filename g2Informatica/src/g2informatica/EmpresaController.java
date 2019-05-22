@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
+import models.Empresa;
 
 /**
  * FXML Controller class
@@ -78,9 +79,40 @@ public class EmpresaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         aplicarMascara();
+        if(!Empresa.getStatus()){
+            btnCancelar.setDisable(true);
+            
+        }
+        else{
+            carregarDadosParaTela();
+        }
         
     }    
+    public void carregarDadosParaTela(){
+        Empresa emp = new Empresa();
+        emp = emp.getParametrizacao();
+        //DADOS DA EMPRESA
+        txtNome.setText(emp.getNome());
+        txtMissao.setText(emp.getMissao());
+        txtCNPJ.setText(emp.getCnpj());
+        txtTelefone.setText(emp.getTelefone());
+        txtEmail.setText(emp.getEmail());
+        
+        //IDENTIDADE VISUAL 
+        txtSite.setText(emp.getSite());
+        txtPaginaFb.setText(emp.getPaginaFb());
+        txtInstagram.setText(emp.getInstagram());
+        //FALTOU A LOGO
+        
+        //LOCAL
+        txtCidade.setText(emp.getEndereco().getCidade());
+        txtRua.setText(emp.getEndereco().getRua());
+        txtUf.setText(emp.getEndereco().getUf());
+        txtCep.setText(emp.getEndereco().getCep());
+        txtNumero.setText(emp.getEndereco().getNumero());
 
+        
+    } 
     public void aplicarMascara(){
         MaskFieldUtil.cepField(txtCep);
         MaskFieldUtil.cnpjField(txtCNPJ);
@@ -248,24 +280,7 @@ public class EmpresaController implements Initializable {
             alert.showAndWait();
         
         }
-        /*Salvar no Banco*/
-        /*if(){
-            
-        }
-        if(ctr.alterarParametrizacao(txtNome.getText(), txtRazao.getText(), imgLogo.getImage(), txtCEP.getText(), txtLogradouro.getText(), txtBairro.getText(),
-                cbCidade.getSelectionModel().getSelectedItem(), cbCor.getSelectionModel().getSelectedItem(), cbFonte.getSelectionModel().getSelectedItem(),
-                txtSite.getText(), txtEmail.getText(), txtTelefone.getText()))
-        {
-           TelaPrincipal.apagarTela();
-        }
-        else
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Erro: "+Banco.con.getMensagemErro());
-            alert.showAndWait();
-        
-        }
-        */
+       
     }
 
     @FXML

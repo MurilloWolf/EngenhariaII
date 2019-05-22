@@ -132,11 +132,11 @@ public class Empresa {
         this.instagram = instagram;
     }
 
-    public Endereco getEnd() {
+    public Endereco getEndereco() {
         return end;
     }
 
-    public void setEnd(Endereco end) {
+    public void setEndereco(Endereco end) {
         this.end = end;
     }
  
@@ -183,7 +183,7 @@ public class Empresa {
     
  // ======================================================== SQL ========================================================  
     
-    public Empresa getParametrizacao()
+    public  Empresa getParametrizacao()
     {
         Empresa p = new Empresa();
         
