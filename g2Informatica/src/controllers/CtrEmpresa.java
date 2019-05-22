@@ -24,24 +24,26 @@ public class CtrEmpresa {
         return empresa;
     }
     
-    public boolean salvarEmpresa(String nome, String missao, String email, String telefone, String uf, String cidade,
-                                 String bairro, String rua, String numero, String pagina, String instagram, String logo){
+    public boolean salvarEmpresa(String nome, String missao,String cep ,String email,String telefone, String cnpj, String uf, String cidade,
+                                 String bairro, String rua, String numero,String site, String pagina, String instagram, String logo){
        
-        Endereco end = new Endereco(uf,cidade,bairro,rua,numero);
+        Endereco end = new Endereco(uf,cidade,bairro,rua,numero,cep);
         
         boolean existe  = end.verificaEnderecoExistente();
-        boolean resultado = true ; 
+        boolean resultado = false ; 
       
         if(!existe){
            resultado = end.salvar(); 
         }
         
         if(resultado){
-            Empresa emp = new Empresa(nome, missao, email, telefone, end, pagina , instagram  );
+            Empresa emp;
+            emp = new Empresa(nome, missao, email, telefone, cnpj, pagina ,site , instagram ,end );
+            
             if(Empresa.getStatus()){
 
-                
                 return emp.salvarParametrizacao();
+                
             }else{
                 return emp.alterarParametrizacao();
             }

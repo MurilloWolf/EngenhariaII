@@ -7,8 +7,11 @@ package g2informatica;
 
 import controllers.CtrEmpresa;
 import db.Banco;
+import eng2.util.MaskFieldUtil;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +19,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -63,6 +68,8 @@ public class EmpresaController implements Initializable {
     private CtrEmpresa ctr = new CtrEmpresa();
     @FXML
     private TextField txtNumero;
+    @FXML
+    private TextField txtLogo;
     
     /**
      * Initializes the controller class.
@@ -70,12 +77,37 @@ public class EmpresaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+        aplicarMascara();
         
     }    
 
+    public void aplicarMascara(){
+        MaskFieldUtil.cepField(txtCep);
+        MaskFieldUtil.cnpjField(txtCNPJ);
+        MaskFieldUtil.foneField(txtTelefone);
+        MaskFieldUtil.maxField(txtUf, 2);
+        
+        
+        //MaskFieldUtil.numericField(txtNumero);
+        
+    }
     @FXML
     private void clickBuscar(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        String diretorio = "";
+        File selected = fc.showOpenDialog(null);
+         if(selected != null)
+        {
+            diretorio = selected.getAbsolutePath();
+            diretorio = diretorio.replace("\\","/");
+            txtLogo.setText(diretorio);
+            
+            try {
+                imgLogo.setVisible(true);
+                imgLogo.setImage(SwingFXUtils.toFXImage(ImageIO.read(selected),null));
+            } catch (Exception e) {
+            }
+        }
     }
 
     @FXML
@@ -194,8 +226,28 @@ public class EmpresaController implements Initializable {
             return;
         }
         
-
+        CtrEmpresa ctr = new CtrEmpresa();
+        boolean resultadoInsercao = ctr.salvarEmpresa(
+                                                    txtNome.getText(),txtMissao.getText(), txtCep.getText(), txtEmail.getText(),
+                                                    txtTelefone.getText(), txtCNPJ.getText(), txtUf.getText(), txtCidade.getText(), 
+                                                    txtBairro.getText(), txtRua.getText(), txtNumero.getText(), txtSite.getText(),
+                                                    txtPaginaFb.getText(), txtInstagram.getText(), txtNome.getText()
+                                                    );
       
+        //se inseriu
+        if(resultadoInsercao){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Salvar Parametrização realizada com SUCESSO");
+            alert.showAndWait();
+            System.exit(0);
+        }else{
+        
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            //alert.setContentText("ERRO ao salvar parametrização");
+            alert.setContentText("Erro:"+Banco.con.getMensagemErro());
+            alert.showAndWait();
+        
+        }
         /*Salvar no Banco*/
         /*if(){
             
@@ -218,6 +270,7 @@ public class EmpresaController implements Initializable {
 
     @FXML
     private void clickCancelar(ActionEvent event) {
+        System.exit(0);
     }
     
     private void estadoInicial(){
