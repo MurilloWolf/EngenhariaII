@@ -7,10 +7,10 @@ public class Funcionario extends Pessoa
     private String cpf;
     private String rg;
     private int end_cod;
-    private String id_login;//falta no banco
-    private String senha;//falta no banco
-    private String tipo;//falta no banco
-    private String nivel;//falta no banco
+    private String id_login;
+    private String senha;
+    private String tipo;
+    private String nivel;
 
     public Funcionario(int cod, String nome, String email, String telefone, String cpf, String rg, int end_cod, String id_login, String senha, String tipo, String nivel) {
         super(cod, nome);
