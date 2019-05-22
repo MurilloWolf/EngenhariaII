@@ -2,15 +2,17 @@ package models;
 
 public class Funcionario extends Pessoa
 {
-    private String email;
-    private String telefone;
-    private String cpf;
-    private String rg;
-    private int end_cod;
-    private String id_login;
-    private String senha;
-    private String tipo;
-    private String nivel;
+    //int cod fun_cod
+    //String nome fun_nome
+    private String email;// fun_email
+    private String telefone;// fun_telefone
+    private String cpf;// fun_cpf
+    private String rg;// fun_rg
+    private int end_cod;// Endereco_end_cod
+    private String id_login;// fun_id_login
+    private String senha;// fun_senha
+    private String tipo;// fun_tipo
+    private String nivel;// fun_nivel
 
     public Funcionario(int cod, String nome, String email, String telefone, String cpf, String rg, int end_cod, String id_login, String senha, String tipo, String nivel) {
         super(cod, nome);
@@ -37,6 +39,20 @@ public class Funcionario extends Pessoa
         this.tipo = "";
         this.nivel = "";
     }
+
+    public Funcionario(String nome, String email, String telefone, String cpf, String rg, int end_cod, String id_login, String senha, String tipo, String nivel) {
+        super(nome);
+        this.email = email;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.end_cod = end_cod;
+        this.id_login = id_login;
+        this.senha = senha;
+        this.tipo = tipo;
+        this.nivel = nivel;
+    }
+
     
     
     public String getEmail() {
@@ -111,9 +127,6 @@ public class Funcionario extends Pessoa
         this.nivel = nivel;
     }
     
-    
-    
-    
-    
+
     
 }

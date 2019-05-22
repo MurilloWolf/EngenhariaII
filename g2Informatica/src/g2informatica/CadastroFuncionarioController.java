@@ -1,8 +1,11 @@
 
 package g2informatica;
 
+import controllers.CtrcadastroFuncionario;
+import db.Banco;
 import eng2.util.MaskFieldUtil;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +19,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javax.swing.JOptionPane;
+import models.Endereco;
+import models.Funcionario;
+import models.Pessoa;
 import models.dao.DaoFuncionario;
 
 public class CadastroFuncionarioController implements Initializable {
@@ -86,11 +93,20 @@ public class CadastroFuncionarioController implements Initializable {
     private TableColumn tcCpf;
     @FXML
     private TableColumn tcEmail;
+    @FXML
+    private TextField txTipo;
+    @FXML
+    private TextField txNivel;
 
+    Endereco e;
+    Pessoa p;
+    
     //ObservableList<Produto> lista = FXCollections.observableArrayList();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        p = new Funcionario();
+        e = new Endereco();
         MaskFieldUtil.cpfField(txCpf);
         MaskFieldUtil.foneField(txTelefone);
         MaskFieldUtil.cepField(txCep);
@@ -127,6 +143,11 @@ public class CadastroFuncionarioController implements Initializable {
 
     @FXML
     private void evtNovo(ActionEvent event) {
+        apDados.setDisable(false);
+        btnCancelar.setDisable(false);
+        btnConfirmar.setDisable(false);
+        btnEditar.setDisable(true);
+        btnExcluir.setDisable(true);
         
     }
 
@@ -139,11 +160,42 @@ public class CadastroFuncionarioController implements Initializable {
     }
 
     @FXML
-    private void evtConfirmar(ActionEvent event) {
+    private void evtConfirmar(ActionEvent event) throws SQLException {
+        CtrcadastroFuncionario ctrcf = new CtrcadastroFuncionario();
+        boolean flag = false;
+        if(!btnNovo.isDisable())
+        {
+            if (ctrcf.CadastrarFuncionario(txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
+            {
+                JOptionPane.showMessageDialog(null, "Cadastro realisado com sucesso");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, Banco.con.getMensagemErro());
+            }
+
+            flag = true;
+        }
+        
+        if(!btnEditar.isDisable())
+        {
+            if (ctrcf.AlterarFuncionario(e,p))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
+            {
+                JOptionPane.showMessageDialog(null, "Alteração realisado com sucesso");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, Banco.con.getMensagemErro());
+            }
+
+            flag = true;
+        }
     }
 
     @FXML
-    private void evtCancelar(ActionEvent event) {
+    private void evtCancelar(ActionEvent event) 
+    {
+        //apDados.getChildren().clear();
     }
 
     @FXML

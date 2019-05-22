@@ -57,11 +57,12 @@ public class FXMLprincipalController implements Initializable {
             lbLoguin.setText("Login: " + TelaLoginController.login);
             if(TelaLoginController.ni == 2)
             {
-                
+                btnParametrizacao.setDisable(true);
                 //desativar o botao de parametrizaçao aqui quando estiver pronto
             }
             else if(TelaLoginController.ni == 1)
             {
+                btnParametrizacao.setDisable(false);
                 //ativar todos os botoes
             }
             else if(TelaLoginController.ni == 0)

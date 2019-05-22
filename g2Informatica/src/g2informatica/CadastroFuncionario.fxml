@@ -65,7 +65,7 @@
             </Button>
          </children>
       </HBox>
-      <AnchorPane fx:id="apDados" prefHeight="305.0" prefWidth="800.0">
+      <AnchorPane fx:id="apDados" prefHeight="343.0" prefWidth="800.0">
          <children>
             <TextField fx:id="txNome" layoutX="77.0" layoutY="29.0" prefHeight="25.0" prefWidth="300.0" />
             <TextField fx:id="txCpf" layoutX="77.0" layoutY="71.0" prefHeight="25.0" prefWidth="300.0" />
@@ -96,9 +96,13 @@
             <TextField fx:id="txEmail" layoutX="77.0" layoutY="158.0" prefHeight="25.0" prefWidth="300.0" />
             <Label layoutX="37.0" layoutY="162.0" text="Email" />
             <Label layoutX="349.0" layoutY="6.0" text="Gerenciamento de funcionario" />
+            <TextField fx:id="txTipo" layoutX="78.0" layoutY="293.0" prefHeight="25.0" prefWidth="300.0" />
+            <TextField fx:id="txNivel" layoutX="480.0" layoutY="293.0" prefHeight="25.0" prefWidth="300.0" />
+            <Label layoutX="37.0" layoutY="297.0" text="Função" />
+            <Label layoutX="443.0" layoutY="297.0" text="Nivel" />
          </children>
       </AnchorPane>
-      <HBox fx:id="hbPesquisa" alignment="CENTER" prefHeight="55.0" prefWidth="800.0">
+      <HBox fx:id="hbPesquisa" alignment="CENTER" prefHeight="38.0" prefWidth="800.0">
          <children>
             <Button fx:id="btnPesquisa" mnemonicParsing="false" onAction="#evtPesquisa" prefWidth="100.0" text="Pesquisar">
                <HBox.margin>
@@ -117,7 +121,7 @@
             </ComboBox>
          </children>
       </HBox>
-      <TableView fx:id="tbPesquisaFuncionario" prefHeight="260.0" prefWidth="800.0">
+      <TableView fx:id="tbPesquisaFuncionario" prefHeight="240.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="tcCodigo" prefWidth="79.0" text="codigo" />
           <TableColumn fx:id="tcNome" prefWidth="224.0" text="nome" />
