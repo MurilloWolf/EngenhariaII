@@ -180,12 +180,12 @@ public class Produto
         return null;
     }
      
-    public static ArrayList<Object> buscarTodosOsProdutos(){
+    public static ArrayList<Produto> buscarTodosOsProdutos(){
         
         DaoProduto buscaProduto = new DaoProduto();
         
-        ArrayList<Object> resultado;
-        resultado = (ArrayList<Object>) (Object) buscaProduto.getTodosProdutos();
+        ArrayList<Produto> resultado;
+        resultado = buscaProduto.getTodosProdutos();
         
         if(resultado != null && resultado.size() > 0)
         {
@@ -197,12 +197,12 @@ public class Produto
         
     }  
      
-    public static ArrayList<Object> buscarPorNome(String filtro){
+    public static ArrayList<Produto> buscarPorNome(String filtro){
         
         DaoProduto buscaProduto = new DaoProduto();
         
-        ArrayList<Object> resultado;
-        resultado = (ArrayList<Object>) (Object) buscaProduto.getProdutoPorNome(filtro);
+        ArrayList<Produto> resultado;
+        resultado =  buscaProduto.getProdutoPorNome(filtro);
         
         if(resultado != null && resultado.size() > 0)
         {

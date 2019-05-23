@@ -122,6 +122,7 @@ public class CadastroFuncionarioController implements Initializable {
         btnConfirmar.setDisable(true);
         hbPesquisa.setDisable(true);
 
+        cbPesquisa.getItems().add("Filtro");
         cbPesquisa.getItems().add("Codigo");
         cbPesquisa.getItems().add("Nome");
         cbPesquisa.getItems().add("Cpf");
@@ -222,6 +223,7 @@ public class CadastroFuncionarioController implements Initializable {
             btnExcluir.setDisable(false);
             lista.clear();
             tbPesquisaFuncionario.getItems().clear();
+            //apDados.getChildren().clear();
         }
     }
 

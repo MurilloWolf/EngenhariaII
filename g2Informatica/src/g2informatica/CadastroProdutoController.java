@@ -11,6 +11,8 @@ import eng2.util.MaskFieldUtil;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,8 +20,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import models.Funcionario;
+import models.Produto;
 
 /**
  * FXML Controller class
@@ -52,8 +59,20 @@ public class CadastroProdutoController implements Initializable {
     private TextField txtQuantidade;
     @FXML
     private TextArea txaDescricao;
-
+    ObservableList<Produto> lista = FXCollections.observableArrayList();
+    
+    
     private CtrProduto ctr = new CtrProduto();
+    @FXML
+    private TableView<?> tbPesquisaProduto;
+    @FXML
+    private TableColumn tbCodigo;
+    @FXML
+    private TableColumn tbNome;
+    @FXML
+    private TableColumn  tbPreco;
+    @FXML
+    private TableColumn tbFornecedor;
     /**
      * Initializes the controller class.
      */
@@ -67,6 +86,13 @@ public class CadastroProdutoController implements Initializable {
         cbFiltro.getItems().add("Nome");
         cbFiltro.getItems().add("Preco");
         cbFiltro.getItems().add("Fornecedor");
+        
+        
+        //linkando tabela
+         tbCodigo.setCellValueFactory(new PropertyValueFactory<>("cod"));
+        tbNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tbPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        tbFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
         
     }    
     
@@ -111,21 +137,40 @@ public class CadastroProdutoController implements Initializable {
     @FXML
     private void clickBuscar(ActionEvent event) {
         if(cbFiltro.getSelectionModel().getSelectedItem() != null){
-            String filtro = cbFiltro.getSelectionModel().toString();
-            
-            if(filtro.toUpperCase().equals("NOME")){
+            String filtro = cbFiltro.getSelectionModel().getSelectedItem().toString();
+            boolean buscou = false; 
+            try{
+                tbPesquisaProduto.getItems().clear();
+                lista.clear();
                 
-            }
+                CtrProduto ctrP = new CtrProduto();
+                if(filtro.toUpperCase().equals("NOME")){
+                    lista.addAll( (ObservableList) ctrP.getProdutoNome(txtBuscar.getText()));
+                }
 
-            if(filtro.toUpperCase().equals("PRECO")){
+                if(filtro.toUpperCase().equals("PRECO")){
+                    lista.addAll((ObservableList)ctrP.getProdutoPreco(txtBuscar.getText()));
+                }
+
+                if(filtro.toUpperCase().equals("FORNECEDOR")){
+                    lista.addAll((ObservableList)ctr.getProdutoFornecedor(txtBuscar.getText()));
+                }
                 
-            }
-            
-            if(filtro.toUpperCase().equals("FORNECEDOR")){
+            }catch(Exception ex ){
                 
-            }
             
-            desabilitarCampos();
+              
+            }finally{
+                
+                
+                
+
+                
+                System.out.println("lista: "+lista.toString());
+         //       tbPesquisaProduto.getItems().addAll(lista);
+            }
+            if(buscou)
+             desabilitarCampos();
         }
         
         
@@ -134,7 +179,11 @@ public class CadastroProdutoController implements Initializable {
     @FXML
     private void clickCadastrar(ActionEvent event) {
         verificaCampos();
-        String preco = txtPreco.getText().replace(",", ".");
+        
+        String preco =  txtPreco.getText();
+        preco = preco.replace(".","");
+        preco = preco.replace(",", ".");
+        System.out.println("preco :"+preco);
         //se inserir deu certo
         if(ctr.cadastrar(txtNome.getText(),Double.parseDouble(preco),txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()),cbFornecedor.getSelectionModel().getSelectedItem())){
             limparTela();
@@ -243,6 +292,8 @@ public class CadastroProdutoController implements Initializable {
             txtQuantidade.requestFocus();
             return;
         }
+         
+        
         
         System.out.println("Combo box :"+cbFornecedor.getSelectionModel().getSelectedItem());
          if(cbFornecedor.getSelectionModel().getSelectedItem() == null)

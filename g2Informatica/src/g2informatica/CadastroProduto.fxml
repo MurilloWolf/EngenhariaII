@@ -40,12 +40,12 @@
    <center>
       <BorderPane prefHeight="658.0" prefWidth="592.0" BorderPane.alignment="CENTER">
          <top>
-            <TableView prefHeight="611.0" prefWidth="499.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tbPesquisaProduto" prefHeight="611.0" prefWidth="499.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn prefWidth="84.0" text="Codigo" />
-                <TableColumn prefWidth="218.0" text="Nome" />
-                  <TableColumn minWidth="0.0" prefWidth="130.0" text="Preço" />
-                  <TableColumn minWidth="0.0" prefWidth="130.0" text="Fornecedor" />
+                <TableColumn fx:id="tbCodigo" prefWidth="84.0" text="Codigo" />
+                <TableColumn fx:id="tbNome" prefWidth="218.0" text="Nome" />
+                  <TableColumn fx:id="tbPreco" minWidth="0.0" prefWidth="130.0" text="Preço" />
+                  <TableColumn fx:id="tbFornecedor" minWidth="0.0" prefWidth="130.0" text="Fornecedor" />
               </columns>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

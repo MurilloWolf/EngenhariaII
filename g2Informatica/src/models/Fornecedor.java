@@ -127,7 +127,7 @@ public class Fornecedor {
       
         String sql ="";
         try{
-            sql = "select * from Fornecedor";
+            sql = "select * from Fornecedor where for_cod ="+codigo+";";
             
             ResultSet rs = Banco.con.consultar(sql);
             Fornecedor f = new Fornecedor();
@@ -138,10 +138,10 @@ public class Fornecedor {
                     f.setNome(rs.getString("for_nome"));
                     f.setEmail(rs.getString("for_email"));
                     f.setCodigo(rs.getInt("for_codigo"));
-                    f.setEndereco( new Endereco(rs.getInt("for_cod")));
+                    f.setEndereco( new Endereco(rs.getInt("Endereco_end_cod")));
                 
             }
-            
+            System.out.println("sql Forn: "+sql);
             return f ; 
         }catch(Exception ex){
             

@@ -167,10 +167,11 @@ public class DaoProduto
             while(rs.next())
             { 
                 Produto resultadoBusca = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"),rs.getString("pro_desc"),
-                    rs.getInt("pro_quantidade"), new Fornecedor(rs.getInt("Endereco_end_cod")));
+                    rs.getInt("pro_quantidade"), new Fornecedor(rs.getInt("Fornecedor_for_cod")));
               
                 lista.add(resultadoBusca);    
             }
+            System.out.println("sql Nome:"+sql);
         }
         catch(Exception e)
         {

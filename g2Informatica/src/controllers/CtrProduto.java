@@ -16,7 +16,7 @@ import models.Produto;
 public class CtrProduto {
   
     
-    public ArrayList<Object> getProdutoNome(String filtro){
+    public ArrayList<Produto> getProdutoNome(String filtro){
         return Produto.buscarPorNome(filtro);
     }
             
@@ -29,7 +29,7 @@ public class CtrProduto {
     }
     
     
-    public ArrayList<Object> getAllProdutos(){
+    public ArrayList<Produto> getAllProdutos(){
         return Produto.buscarTodosOsProdutos();
     }
     

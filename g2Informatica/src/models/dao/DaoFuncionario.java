@@ -136,7 +136,10 @@ public class DaoFuncionario {
         String sql="";
         if(!tipo.equals("") && !pesq.equals(""))
         {
-            sql = "select * from Funcionario where fun_'"+tipo+"' = '"+pesq+"'";
+            if(tipo.equals("cod"))
+                sql = "select * from Funcionario where fun_"+tipo+" ="+pesq+";";
+            else
+            sql = "select * from Funcionario where upper(fun_"+tipo+") like '%"+pesq.toUpperCase()+"%'";
         }
         else
         {

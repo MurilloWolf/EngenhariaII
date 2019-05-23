@@ -56,17 +56,17 @@ public class TelaLoginController implements Initializable {
             ni = 1;
             login = usu;
         }
-        else if(nivel == "2")
+        else if(nivel.equals("2"))
         {
             ni = 2;
             login = usu;
         }
-        else if(nivel == "0")
+        else if(nivel.equals("0"))
         {
             ni = 0;
             login = usu;
         }
-        else if(nivel == "")
+        else if(nivel.equals(""))
         {
             ni=0;
             login = "";

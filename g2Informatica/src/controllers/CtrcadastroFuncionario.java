@@ -82,22 +82,27 @@ public class CtrcadastroFuncionario {
             case 0:
             {
                 lista=daof.getPesoas(aux, "");
+                break;
             }
             case 1:
             {
                 lista=daof.getPesoas(aux, "cod");
+                break;
             }
             case 2:
             {
                 lista=daof.getPesoas(aux, "nome");
+                break;
             }
             case 3:
             {
                 lista=daof.getPesoas(aux, "cpf");
+                break;
             }
             case 4:
             {
                 lista=daof.getPesoas(aux, "id_login");
+                break;
             }
         }
         return lista;
