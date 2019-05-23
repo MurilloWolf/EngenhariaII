@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.ComprarProdutosController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0">
+         <children>
+            <Button fx:id="btConfirma" mnemonicParsing="false" onAction="#evtConfirmaCompra" prefWidth="120.0" text="Confirmar Comprar">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btLimpaP" mnemonicParsing="false" onAction="#evtLimpaProdutos" prefWidth="120.0" text="LimparProdutos">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btLimpaC" mnemonicParsing="false" onAction="#evtLimpaComprar" prefWidth="120.0" text="LimparCompras">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btSair" mnemonicParsing="false" onAction="#evtSair" prefWidth="90.0" text="Sair">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="550.0" prefWidth="800.0">
+         <children>
+            <Button fx:id="btRemover" layoutX="247.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtRemover" prefHeight="25.0" prefWidth="81.0" text="Remover" />
+            <TableView layoutX="46.0" layoutY="324.0" prefHeight="200.0" prefWidth="708.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="C1" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+               </columns>
+            </TableView>
+            <TableView layoutX="76.0" layoutY="50.0" prefHeight="219.0" prefWidth="648.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="C1" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+               </columns>
+            </TableView>
+            <TextField fx:id="txPesquisa" layoutX="171.0" layoutY="13.0" prefHeight="25.0" prefWidth="357.0" />
+            <ComboBox fx:id="cbTipoPesq" layoutX="540.0" layoutY="13.0" prefHeight="25.0" prefWidth="184.0" />
+            <Button fx:id="btAdicionar" layoutX="76.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtadicionar" prefHeight="25.0" prefWidth="81.0" text="Adicionar" />
+            <Button fx:id="btPesquisar" layoutX="76.0" layoutY="13.0" mnemonicParsing="false" onAction="#evtPesquisar" prefHeight="25.0" prefWidth="81.0" text="Pesquisar" />
+            <ComboBox fx:id="cbFornecedor" layoutX="349.0" layoutY="282.0" prefHeight="25.0" prefWidth="382.0" />
+            <Button fx:id="btCancelar" layoutX="157.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtCancelar" prefWidth="90.0" text="Cancelar" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
