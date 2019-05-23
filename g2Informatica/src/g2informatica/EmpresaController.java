@@ -269,14 +269,16 @@ public class EmpresaController implements Initializable {
         //se inseriu
         if(resultadoInsercao){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Salvar Parametrização realizada com SUCESSO");
+            alert.setContentText("SUCESSO, é preciso reiniciaro o programa");
             alert.showAndWait();
             System.exit(0);
+            
+            
         }else{
         
             Alert alert = new Alert(Alert.AlertType.ERROR);
             //alert.setContentText("ERRO ao salvar parametrização");
-            alert.setContentText("Erro:"+Banco.con.getMensagemErro());
+            alert.setContentText("Nao foi possivel salvar a parametrizacao");
             alert.showAndWait();
         
         }
@@ -285,7 +287,7 @@ public class EmpresaController implements Initializable {
 
     @FXML
     private void clickCancelar(ActionEvent event) {
-        System.exit(0);
+        FXMLprincipalController._pndados.getChildren().clear();
     }
     
     private void estadoInicial(){

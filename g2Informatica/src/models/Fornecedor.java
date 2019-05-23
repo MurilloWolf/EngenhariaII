@@ -20,8 +20,26 @@ public class Fornecedor {
     private String email;
     private Endereco endereco;
 
+    public Fornecedor() {
+        
+    }
+
+    public Fornecedor(String nome){
+       Fornecedor f =  buscarFornecedorPorNome(nome);
+       this.codigo = f.getCodigo();
+       this.email = f.getEmail();
+       this.endereco = f.getEndereco();
+       this.nome = f.getNome();
+       this.telefone = f.getTelefone();
+    }
+    
     public Fornecedor(int codigo) {
-        this.codigo = codigo;
+       Fornecedor f = buscarFornecedor(codigo);
+       this.codigo = codigo;
+       this.email = f.getEmail();
+       this.endereco = f.getEndereco();
+       this.nome = f.getNome();
+       this.telefone = f.getTelefone();
     }
 
     
@@ -32,6 +50,8 @@ public class Fornecedor {
         this.email = email;
         this.endereco = endereco;
     }
+
+   
 
     public int getCodigo() {
         return codigo;
@@ -97,6 +117,58 @@ public class Fornecedor {
             }
             
             return retorno ; 
+        }catch(Exception ex){
+            
+        }
+        return null;
+    }
+    
+    public Fornecedor buscarFornecedor(int codigo){
+      
+        String sql ="";
+        try{
+            sql = "select * from Fornecedor";
+            
+            ResultSet rs = Banco.con.consultar(sql);
+            Fornecedor f = new Fornecedor();
+            
+            if(rs.next()){
+               
+                    
+                    f.setNome(rs.getString("for_nome"));
+                    f.setEmail(rs.getString("for_email"));
+                    f.setCodigo(rs.getInt("for_codigo"));
+                    f.setEndereco( new Endereco(rs.getInt("for_cod")));
+                
+            }
+            
+            return f ; 
+        }catch(Exception ex){
+            
+        }
+        return null;
+    }
+    
+     public Fornecedor buscarFornecedorPorNome(String nome){
+      
+        String sql ="";
+        try{
+            sql = "select * from Fornecedor where upper(for_nome) lik '%"+nome.toUpperCase()+"%';";
+            
+            ResultSet rs = Banco.con.consultar(sql);
+            Fornecedor f = new Fornecedor();
+            
+            if(rs.next()){
+               
+                   
+                    f.setNome(rs.getString("for_nome"));
+                    f.setEmail(rs.getString("for_email"));
+                    f.setCodigo(rs.getInt("for_codigo"));
+                    f.setEndereco( new Endereco(rs.getInt("for_cod")));
+                
+            }
+            
+            return f ; 
         }catch(Exception ex){
             
         }
