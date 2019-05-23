@@ -129,17 +129,6 @@ public class CadastroFuncionarioController implements Initializable {
         cbPesquisa.getSelectionModel().select(0);
         
     }
-    
-    void printaTabela()
-    {
-        tbPesquisaFuncionario.getItems().clear();
-        DaoFuncionario daoAux = new DaoFuncionario();
-        
-        //lista.clear();
-        //lista.addAll(daoAux.getFucionario(""));
-        
-        //tbPesquisaFuncionario.getItems().addAll(lista);
-    }
 
     @FXML
     private void evtNovo(ActionEvent event) {
@@ -219,14 +208,37 @@ public class CadastroFuncionarioController implements Initializable {
 
             flag = true;
         }
-        e = null;
-        p = null;
+        if(flag)
+        {
+            e = null;
+            p = null;
+        
+            hbPesquisa.setDisable(true);
+            apDados.setDisable(true);
+            btnCancelar.setDisable(true);
+            btnConfirmar.setDisable(true);
+            btnNovo.setDisable(false);
+            btnEditar.setDisable(false);
+            btnExcluir.setDisable(false);
+            lista.clear();
+            tbPesquisaFuncionario.getItems().clear();
+        }
     }
 
     @FXML
     private void evtCancelar(ActionEvent event) 
     {
-        apDados.getChildren().clear();
+        e = null;
+        p = null;
+        hbPesquisa.setDisable(true);
+        apDados.setDisable(true);
+        btnCancelar.setDisable(true);
+        btnConfirmar.setDisable(true);
+        btnNovo.setDisable(false);
+        btnEditar.setDisable(false);
+        btnExcluir.setDisable(false);
+        lista.clear();
+        tbPesquisaFuncionario.getItems().clear();
     }
 
     @FXML
