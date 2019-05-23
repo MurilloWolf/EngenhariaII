@@ -10,21 +10,22 @@ import models.Produto;
 public class DaoProduto 
 {
     public boolean salvar(Produto p ) throws SQLException
-    {
-        boolean teste = true;
+    { 
+        String sql ="";
+        boolean teste = false;
         try
         {
             Banco.con.getConnect().setAutoCommit(false);
             
-            String sql = "insert into Produto (pro_nome, pro_preco,pro_desc,pro_quantidade, Fornecedor_for_cod_) values ('$1',$2,'$3',$4,$5)";
+           sql = "insert into Produto (pro_nome, pro_preco,pro_desc,pro_quantidade, Fornecedor_for_cod) values ('$1',$2,'$3',$4,$5);";
 
             sql = sql.replace("$1", p.getNome());
             sql = sql.replace("$2", p.getPreco()+"");     
             sql = sql.replace("$3", p.getDescricao());
             sql = sql.replace("$4", p.getQuantidade()+"");
-            sql = sql.replace("$4", p.getFornecedor().getCodigo()+"");
+            sql = sql.replace("$5", p.getFornecedor().getCodigo()+"");
 
-            Banco.con.manipular(sql);
+            teste = Banco.con.manipular(sql);
             Banco.con.getConnect().commit();
         }
         catch(SQLException se)
@@ -36,7 +37,7 @@ public class DaoProduto
         {
             Banco.con.getConnect().setAutoCommit(true);
         }
-        
+        System.out.println("sql Salvar Produto:"+sql);
         return teste;
     }
     
@@ -53,7 +54,7 @@ public class DaoProduto
             sql = sql.replace("$2", p.getPreco()+"");
             sql = sql.replace("$3", p.getDescricao());
             sql = sql.replace("$4", p.getQuantidade()+"");
-            sql = sql.replace("$4", p.getFornecedor().getCodigo()+"");
+            sql = sql.replace("$5", p.getFornecedor().getCodigo()+"");
             
 
             Banco.con.manipular(sql);
@@ -251,15 +252,20 @@ public class DaoProduto
     }
 
     public boolean deletar(Produto produto) throws SQLException {
-        
+        String sql ="";
         boolean teste = true;
         try
         {
             Banco.con.getConnect().setAutoCommit(false);
             
-            String sql = "delete from Produto where pro_cod = "+produto.getCod()+";";
-
-
+            sql = "delete from Produto where pro_nome like '%$1%' and pro_preco = $2 and pro_desc like = '%$3%' and pro_quantidade = $4;";
+            sql = sql.replace("$1", produto.getNome());
+            sql = sql.replace("$2", produto.getPreco()+"");
+            sql = sql.replace("$3", produto.getDescricao());
+            sql = sql.replace("$4", produto.getQuantidade()+"");
+            
+            System.out.println("sql Excluir:"+sql);
+            
             teste = Banco.con.manipular(sql);
             Banco.con.getConnect().commit();
         }

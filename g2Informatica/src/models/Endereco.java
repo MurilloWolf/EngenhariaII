@@ -176,7 +176,7 @@ public class Endereco {
           if(rs.next())
           {
               Endereco end = new Endereco(rs.getString("end_uf"),rs.getString("end_cidade"), rs.getString("end_bairro"), rs.getString("end_rua"),rs.getString("end_numero"),rs.getString("end_cep"));
-              
+              System.out.println("sql Endereco:"+sql);
               return end;
           }
        

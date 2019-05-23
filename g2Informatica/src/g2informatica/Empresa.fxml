@@ -17,7 +17,7 @@
          <children>
             <Label text="Logo" />
             <ImageView fx:id="imgLogo" fitHeight="238.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField fx:id="txtLogo" editable="false" promptText="Caminho" />
+            <TextField fx:id="txtLogo" disable="true" editable="false" promptText="Caminho" />
             <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar Imagem" />
             <Label text="Site" />
             <TextField fx:id="txtSite" />

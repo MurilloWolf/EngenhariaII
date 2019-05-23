@@ -153,7 +153,7 @@ public class Fornecedor {
       
         String sql ="";
         try{
-            sql = "select * from Fornecedor where upper(for_nome) lik '%"+nome.toUpperCase()+"%';";
+            sql = "select * from Fornecedor where upper(for_nome) like '%"+nome.toUpperCase()+"%';";
             
             ResultSet rs = Banco.con.consultar(sql);
             Fornecedor f = new Fornecedor();
@@ -163,10 +163,11 @@ public class Fornecedor {
                    
                     f.setNome(rs.getString("for_nome"));
                     f.setEmail(rs.getString("for_email"));
-                    f.setCodigo(rs.getInt("for_codigo"));
-                    f.setEndereco( new Endereco(rs.getInt("for_cod")));
+                    f.setCodigo(rs.getInt("for_cod"));
+                    f.setEndereco( new Endereco(rs.getInt("Endereco_end_cod")));
                 
             }
+            System.out.println("sql Fornecedor:"+sql);
             
             return f ; 
         }catch(Exception ex){

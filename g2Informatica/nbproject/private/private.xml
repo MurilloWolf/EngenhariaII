@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/nbproject/jfx-impl.xml</file>
-            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/g2informatica/CadastroFuncionarioController.java</file>
-            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/controllers/CtrcadastroFuncionario.java</file>
-            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/g2informatica/FXMLprincipalController.java</file>
+            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/g2informatica/EmpresaController.java</file>
+            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/models/dao/DaoProduto.java</file>
+            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/models/Produto.java</file>
+            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/models/Fornecedor.java</file>
+            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/g2informatica/CadastroProdutoController.java</file>
             <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/g2informatica/G2Informatica.java</file>
+            <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/controllers/CtrProduto.java</file>
             <file>file:/home/wolf/Documentos/EngenhariaII/g2Informatica/src/models/Endereco.java</file>
         </group>
     </open-files>

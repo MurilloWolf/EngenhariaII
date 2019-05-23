@@ -63,6 +63,11 @@ public class CadastroProdutoController implements Initializable {
         carregarFornecedores();
         colocarMascaras();
         botoesEstadoInicial();
+        
+        cbFiltro.getItems().add("Nome");
+        cbFiltro.getItems().add("Preco");
+        cbFiltro.getItems().add("Fornecedor");
+        
     }    
     
     public void carregarFornecedores(){
@@ -100,6 +105,8 @@ public class CadastroProdutoController implements Initializable {
         txtNome.clear();
         txtPreco.clear();
         cbFornecedor.getSelectionModel().select(0);
+        txtQuantidade.clear();
+        txaDescricao.clear();
     }
     @FXML
     private void clickBuscar(ActionEvent event) {
@@ -131,8 +138,13 @@ public class CadastroProdutoController implements Initializable {
         //se inserir deu certo
         if(ctr.cadastrar(txtNome.getText(),Double.parseDouble(preco),txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()),cbFornecedor.getSelectionModel().getSelectedItem())){
             limparTela();
+            botoesEstadoInicial();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Cadastro realizado com sucesso");
+            alert.showAndWait();
+        }else{
+             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Nao foi possivel realizar o cadastro");
             alert.showAndWait();
         }
         
@@ -166,7 +178,8 @@ public class CadastroProdutoController implements Initializable {
             
             verificaCampos();
             
-            
+            String preco = txtPreco.getText().replace(",", ".");
+            if(ctr.deletar(txtNome.getText(),Double.parseDouble(preco),txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()),cbFornecedor.getSelectionModel().getSelectedItem()));
             
             limparTela();
             botoesEstadoInicial();
