@@ -3,6 +3,7 @@ package models.dao;
 import db.Banco;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import models.Funcionario;
 import models.Pessoa;
 
@@ -128,6 +129,35 @@ public class DaoFuncionario {
         
         return flag;
     }
-           
+    
+    public ArrayList <Funcionario> getPesoas (String pesq, String tipo) throws SQLException
+    {
+        ArrayList <Funcionario> lista = new ArrayList();
+        String sql="";
+        if(!tipo.equals("") && !pesq.equals(""))
+        {
+            sql = "select * from Funcionario where fun_'"+tipo+"' = '"+pesq+"'";
+        }
+        else
+        {
+            sql = "select * from Funcionario";
+        }
+        
+        ResultSet rs = Banco.con.consultar(sql);
+        
+        try 
+        {
+            while (rs.next()) 
+            {
+                lista.add(new Funcionario(rs.getInt("fun_cod"), rs.getString("fun_nome"), rs.getString("fun_email"), rs.getString("fun_telefone"), rs.getString("fun_cpf"), rs.getString("fun_rg"), rs.getInt("Endereco_end_cod"), rs.getString("fun_id_login"), rs.getString("fun_senha"), rs.getString("fun_tipo"), rs.getString("fun_nivel")));
+            }
+        } catch (Exception e) 
+        {
+            System.out.println(e);
+        }
+
+        
+        return lista;
+    }
     
 }

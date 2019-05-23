@@ -85,9 +85,7 @@
             <Label layoutX="32.0" layoutY="253.0" text="Login" />
             <Label layoutX="434.0" layoutY="253.0" text="Senha" />
             <Label layoutX="700.0" layoutY="121.0" text="UF" />
-            <TextField fx:id="txApt" layoutX="663.0" layoutY="203.0" prefHeight="25.0" prefWidth="120.0" />
-            <Label layoutX="628.0" layoutY="207.0" text="Apto" />
-            <TextField fx:id="txNumero" layoutX="478.0" layoutY="203.0" prefHeight="25.0" prefWidth="139.0" />
+            <TextField fx:id="txNumero" layoutX="478.0" layoutY="203.0" prefHeight="25.0" prefWidth="300.0" />
             <Label layoutX="429.0" layoutY="207.0" text="Numero" />
             <TextField fx:id="txRg" layoutX="77.0" layoutY="117.0" prefHeight="25.0" prefWidth="300.0" />
             <Label layoutX="44.0" layoutY="121.0" text="RG" />
@@ -121,13 +119,12 @@
             </ComboBox>
          </children>
       </HBox>
-      <TableView fx:id="tbPesquisaFuncionario" prefHeight="240.0" prefWidth="800.0">
+      <TableView fx:id="tbPesquisaFuncionario" onMouseClicked="#evtTabela" prefHeight="240.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="tcCodigo" prefWidth="79.0" text="codigo" />
-          <TableColumn fx:id="tcNome" prefWidth="224.0" text="nome" />
-            <TableColumn fx:id="tcCep" prefWidth="139.0" text="cep" />
-            <TableColumn fx:id="tcCpf" prefWidth="165.0" text="cpf" />
-            <TableColumn fx:id="tcEmail" prefWidth="191.0" text="email" />
+          <TableColumn fx:id="tcNome" prefWidth="261.0" text="nome" />
+            <TableColumn fx:id="tcCpf" prefWidth="219.0" text="cpf" />
+            <TableColumn fx:id="tcEmail" prefWidth="239.0" text="email" />
         </columns>
       </TableView>
    </children>

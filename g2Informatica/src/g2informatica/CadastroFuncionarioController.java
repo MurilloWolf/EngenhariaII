@@ -7,6 +7,8 @@ import eng2.util.MaskFieldUtil;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -64,8 +67,6 @@ public class CadastroFuncionarioController implements Initializable {
     @FXML
     private TextField txSenha;
     @FXML
-    private TextField txApt;
-    @FXML
     private TextField txNumero;
     @FXML
     private TextField txRg;
@@ -82,13 +83,11 @@ public class CadastroFuncionarioController implements Initializable {
     @FXML
     private ComboBox<String> cbPesquisa;
     @FXML
-    private TableView<?> tbPesquisaFuncionario;
+    private TableView<Funcionario> tbPesquisaFuncionario;
     @FXML
     private TableColumn tcCodigo;
     @FXML
     private TableColumn tcNome;
-    @FXML
-    private TableColumn tcCep;
     @FXML
     private TableColumn tcCpf;
     @FXML
@@ -100,6 +99,8 @@ public class CadastroFuncionarioController implements Initializable {
 
     Endereco e;
     Pessoa p;
+    
+    ObservableList<Funcionario> lista = FXCollections.observableArrayList();
     
     //ObservableList<Produto> lista = FXCollections.observableArrayList();
     
@@ -113,7 +114,6 @@ public class CadastroFuncionarioController implements Initializable {
         
         tcCodigo.setCellValueFactory(new PropertyValueFactory<>("cod"));
         tcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tcCep.setCellValueFactory(new PropertyValueFactory<>("cep"));
         tcCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         tcEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         
@@ -122,10 +122,10 @@ public class CadastroFuncionarioController implements Initializable {
         btnConfirmar.setDisable(true);
         hbPesquisa.setDisable(true);
 
+        cbPesquisa.getItems().add("Codigo");
         cbPesquisa.getItems().add("Nome");
         cbPesquisa.getItems().add("Cpf");
-        cbPesquisa.getItems().add("Codigo");
-        cbPesquisa.getItems().add("login");
+        cbPesquisa.getItems().add("Login");
         cbPesquisa.getSelectionModel().select(0);
         
     }
@@ -146,17 +146,32 @@ public class CadastroFuncionarioController implements Initializable {
         apDados.setDisable(false);
         btnCancelar.setDisable(false);
         btnConfirmar.setDisable(false);
+        btnNovo.setDisable(false);
         btnEditar.setDisable(true);
         btnExcluir.setDisable(true);
-        
+        hbPesquisa.setDisable(true);
     }
 
     @FXML
     private void evtEditar(ActionEvent event) {
+        apDados.setDisable(true);
+        btnCancelar.setDisable(false);
+        btnConfirmar.setDisable(true);
+        btnNovo.setDisable(true);
+        btnEditar.setDisable(false);
+        btnExcluir.setDisable(true);
+        hbPesquisa.setDisable(false);
     }
 
     @FXML
     private void evtExcluir(ActionEvent event) {
+        apDados.setDisable(true);
+        btnCancelar.setDisable(false);
+        btnConfirmar.setDisable(true);
+        btnNovo.setDisable(true);
+        btnEditar.setDisable(true);
+        btnExcluir.setDisable(false);
+        hbPesquisa.setDisable(false);
     }
 
     @FXML
@@ -204,21 +219,63 @@ public class CadastroFuncionarioController implements Initializable {
 
             flag = true;
         }
-        
+        e = null;
+        p = null;
     }
 
     @FXML
     private void evtCancelar(ActionEvent event) 
     {
-        //apDados.getChildren().clear();
+        apDados.getChildren().clear();
     }
 
     @FXML
-    private void evtSair(ActionEvent event) {
+    private void evtSair(ActionEvent event) 
+    {
+        FXMLprincipalController._pndados.getChildren().clear();
     }
 
     @FXML
-    private void evtPesquisa(ActionEvent event) {
+    private void evtPesquisa(ActionEvent event) throws SQLException 
+    {
+        tbPesquisaFuncionario.getItems().clear();
+        CtrcadastroFuncionario ctrcf = new CtrcadastroFuncionario();
+        
+        lista.clear();
+        
+        lista.addAll(ctrcf.Pesquisa(txfPesquisa.getText(), cbPesquisa.getSelectionModel().getSelectedIndex()));
+        
+        tbPesquisaFuncionario.getItems().addAll(lista);
     }
+
+    @FXML
+    private void evtTabela(MouseEvent event) {
+        p = (Funcionario) tbPesquisaFuncionario.getSelectionModel().getSelectedItem();
+        e = e.buscarEnderecoPorCodigo(((Funcionario)p).getEnd_cod());
+        
+        txBairro.setText(e.getBairro());
+        txCep.setText(e.getCep());
+        txCidede.setText(e.getCidade());
+        txCpf.setText(((Funcionario)p).getCpf());
+        txEmail.setText(((Funcionario)p).getEmail());
+        txEndereco.setText(e.getRua());
+        txLogin.setText(((Funcionario)p).getId_login());
+        txNivel.setText(((Funcionario)p).getNivel());
+        txNome.setText(((Funcionario)p).getNome());
+        txNumero.setText(e.getNumero());
+        txRg.setText(((Funcionario)p).getRg());
+        txSenha.setText(((Funcionario)p).getSenha());
+        txTelefone.setText(((Funcionario)p).getTelefone());
+        txTipo.setText(((Funcionario)p).getTipo());
+        txUf.setText(e.getUf());
+        
+        
+        if(!btnEditar.isDisable())
+            apDados.setDisable(false);
+        
+        btnConfirmar.setDisable(false);
+    }
+    
+    
     
 }

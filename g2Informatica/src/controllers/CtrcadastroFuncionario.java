@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import models.Endereco;
 import models.Funcionario;
 import models.Pessoa;
@@ -71,5 +72,34 @@ public class CtrcadastroFuncionario {
         return flag;
     }
     
-    
+    public ArrayList <Funcionario> Pesquisa(String aux, int auxN) throws SQLException
+    {
+        DaoFuncionario daof = new DaoFuncionario();
+        ArrayList <Funcionario> lista = new ArrayList();
+        
+        switch (auxN)
+        {
+            case 0:
+            {
+                lista=daof.getPesoas(aux, "");
+            }
+            case 1:
+            {
+                lista=daof.getPesoas(aux, "cod");
+            }
+            case 2:
+            {
+                lista=daof.getPesoas(aux, "nome");
+            }
+            case 3:
+            {
+                lista=daof.getPesoas(aux, "cpf");
+            }
+            case 4:
+            {
+                lista=daof.getPesoas(aux, "id_login");
+            }
+        }
+        return lista;
+    }
 }
