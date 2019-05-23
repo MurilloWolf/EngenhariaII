@@ -191,7 +191,7 @@ public class Endereco {
     public  boolean  buscarEndereco(){
        String sql = "";
        try{
-           sql = "select * from Endereco where end_uf='"+getUf()+"' and end_cidade = '"+getCidade()+"' and end_bairro = '"+getBairro()+"' and end_rua = '"+getRua()+"' and end_numero = '"+getNumero()+"end_cep= '"+getCep()+"';";
+           sql = "select * from Endereco where end_uf='"+getUf()+"' and end_cidade = '"+getCidade()+"' and end_bairro = '"+getBairro()+"' and end_rua = '"+getRua()+"' and end_numero = '"+getNumero()+" and end_cep= '"+getCep()+"';";
            System.out.println("Sql Buscar Endereco :"+sql);
            
           ResultSet rs = Banco.con.consultar(sql);
