@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" accessibleRole="PASSWORD_FIELD" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.TelaLoginController">
+<AnchorPane id="AnchorPane" accessibleRole="PASSWORD_FIELD" prefHeight="300.0" prefWidth="467.0" styleClass="background-all" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.TelaLoginController">
    <children>
-      <Label layoutX="84.0" layoutY="29.0" text="Login G2 Informatica">
+      <Label alignment="CENTER" prefHeight="78.0" prefWidth="486.0" text="Login G2 Informatica" textAlignment="JUSTIFY">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
+         <styleClass>
+            <String fx:value="title" />
+            <String fx:value="background-g2" />
+         </styleClass>
       </Label>
-      <TextField fx:id="txfUnsuario" layoutX="84.0" layoutY="113.0" prefHeight="30.0" prefWidth="300.0" />
-      <TextField fx:id="txfSenha" layoutX="84.0" layoutY="176.0" prefHeight="30.0" prefWidth="300.0" />
+      <TextField fx:id="txfUnsuario" layoutX="102.0" layoutY="115.0" prefHeight="30.0" prefWidth="300.0" />
+      <TextField fx:id="txfSenha" layoutX="102.0" layoutY="178.0" prefHeight="30.0" prefWidth="300.0" />
       <Label layoutX="30.0" layoutY="120.0" text="Usuario:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -23,7 +28,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button fx:id="btnLogar" layoutX="84.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtLogar" prefHeight="40.0" prefWidth="83.0" text="Logar" />
-      <Button fx:id="btnSair" layoutX="245.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtSair" prefHeight="40.0" prefWidth="83.0" text="Sair" />
+      <Button fx:id="btnLogar" layoutX="127.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtLogar" prefHeight="40.0" prefWidth="83.0" styleClass="button-success" text="Logar" />
+      <Button fx:id="btnSair" layoutX="259.0" layoutY="236.0" mnemonicParsing="false" onAction="#evtSair" prefHeight="40.0" prefWidth="83.0" styleClass="button-cancel" text="Sair" />
    </children>
 </AnchorPane>

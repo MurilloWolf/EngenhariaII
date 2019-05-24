@@ -10,54 +10,53 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.ComprarProdutosController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="839.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.ComprarProdutosController">
    <children>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0">
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0" spacing="10.0">
          <children>
-            <Button fx:id="btConfirma" mnemonicParsing="false" onAction="#evtConfirmaCompra" prefWidth="120.0" text="Confirmar Comprar">
+            <Button fx:id="btConfirma" mnemonicParsing="false" onAction="#evtConfirmaCompra" prefHeight="33.0" prefWidth="200.0" styleClass="button-success" text="Confirmar Compra">
                <HBox.margin>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btLimpaP" mnemonicParsing="false" onAction="#evtLimpaProdutos" prefWidth="120.0" text="LimparProdutos">
+            <Button fx:id="btLimpaP" mnemonicParsing="false" onAction="#evtLimpaProdutos" prefHeight="33.0" prefWidth="185.0" text="Limpar Produtos">
                <HBox.margin>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btLimpaC" mnemonicParsing="false" onAction="#evtLimpaComprar" prefWidth="120.0" text="LimparCompras">
+            <Button fx:id="btLimpaC" mnemonicParsing="false" onAction="#evtLimpaComprar" prefHeight="33.0" prefWidth="183.0" text="Limpar Compras">
                <HBox.margin>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btSair" mnemonicParsing="false" onAction="#evtSair" prefWidth="90.0" text="Sair">
+            <Button fx:id="btSair" mnemonicParsing="false" onAction="#evtSair" prefWidth="90.0" styleClass="button-cancel" text="Sair">
                <HBox.margin>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <AnchorPane prefHeight="550.0" prefWidth="800.0">
+      <AnchorPane prefHeight="643.0" prefWidth="800.0">
          <children>
-            <Button fx:id="btRemover" layoutX="247.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtRemover" prefHeight="25.0" prefWidth="81.0" text="Remover" />
-            <TableView layoutX="46.0" layoutY="324.0" prefHeight="200.0" prefWidth="708.0">
+            <Button fx:id="btRemover" layoutX="317.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtRemover" prefHeight="33.0" prefWidth="127.0" text="Remover" />
+            <TableView layoutX="48.0" layoutY="367.0" prefHeight="200.0" prefWidth="764.0">
                <columns>
                   <TableColumn prefWidth="75.0" text="C1" />
                   <TableColumn prefWidth="75.0" text="C2" />
                </columns>
             </TableView>
-            <TableView layoutX="76.0" layoutY="50.0" prefHeight="219.0" prefWidth="648.0">
+            <TableView layoutX="38.0" layoutY="50.0" prefHeight="219.0" prefWidth="775.0">
                <columns>
                   <TableColumn prefWidth="75.0" text="C1" />
                   <TableColumn prefWidth="75.0" text="C2" />
                </columns>
             </TableView>
-            <TextField fx:id="txPesquisa" layoutX="171.0" layoutY="13.0" prefHeight="25.0" prefWidth="357.0" />
-            <ComboBox fx:id="cbTipoPesq" layoutX="540.0" layoutY="13.0" prefHeight="25.0" prefWidth="184.0" />
-            <Button fx:id="btAdicionar" layoutX="76.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtadicionar" prefHeight="25.0" prefWidth="81.0" text="Adicionar" />
-            <Button fx:id="btPesquisar" layoutX="76.0" layoutY="13.0" mnemonicParsing="false" onAction="#evtPesquisar" prefHeight="25.0" prefWidth="81.0" text="Pesquisar" />
-            <ComboBox fx:id="cbFornecedor" layoutX="349.0" layoutY="282.0" prefHeight="25.0" prefWidth="382.0" />
-            <Button fx:id="btCancelar" layoutX="157.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtCancelar" prefWidth="90.0" text="Cancelar" />
+            <TextField fx:id="txPesquisa" layoutX="245.0" layoutY="13.0" prefHeight="26.0" prefWidth="422.0" />
+            <ComboBox fx:id="cbTipoPesq" layoutX="39.0" layoutY="13.0" prefHeight="26.0" prefWidth="200.0" />
+            <Button fx:id="btAdicionar" layoutX="39.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtadicionar" prefHeight="33.0" prefWidth="118.0" styleClass="button-success" text="Adicionar" />
+            <Button fx:id="btPesquisar" layoutX="679.0" layoutY="10.0" mnemonicParsing="false" onAction="#evtPesquisar" prefHeight="33.0" prefWidth="118.0" text="Pesquisar" />
+            <ComboBox fx:id="cbFornecedor" layoutX="518.0" layoutY="286.0" prefHeight="26.0" prefWidth="295.0" />
+            <Button fx:id="btCancelar" layoutX="180.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtCancelar" prefHeight="33.0" prefWidth="118.0" text="Cancelar" />
          </children>
       </AnchorPane>
    </children>

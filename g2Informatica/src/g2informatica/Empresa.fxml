@@ -9,9 +9,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="746.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.EmpresaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="825.0" styleClass="background-all" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.EmpresaController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -27,8 +26,8 @@
             <TextField fx:id="txtInstagram" />
             <HBox prefHeight="43.0" prefWidth="310.0" spacing="50.0">
                <children>
-                  <Button fx:id="btnSalvar" minWidth="-Infinity" mnemonicParsing="false" onAction="#clickSalvar" prefHeight="120.0" prefWidth="120.0" text="Salvar" />
-                  <Button fx:id="btnCancelar" minWidth="-Infinity" mnemonicParsing="false" onAction="#clickCancelar" prefHeight="120.0" prefWidth="120.0" text="Cancelar" />
+                  <Button fx:id="btnSalvar" minWidth="-Infinity" mnemonicParsing="false" onAction="#clickSalvar" prefHeight="120.0" prefWidth="120.0" styleClass="button-success" text="Salvar" />
+                  <Button fx:id="btnCancelar" minWidth="-Infinity" mnemonicParsing="false" onAction="#clickCancelar" prefHeight="120.0" prefWidth="120.0" styleClass="button-cancel" text="Cancelar" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
@@ -44,12 +43,9 @@
       </VBox>
    </center>
    <top>
-      <Pane prefHeight="62.0" prefWidth="728.0" style="-fx-background-color: #DDD;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="62.0" prefWidth="825.0" styleClass="background-g2" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="14.0" layoutY="13.0" text="Parametrizaçao">
-               <font>
-                  <Font size="24.0" />
-               </font></Label>
+            <Label layoutX="14.0" layoutY="16.0" styleClass="title" text="Parametrização" />
          </children>
       </Pane>
    </top>
@@ -60,9 +56,9 @@
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin></Label>
-            <TextField fx:id="txtNome" promptText="Nome" />
+            <TextField fx:id="txtNome" promptText="Nome" styleClass="text-field-erro" />
             <Label text="CNPJ" />
-            <TextField fx:id="txtCNPJ" promptText="00-000-000/0000-00" />
+            <TextField fx:id="txtCNPJ" promptText="00-000-000/0000-00" styleClass="text-field-success" />
             <Label text="Missao" />
             <TextField fx:id="txtMissao" promptText="Missao" />
             <Label text="Email" />
@@ -79,12 +75,12 @@
             <TextField fx:id="txtBairro" />
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Rua" />
-                        <Label text="Numero">
+                        <Label prefHeight="20.0" prefWidth="41.0" text="Rua" />
+                        <Label prefHeight="20.0" prefWidth="85.0" text="Numero">
                            <HBox.margin>
-                              <Insets left="200.0" />
+                              <Insets left="150.0" />
                            </HBox.margin>
                         </Label>
                      </children>
@@ -95,7 +91,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
                         <TextField fx:id="txtRua" />
-                        <TextField fx:id="txtNumero" prefHeight="25.0" prefWidth="87.0" />
+                        <TextField fx:id="txtNumero" prefHeight="32.0" prefWidth="94.0" />
                      </children>
                   </HBox>
                </children>

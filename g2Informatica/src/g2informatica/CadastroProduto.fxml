@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1123.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CadastroProdutoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1189.0" styleClass="background-all" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CadastroProdutoController">
    <top>
-      <VBox style="-fx-background-color: #FFF;">
+      <VBox styleClass="background-g2">
          <children>
-            <Label text="Produtos">
+            <Label styleClass="title" text="Produtos">
                <font>
                   <Font size="24.0" />
                </font>
@@ -60,7 +60,7 @@
    <left>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="604.0" prefWidth="488.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="673.0" prefWidth="568.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Cadastrar Produto">
                      <font>
@@ -71,7 +71,7 @@
                   <TextField fx:id="txtNome" />
                   <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="448.0" spacing="100.0">
                      <children>
-                        <Label text="Precço" />
+                        <Label text="Preço" />
                         <Label text="Quantidade">
                            <HBox.margin>
                               <Insets left="130.0" />
@@ -86,15 +86,15 @@
                      </children>
                   </HBox>
                   <Label text="Descriçao" />
-                  <TextArea fx:id="txaDescricao" prefHeight="77.0" prefWidth="448.0" />
+                  <TextArea fx:id="txaDescricao" prefHeight="77.0" prefWidth="448.0" styleClass="text-field" />
                   <Label text="Fornecedor" />
                   <ComboBox fx:id="cbFornecedor" prefHeight="26.0" prefWidth="500.0" promptText="Fornecedores" />
                   <HBox alignment="CENTER" prefHeight="79.0" prefWidth="281.0" spacing="20.0">
                      <children>
-                        <Button fx:id="btnCadastrar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCadastrar" prefWidth="100.0" text="Cadastrar" textAlignment="CENTER" />
+                        <Button fx:id="btnCadastrar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCadastrar" prefHeight="40.0" prefWidth="114.0" styleClass="button-success" text="Cadastrar" textAlignment="CENTER" />
                         <Button fx:id="btnAlterar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickAlterar" prefWidth="100.0" text="Alterar" textAlignment="CENTER" />
                         <Button fx:id="btnExcluir" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickExcluir" prefWidth="100.0" text="Excluir" textAlignment="CENTER" />
-                        <Button fx:id="btnCancelar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCanccelar" prefHeight="40.0" prefWidth="94.0" text="Cancelar" textAlignment="CENTER" />
+                        <Button fx:id="btnCancelar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCanccelar" prefHeight="40.0" prefWidth="113.0" styleClass="button-cancel" text="Cancelar" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </children>

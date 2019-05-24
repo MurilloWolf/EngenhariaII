@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24/05/2019, 19:40:19
+    Author     : wolf
+*/
+
+
+/*  ==================================== COLORS ====================================
+    #AAA    -   Gray        -   Focus/hover
+    #008148 -   Green       -   SUCCESS
+    #00DB78 -   (L)Green    -   SUCCESS
+    #EF2917 -   Red         -   ERROR
+    #FF4D3D -   (L)Red      -   ERROR
+    
+    #0188c8 -   G2
+
+
+    #EDF2F4-    (BG)Gray
+
+*/
+/* ==================================== ALL ====================================*/
+
+*{
+  
+    -fx-font-family: "Segoe UI Light"; 
+    -fx-font-fill: #d8d8d8 ; 
+}
+
+/* ==================================== BUTTON ====================================*/
+
+
+.button{
+    -fx-background-color: #BBB;  
+    -fx-text-fill: #FFF;
+    -fx-font-size: 18px;
+
+}
+
+.button:hover{
+    -fx-scale-x: 1.25;
+    -fx-scale-y: 1.25;
+       
+}
+.button:focused{
+    -fx-scale-x: 1.25;
+    -fx-scale-y: 1.25;
+}
+
+.button-success{
+    -fx-background-color: #00DB78;
+    
+    -fx-border-radius: 5px;
+ 
+}
+
+.button-cancel{
+    -fx-background-color: #FF4D3D;
+}
+
+/* ==================================== TEXT ====================================*/
+
+
+.label{
+    -fx-font-size:  16px;
+}
+
+.title{
+    -fx-font-size:  24px;
+    -fx-text-fill: #FFF;
+}
+
+
+/* ==================================== TEXT FIELD ====================================*/
+.text-field{
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+   
+    -fx-background-opacity: 0.45;
+    -fx-border-bottom: 3px solid red;
+}
+
+.text-field:focused{
+    -fx-scale-y: 1.3;
+}
+
+.text-field-erro{
+    -fx-border-color: #FF4D3D;
+}
+.text-field-success{
+    -fx-border-color: #00DB78;
+    
+}
+
+/* ==================================== BACKGROUND ====================================*/
+
+
+.background-g2{
+    -fx-background-color: #0188c8;
+}
+.background-all{
+    -fx-background-color: #F9F9F9;
+}
