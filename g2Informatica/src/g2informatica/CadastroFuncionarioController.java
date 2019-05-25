@@ -12,7 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -169,46 +171,58 @@ public class CadastroFuncionarioController implements Initializable {
     @FXML
     private void evtConfirmar(ActionEvent event) throws SQLException {
         boolean flag = false;
+        
         if(!btnNovo.isDisable())
         {
-            if (ctrcf.CadastrarFuncionario(txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
-            {
-                JOptionPane.showMessageDialog(null, "Cadastro realisado com sucesso");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, Banco.con.getMensagemErro());
-            }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Tem certeza que deseja salvar ? ");
+        
+            if (alert.showAndWait().get() == ButtonType.OK) {
 
-            flag = true;
+                if (ctrcf.CadastrarFuncionario(txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) {
+                    JOptionPane.showMessageDialog(null, "Cadastro realisado com sucesso");
+                } else {
+                    JOptionPane.showMessageDialog(null, "nao foi possivel salvar: "+Banco.con.getMensagemErro());
+                }
+
+                flag = true;
+            }
         }
         
         if(!btnEditar.isDisable())
         {
-            if (ctrcf.AlterarFuncionario(e,p))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
-            {
-                JOptionPane.showMessageDialog(null, "Alteração realisado com sucesso");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, Banco.con.getMensagemErro());
-            }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Tem certeza que deseja alterar ? ");
 
-            flag = true;
+            if (alert.showAndWait().get() == ButtonType.OK) {
+
+                if (ctrcf.AlterarFuncionario(e, p))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
+                {
+                    JOptionPane.showMessageDialog(null, "Alteração realisada com sucesso");
+                } else {
+                    JOptionPane.showMessageDialog(null, "nao foi possivel alterar: "+ Banco.con.getMensagemErro());
+                }
+
+                flag = true;
+            }
         }
         
         if(!btnExcluir.isDisable())
         {
-            if (ctrcf.ExcluirFuncionario(e,p))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
-            {
-                JOptionPane.showMessageDialog(null, "Exclusao realisado com sucesso");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, Banco.con.getMensagemErro());
-            }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Tem certeza que deseja excluir ? ");
 
-            flag = true;
+            if (alert.showAndWait().get() == ButtonType.OK) {
+
+                if (ctrcf.ExcluirFuncionario(e, p))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
+                {
+                    JOptionPane.showMessageDialog(null, "Exclusao realisada com sucesso");
+                } else {
+                    JOptionPane.showMessageDialog(null, "nao foi possivel excluir: "+Banco.con.getMensagemErro());
+                }
+
+                flag = true;
+            }
         }
         if(flag)
         {
@@ -245,7 +259,12 @@ public class CadastroFuncionarioController implements Initializable {
     @FXML
     private void evtSair(ActionEvent event) 
     {
-        FXMLprincipalController._pndados.getChildren().clear();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem certeza que deseja sair do cadastro de Funcionario? ");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            FXMLprincipalController._pndados.getChildren().clear();
+        }
     }
 
     @FXML
