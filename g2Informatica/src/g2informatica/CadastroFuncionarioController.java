@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -176,8 +177,8 @@ public class CadastroFuncionarioController implements Initializable {
         {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setContentText("Tem certeza que deseja salvar ? ");
-        
-            if (alert.showAndWait().get() == ButtonType.OK) {
+            if(!verificaTodosCamposDaTela()){
+                if (alert.showAndWait().get() == ButtonType.OK) {
 
                 if (ctrcf.CadastrarFuncionario(txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) {
                     JOptionPane.showMessageDialog(null, "Cadastro realisado com sucesso");
@@ -186,7 +187,9 @@ public class CadastroFuncionarioController implements Initializable {
                 }
 
                 flag = true;
+                }
             }
+            
         }
         
         if(!btnEditar.isDisable())
@@ -306,6 +309,53 @@ public class CadastroFuncionarioController implements Initializable {
             apDados.setDisable(false);
         
         btnConfirmar.setDisable(false);
+    }
+    
+    private boolean verificaTodosCamposDaTela(){
+        boolean erro = false;
+        try{
+            
+            ObservableList<Node> obser =  apDados.getChildren();
+            for (int i = 0; i < obser.size(); i++) {
+                if(obser.get(i) instanceof TextField ){
+                  erro =  verificaCampo((TextField) obser.get(i));
+                }
+            }
+        }catch(Exception e){
+            
+        }
+        
+        return erro;
+    }
+    
+    
+    private boolean verificaCampo(TextField txt){
+        boolean erro = false;
+        int index;
+        if(txt.getText().trim().isEmpty())
+        {
+            index = txt.getStyleClass().size() -1;
+          
+            if(!txt.getStyleClass().get(index).toString().equals("text-field"))
+               txt.getStyleClass().remove(index);
+                
+            txt.getStyleClass().add("text-field-erro");
+            
+                
+            
+            erro = true;
+            
+        }else{
+            index = txt.getStyleClass().size() -1;
+            
+            if(txt.getStyleClass().get(index).toString().equals("text-field-erro"))
+                txt.getStyleClass().remove(index);
+            
+            txt.getStyleClass().add("text-field-success");            
+            
+
+        }
+        return erro;
     }
     
     
