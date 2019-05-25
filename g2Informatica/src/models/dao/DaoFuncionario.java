@@ -107,14 +107,14 @@ public class DaoFuncionario {
     }
     
     
-    public boolean ExcluirF (Pessoa p) throws SQLException
+    public boolean ExcluirF (int cod) throws SQLException
     {
         boolean flag = true;
         
         try
         {
             Banco.con.getConnect().setAutoCommit(false);
-            Banco.con.manipular("delete from Funcionario where fun_cod=" +p.getCod());
+            Banco.con.manipular("delete from Funcionario where fun_cod=" +cod);
             Banco.con.getConnect().commit();
         }
         catch(SQLException se)

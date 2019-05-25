@@ -96,7 +96,8 @@ public class CadastroFuncionarioController implements Initializable {
     private TextField txTipo;
     @FXML
     private TextField txNivel;
-
+    
+    CtrcadastroFuncionario ctrcf = new CtrcadastroFuncionario();
     Endereco e;
     Pessoa p;
     
@@ -106,8 +107,9 @@ public class CadastroFuncionarioController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        p = new Funcionario();
-        e = new Endereco();
+        
+        ctrcf.IniciaEntidade(p, e);
+        
         MaskFieldUtil.cpfField(txCpf);
         MaskFieldUtil.foneField(txTelefone);
         MaskFieldUtil.cepField(txCep);
@@ -166,7 +168,6 @@ public class CadastroFuncionarioController implements Initializable {
 
     @FXML
     private void evtConfirmar(ActionEvent event) throws SQLException {
-        CtrcadastroFuncionario ctrcf = new CtrcadastroFuncionario();
         boolean flag = false;
         if(!btnNovo.isDisable())
         {
@@ -211,8 +212,7 @@ public class CadastroFuncionarioController implements Initializable {
         }
         if(flag)
         {
-            e = null;
-            p = null;
+            ctrcf.LimpaEntidade(p, e);
         
             hbPesquisa.setDisable(true);
             apDados.setDisable(true);
@@ -230,8 +230,7 @@ public class CadastroFuncionarioController implements Initializable {
     @FXML
     private void evtCancelar(ActionEvent event) 
     {
-        e = null;
-        p = null;
+        ctrcf.LimpaEntidade(p, e);
         hbPesquisa.setDisable(true);
         apDados.setDisable(true);
         btnCancelar.setDisable(true);
@@ -253,7 +252,6 @@ public class CadastroFuncionarioController implements Initializable {
     private void evtPesquisa(ActionEvent event) throws SQLException 
     {
         tbPesquisaFuncionario.getItems().clear();
-        CtrcadastroFuncionario ctrcf = new CtrcadastroFuncionario();
         
         lista.clear();
         
