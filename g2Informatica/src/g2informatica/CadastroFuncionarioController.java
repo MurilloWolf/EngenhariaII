@@ -196,7 +196,8 @@ public class CadastroFuncionarioController implements Initializable {
 
             if (alert.showAndWait().get() == ButtonType.OK) {
 
-                if (ctrcf.AlterarFuncionario(e, p))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
+                
+                if (ctrcf.AlterarFuncionario(p.getCod(),txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText(), e.getCodigo()))//txNome.getText(), txEmail.getText(), txTelefone.getText(), txCpf.getText(), txRg.getText(), txLogin.getText(), txSenha.getText(), txTipo.getText(), txNivel.getText(), txUf.getText(), txCidede.getText(), txBairro.getText(), txEndereco.getText(), txNumero.getText(), txCep.getText())) 
                 {
                     JOptionPane.showMessageDialog(null, "Alteração realisada com sucesso");
                 } else {

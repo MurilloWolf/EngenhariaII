@@ -45,6 +45,18 @@ public class Endereco {
         
     }
 
+    public Endereco(int codigo, String uf, String cidade, String bairro, String rua, String numero, String cep) {
+        this.codigo = codigo;
+        this.uf = uf;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.rua = rua;
+        this.numero = numero;
+        this.cep = cep;
+    }
+    
+    
+
     public String getCep() {
         return cep;
     }

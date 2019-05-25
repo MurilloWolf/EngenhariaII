@@ -41,10 +41,12 @@ public class CtrcadastroFuncionario {
         return flag;
     }
     
-    public boolean AlterarFuncionario(Endereco e, Pessoa p) throws SQLException
+    public boolean AlterarFuncionario(int cod, String nome, String email, String telefone, String cpf, String rg, String id_login, String senha, String tipo, String nivel, String uf, String cidade, String bairro, String rua, String numero, String cep, int end_cod) throws SQLException
     {
         boolean flag = false;
         DaoFuncionario daof = new DaoFuncionario();
+        Pessoa p = new Funcionario(cod, nome, email, telefone, cpf, rg, end_cod, id_login, senha, tipo, nivel);
+        Endereco e = new Endereco(end_cod, uf, cidade ,bairro ,rua ,numero ,cep);
         
         if(daof.AlterarF(p))
         {
