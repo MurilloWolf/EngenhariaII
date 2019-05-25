@@ -73,35 +73,35 @@
                   <String fx:value="background-g2" />
                   <String fx:value="title" />
                </styleClass></Label>
-            <Label layoutX="61.0" layoutY="79.0" text="Nome" />
+            <Label layoutX="61.0" layoutY="79.0" text="Nome*" />
             <TextField fx:id="txNome" layoutX="141.0" layoutY="75.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="60.0" layoutY="118.0" text="CPF" />
+            <Label layoutX="60.0" layoutY="118.0" text="CPF*" />
             <TextField fx:id="txCpf" layoutX="141.0" layoutY="117.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="63.0" layoutY="164.0" text="RG" />
+            <Label layoutX="63.0" layoutY="164.0" text="RG*" />
             <TextField fx:id="txRg" layoutX="141.0" layoutY="163.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="62.0" layoutY="207.0" text="Email" />
+            <Label layoutX="62.0" layoutY="207.0" text="Email*" />
             <TextField fx:id="txEmail" layoutX="141.0" layoutY="204.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="61.0" layoutY="249.0" text="Telefone" />
+            <Label layoutX="61.0" layoutY="249.0" text="Telefone*" />
             <TextField fx:id="txTelefone" layoutX="141.0" layoutY="249.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="63.0" layoutY="296.0" text="Login" />
+            <Label layoutX="63.0" layoutY="296.0" text="Login*" />
             <TextField fx:id="txLogin" layoutX="141.0" layoutY="295.0" prefWidth="300.0" />
-            <Label layoutX="62.0" layoutY="343.0" text="Função" />
+            <Label layoutX="62.0" layoutY="343.0" text="Função*" />
             <TextField fx:id="txTipo" layoutX="142.0" layoutY="339.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="508.0" layoutY="79.0" text="CEP" />
+            <Label layoutX="508.0" layoutY="79.0" text="CEP*" />
             <TextField fx:id="txCep" layoutX="568.0" layoutY="73.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="483.0" layoutY="121.0" text="Endereço" />
+            <Label layoutX="483.0" layoutY="121.0" text="Endereço*" />
             <TextField fx:id="txEndereco" layoutX="568.0" layoutY="115.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="503.0" layoutY="167.0" text="Bairro" />
+            <Label layoutX="503.0" layoutY="167.0" text="Bairro*" />
             <TextField fx:id="txBairro" layoutX="568.0" layoutY="161.0" prefWidth="200.0" />
             <Label layoutX="785.0" layoutY="164.0" text="UF" />
             <TextField fx:id="txUf" layoutX="813.0" layoutY="161.0" prefHeight="25.0" prefWidth="55.0" />
-            <Label layoutX="501.0" layoutY="208.0" text="Cidade" />
+            <Label layoutX="501.0" layoutY="208.0" text="Cidade*" />
             <TextField fx:id="txCidede" layoutX="568.0" layoutY="202.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="493.0" layoutY="253.0" text="Numero" />
+            <Label layoutX="493.0" layoutY="253.0" text="Numero*" />
             <TextField fx:id="txNumero" layoutX="568.0" layoutY="247.0" prefHeight="25.0" prefWidth="300.0" />
-            <Label layoutX="498.0" layoutY="299.0" text="Senha" />
+            <Label layoutX="498.0" layoutY="299.0" text="Senha*" />
             <TextField fx:id="txSenha" layoutX="569.0" layoutY="293.0" prefWidth="300.0" />
-            <Label layoutX="507.0" layoutY="343.0" text="Nivel" />
+            <Label layoutX="507.0" layoutY="343.0" text="Nivel*" />
             <TextField fx:id="txNivel" layoutX="570.0" layoutY="337.0" prefHeight="25.0" prefWidth="300.0" />
          </children>
       </AnchorPane>

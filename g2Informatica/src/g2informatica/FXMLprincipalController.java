@@ -52,6 +52,7 @@ public class FXMLprincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         _pndados = pnDados;
         disabilita();
+        evtLogar(null);
     }    
 
     @FXML
@@ -71,22 +72,25 @@ public class FXMLprincipalController implements Initializable {
             JOptionPane.showMessageDialog(null, "Usuario Invalido");
         else
         {
-            lbLoguin.setText(TelaLoginController.login);
-            if(TelaLoginController.ni == 2)
-            {
-                abilita();
-                btnParametrizacao.setDisable(true);
-                //desativar o botao de parametrizaçao aqui quando estiver pronto
+            if (btnLoguar.getText().equals("Logar")) {
+                lbLoguin.setText(TelaLoginController.login);
+                if (TelaLoginController.ni == 2) {
+                    abilita();
+                    btnParametrizacao.setDisable(true);
+                    //desativar o botao de parametrizaçao aqui quando estiver pronto
+                } else if (TelaLoginController.ni == 1) {
+                    abilita();
+                    //ativar todos os botoes
+                } else if (TelaLoginController.ni == 0) {
+                    disabilita();
+                }
+                btnLoguar.setText("Deslogar");
             }
-            else if(TelaLoginController.ni == 1)
-            {
-                abilita();
-                btnParametrizacao.setDisable(false);
-                //ativar todos os botoes
-            }
-            else if(TelaLoginController.ni == 0)
+            else
             {
                 disabilita();
+                btnLoguar.setText("Logar");
+                lbLoguin.setText("");
             }
         }
     }

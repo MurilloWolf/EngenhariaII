@@ -38,6 +38,24 @@ public class DaoFuncionario {
         return p;
     }
     
+    public boolean verificaloguin(Pessoa p)throws SQLException
+    {
+        boolean flag = true;
+       
+            ResultSet rs = Banco.con.consultar("select caunt(fun_if_login) qtde qtde from Funcionario where fun_if_login = "+((Funcionario) p).getId_login()+";");
+            if(rs.next())
+            {
+                if(rs.getString("qtde").equals("0")){
+                    flag = true;
+                }
+                else
+                    flag = false;
+            }
+            
+        
+        return flag;
+    }
+    
     public boolean salvarF (Pessoa p) throws SQLException
     {
         boolean flag = true;
@@ -114,9 +132,18 @@ public class DaoFuncionario {
         
         try
         {
-            Banco.con.getConnect().setAutoCommit(false);
-            flag = Banco.con.manipular("delete from Funcionario where fun_cod=" +cod);
-            Banco.con.getConnect().commit();
+            ResultSet rs = Banco.con.consultar("select caunt(fun_nivel) qtde from Funcionario where fun_nivel = '1';");
+            if(rs.next())
+            {
+                if(!rs.getString("qtde").equals("1")){
+                    Banco.con.getConnect().setAutoCommit(false);
+                    flag = Banco.con.manipular("delete from Funcionario where fun_cod=" +cod);
+                    Banco.con.getConnect().commit();
+                }
+                else
+                    flag = false;
+            }
+            
         }
         catch(SQLException se)
         {

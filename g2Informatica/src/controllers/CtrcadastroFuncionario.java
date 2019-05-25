@@ -15,28 +15,28 @@ public class CtrcadastroFuncionario {
         DaoFuncionario daof = new DaoFuncionario();
         Endereco e =new Endereco(uf, cidade ,bairro ,rua ,numero ,cep);
         Pessoa p = new Funcionario(nome, email, telefone, cpf, rg, 0, id_login, senha, tipo, nivel);
-        if(!e.verificaEnderecoExistente())
+        if(daof.verificaloguin(p))
         {
-            if(e.salvar())
+            if (!e.verificaEnderecoExistente()) 
             {
+                if (e.salvar()) 
+                {
+                    e.buscarEndereco();
+                    ((Funcionario) p).setEnd_cod(e.getCodigo());
+                    if (daof.salvarF(p)) 
+                    {
+                        flag = true;
+                    }
+                }
+            } else {
                 e.buscarEndereco();
-                ((Funcionario)p).setEnd_cod(e.getCodigo());
-                if(daof.salvarF(p))
+                ((Funcionario) p).setEnd_cod(e.getCodigo());
+                if (daof.salvarF(p)) 
                 {
                     flag = true;
                 }
-            }    
-        }
-        else
-        {
-            e.buscarEndereco();
-            ((Funcionario)p).setEnd_cod(e.getCodigo());
-            if(daof.salvarF(p))
-            {
-                flag = true;
             }
         }
-        
         
         return flag;
     }
@@ -63,13 +63,9 @@ public class CtrcadastroFuncionario {
     {
         boolean flag = false;
         DaoFuncionario daof = new DaoFuncionario();
-        
         if(daof.ExcluirF(p.getCod()))
         {
-            
-            
-                flag = true;
-            
+            flag = true;
         }
         return flag;
     }
