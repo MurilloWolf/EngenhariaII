@@ -62,7 +62,7 @@ public class CtrcadastroFuncionario {
         boolean flag = false;
         DaoFuncionario daof = new DaoFuncionario();
         
-        if(daof.ExcluirF(p))
+        if(daof.ExcluirF(p.getCod()))
         {
             if(e.apagar())
             {
@@ -106,5 +106,16 @@ public class CtrcadastroFuncionario {
             }
         }
         return lista;
+    }
+    
+    public void LimpaEntidade(Pessoa f, Endereco e)
+    {
+        f = null;
+        e = null;
+    }
+    public void IniciaEntidade(Pessoa f, Endereco e)
+    {
+        f = new Funcionario();
+        e = new Endereco();
     }
 }

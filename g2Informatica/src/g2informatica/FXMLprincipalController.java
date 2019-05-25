@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 public class FXMLprincipalController implements Initializable {
     
@@ -32,9 +33,25 @@ public class FXMLprincipalController implements Initializable {
     private Button btnProduto;
     
     
+    void disabilita()
+    {
+        btnCadFunc.setDisable(true);
+        btnParametrizacao.setDisable(true);
+        btnProduto.setDisable(true);
+        _pndados.getChildren().clear();
+    }
+    
+    void abilita()
+    {
+        btnCadFunc.setDisable(false);
+        btnParametrizacao.setDisable(false);
+        btnProduto.setDisable(false);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         _pndados = pnDados;
+        disabilita();
     }    
 
     @FXML
@@ -51,25 +68,26 @@ public class FXMLprincipalController implements Initializable {
             System.out.println(e);
         }
         if (TelaLoginController.login.equals(""))
-            System.exit(0);
+            JOptionPane.showMessageDialog(null, "Usuario Invalido");
         else
         {
-            lbLoguin.setText("Login: " + TelaLoginController.login);
+            lbLoguin.setText(TelaLoginController.login);
             if(TelaLoginController.ni == 2)
             {
+                abilita();
                 btnParametrizacao.setDisable(true);
                 //desativar o botao de parametrizaçao aqui quando estiver pronto
             }
             else if(TelaLoginController.ni == 1)
             {
+                abilita();
                 btnParametrizacao.setDisable(false);
                 //ativar todos os botoes
             }
             else if(TelaLoginController.ni == 0)
             {
-                //destiva tudo
+                disabilita();
             }
-                
         }
     }
 

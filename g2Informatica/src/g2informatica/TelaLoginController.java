@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -66,7 +67,7 @@ public class TelaLoginController implements Initializable {
             ni = 0;
             login = usu;
         }
-        else if(nivel.equals(""))
+        else
         {
             ni=0;
             login = "";
