@@ -44,7 +44,7 @@ public class DaoFuncionario {
         try {
             Banco.con.getConnect().setAutoCommit(false);
             
-            String sql = "insert into Funcionario (fun_nome, fun_email, fun_telefone, fun_cpf, fun_rg, Endereco_end_cod, fun_id_login, fun_senha, fun_tipo, fun_nivel) values ('$1','$2','$3','$4','$5',$6,'$7','$8','$9','$10')";
+            String sql = "insert into Funcionario (fun_nome, fun_email, fun_telefone, fun_cpf, fun_rg, Endereco_end_cod, fun_id_login, fun_senha, fun_tipo, fun_nivel) values ('$1','$2','$3','$4','$5',$6,'$7','$8','$9','#1')";
 
             sql = sql.replace("$1", p.getNome());
             sql = sql.replace("$2", ((Funcionario) p).getEmail());
@@ -55,7 +55,7 @@ public class DaoFuncionario {
             sql = sql.replace("$7", ((Funcionario) p).getId_login());
             sql = sql.replace("$8", ((Funcionario) p).getSenha());
             sql = sql.replace("$9", ((Funcionario) p).getTipo());
-            sql = sql.replace("$10", ((Funcionario) p).getNivel());
+            sql = sql.replace("#1", ((Funcionario) p).getNivel());
 
             Banco.con.manipular(sql);
             Banco.con.getConnect().commit();
@@ -115,7 +115,7 @@ public class DaoFuncionario {
         try
         {
             Banco.con.getConnect().setAutoCommit(false);
-            Banco.con.manipular("delete from Funcionario where fun_cod=" +cod);
+            flag = Banco.con.manipular("delete from Funcionario where fun_cod=" +cod);
             Banco.con.getConnect().commit();
         }
         catch(SQLException se)

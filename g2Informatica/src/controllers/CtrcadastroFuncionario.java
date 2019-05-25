@@ -66,10 +66,10 @@ public class CtrcadastroFuncionario {
         
         if(daof.ExcluirF(p.getCod()))
         {
-            if(e.apagar())
-            {
-                 flag = true;
-            }
+            
+            
+                flag = true;
+            
         }
         return flag;
     }
