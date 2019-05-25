@@ -18,8 +18,8 @@ and open the template in the editor.
     
     #0188c8 -   G2
 
-
-    #EDF2F4-    (BG)Gray
+    #22223B -   Dark
+    #EDF2F4 -   (BG)Gray
 
 */
 /* ==================================== ALL ====================================*/
@@ -103,4 +103,21 @@ and open the template in the editor.
 }
 .background-all{
     -fx-background-color: #F9F9F9;
+}
+
+
+/* ==================================== BUTTON MENU ====================================*/
+
+.button-menu{
+    
+    -fx-text-fill: #22223B;
+    -fx-background-color: #EDF2F4;
+    -fx-background-opacity: 0.3;
+    -fx-border-color: #EEE;
+    
+}
+.button-menu:hover{
+    -fx-background-color: #0188c8;
+    -fx-background-opacity: 0.4;
+    -fx-text-fill: #EDF2F4;
 }
