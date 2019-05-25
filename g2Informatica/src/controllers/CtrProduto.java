@@ -20,12 +20,12 @@ public class CtrProduto {
         return Produto.buscarPorNome(filtro);
     }
             
-    public ArrayList<Object> getProdutoPreco(String filtro){
+    public ArrayList<Produto> getProdutoPreco(String filtro){
         return Produto.buscarPorPreco(filtro);
     }
     
-    public ArrayList<Object> getProdutoFornecedor(String filtro){
-        return Produto.buscarPorFornecedor(filtro);
+    public ArrayList<Produto> getProdutoMarca(String filtro){
+        return Produto.buscarPorMarca(filtro);
     }
     
     
@@ -33,20 +33,20 @@ public class CtrProduto {
         return Produto.buscarTodosOsProdutos();
     }
     
-    public boolean cadastrar(String nome, double preco , String descricao,int quantidade, String fornecedor ){
-        Produto p = new Produto(nome,preco,descricao,quantidade,new Fornecedor(fornecedor));
+    public boolean cadastrar(String nome, double preco , String descricao,int quantidade, String marca ){
+        Produto p = new Produto(nome,preco,descricao,quantidade, marca);
         
         return p.inserir();
     }
     
-    public boolean alterar(String nome, double preco , String descricao,int quantidade, String fornecedor ){
-        Produto p = new Produto(nome,preco,descricao,quantidade,new Fornecedor(fornecedor));
+    public boolean alterar(int codigo,String nome, double preco , String descricao,int quantidade, String marca ){
+        Produto p = new Produto(codigo,nome,preco,descricao,quantidade,marca);
         
         return p.alterar();
     }
     
-    public boolean deletar(String nome, double preco , String descricao,int quantidade, String fornecedor ){
-        Produto p = new Produto(nome,preco,descricao,quantidade,new Fornecedor(fornecedor));
+    public boolean deletar(int codigo ){
+        Produto p = new Produto(codigo);
         
         return p.deletar();
     }

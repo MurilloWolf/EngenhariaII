@@ -25,6 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import models.Funcionario;
 import models.Produto;
 
@@ -54,17 +56,16 @@ public class CadastroProdutoController implements Initializable {
     @FXML
     private Button btnCancelar;
     @FXML
-    private ComboBox<String> cbFornecedor;
-    @FXML
     private TextField txtQuantidade;
     @FXML
     private TextArea txaDescricao;
+  
     ObservableList<Produto> lista = FXCollections.observableArrayList();
-    
+    Produto produto;
     
     private CtrProduto ctr = new CtrProduto();
     @FXML
-    private TableView<?> tbPesquisaProduto;
+    private TableView<Produto> tbPesquisaProduto;
     @FXML
     private TableColumn tbCodigo;
     @FXML
@@ -72,88 +73,66 @@ public class CadastroProdutoController implements Initializable {
     @FXML
     private TableColumn  tbPreco;
     @FXML
-    private TableColumn tbFornecedor;
+    private ComboBox<String> cbMarca;
+    @FXML
+    private TableColumn tbMarca;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        carregarFornecedores();
+        carregarMarcas();
         colocarMascaras();
         botoesEstadoInicial();
         
+        
+        
         cbFiltro.getItems().add("Nome");
         cbFiltro.getItems().add("Preco");
-        cbFiltro.getItems().add("Fornecedor");
+        cbFiltro.getItems().add("Marca");
         
         
         //linkando tabela
-         tbCodigo.setCellValueFactory(new PropertyValueFactory<>("cod"));
+        tbCodigo.setCellValueFactory(new PropertyValueFactory<>("cod"));
         tbNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tbPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
-        tbFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        tbMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
         
     }    
     
-    public void carregarFornecedores(){
-        ArrayList<String> listaDeFornecedores; 
-        CtrFornecedor ctrF = new CtrFornecedor();
-        listaDeFornecedores = ctrF.getListaDeFornecedores();
-        if(listaDeFornecedores!=null){
-            cbFornecedor.getItems().clear();
-            for(int i=0; i < listaDeFornecedores.size(); i ++)
-              cbFornecedor.getItems().add(listaDeFornecedores.get(i));
-        }
-    }
     
-    public void colocarMascaras(){
-     MaskFieldUtil.monetaryField(txtPreco);
-     MaskFieldUtil.numericField(txtQuantidade);
-    }
-
-    public void botoesEstadoInicial(){
-        //nao se pode alterar se nao vuscar , nem excluir
-        btnAlterar.setDisable(true);
-        btnExcluir.setDisable(true);
-        cbFornecedor.getSelectionModel().clearSelection();
-    }
     
-    //Vai chamar essa função quando ele clicar no item que foi buscado e as informações forem carregadas nos
-    //texts box
-    public void botoesEstadoAlterar(){
-        btnAlterar.setDisable(false);
-        btnExcluir.setDisable(false);
-        
-        btnCadastrar.setDisable(true);
-    }
-    public void limparTela(){
-        txtNome.clear();
-        txtPreco.clear();
-        cbFornecedor.getSelectionModel().select(0);
-        txtQuantidade.clear();
-        txaDescricao.clear();
-    }
+   
     @FXML
     private void clickBuscar(ActionEvent event) {
+        CtrProduto ctrP = new CtrProduto();
+        boolean buscou = false;
+         tbPesquisaProduto.getItems().clear();        
+        lista.clear();
+                                
         if(cbFiltro.getSelectionModel().getSelectedItem() != null){
             String filtro = cbFiltro.getSelectionModel().getSelectedItem().toString();
-            boolean buscou = false; 
+             
             try{
-                tbPesquisaProduto.getItems().clear();
-                lista.clear();
                 
-                CtrProduto ctrP = new CtrProduto();
+                
+                
                 if(filtro.toUpperCase().equals("NOME")){
-                    lista.addAll( (ObservableList) ctrP.getProdutoNome(txtBuscar.getText()));
+                  
+                    lista.addAll(ctrP.getProdutoNome(txtBuscar.getText()));
+                    buscou = true;
                 }
 
                 if(filtro.toUpperCase().equals("PRECO")){
-                    lista.addAll((ObservableList)ctrP.getProdutoPreco(txtBuscar.getText()));
+                    lista.addAll(ctrP.getProdutoPreco(txtBuscar.getText()));
+                    buscou = true;
                 }
 
-                if(filtro.toUpperCase().equals("FORNECEDOR")){
-                    lista.addAll((ObservableList)ctr.getProdutoFornecedor(txtBuscar.getText()));
+                if(filtro.toUpperCase().equals("MARCA")){
+                    lista.addAll(ctr.getProdutoMarca(txtBuscar.getText()));
+                    buscou = true;
+
                 }
                 
             }catch(Exception ex ){
@@ -164,37 +143,53 @@ public class CadastroProdutoController implements Initializable {
                 
                 
                 
-
+                
                 
                 System.out.println("lista: "+lista.toString());
          //       tbPesquisaProduto.getItems().addAll(lista);
             }
-            if(buscou)
-             desabilitarCampos();
+           
+            
+        }else{
+            if(txtBuscar.getText().trim().equals("")){
+                    lista.addAll(ctrP.getAllProdutos());
+                    buscou = true;
+            }
+            
+            
+           
         }
+        
+         if(buscou){
+                
+             desabilitarCampos();
+             tbPesquisaProduto.getItems().addAll(lista);
+            }
+            
         
         
     }
 
     @FXML
     private void clickCadastrar(ActionEvent event) {
-        verificaCampos();
-        
-        String preco =  txtPreco.getText();
-        preco = preco.replace(".","");
-        preco = preco.replace(",", ".");
-        System.out.println("preco :"+preco);
-        //se inserir deu certo
-        if(ctr.cadastrar(txtNome.getText(),Double.parseDouble(preco),txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()),cbFornecedor.getSelectionModel().getSelectedItem())){
-            limparTela();
-            botoesEstadoInicial();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Cadastro realizado com sucesso");
-            alert.showAndWait();
-        }else{
-             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Nao foi possivel realizar o cadastro");
-            alert.showAndWait();
+        if(!verificaCampos()){
+           
+            String preco =  txtPreco.getText();
+            preco = preco.replace(".","");
+            preco = preco.replace(",", ".");
+            
+            //se inserir deu certo
+            if(ctr.cadastrar(txtNome.getText(),Double.parseDouble(preco),txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()),cbMarca.getSelectionModel().getSelectedItem())){
+                limparTela();
+                botoesEstadoInicial();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Cadastro realizado com sucesso");
+                alert.showAndWait();
+            }else{
+                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Nao foi possivel realizar o cadastro");
+                alert.showAndWait();
+            }
         }
         
         
@@ -202,21 +197,35 @@ public class CadastroProdutoController implements Initializable {
 
     @FXML
     private void clickAlterar(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Tem certeza que deseja Alterar o produto ? ");
-        if(alert.showAndWait().get() ==ButtonType.OK){
-            
-            
-            //pensar melhor sobre essa funcao 
-            habilitarCampos();
-            verificaCampos();
-            //alterar no banco
-            
-            
-            
-            limparTela();
-            botoesEstadoInicial();
+        
+        if(!verificaCampos()){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Tem certeza que deseja Alterar o produto ? ");
+            if(alert.showAndWait().get() ==ButtonType.OK){
+
+
+                //pensar melhor sobre essa funcao 
+                habilitarCampos();
+                
+               
+                String preco =  txtPreco.getText();
+                preco = preco.replace(".","");
+                preco = preco.replace(",", ".");
+                    //alterar no banco
+                if(ctr.alterar(produto.getCod(),txtNome.getText(), Double.parseDouble(preco), txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()) , cbMarca.getSelectionModel().getSelectedItem())){
+                  limparTela();
+                  botoesEstadoInicial();
+                  
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setContentText("Alteração realizada com SUCESSO");
+                    alert1.showAndWait();
+                }
+
+
+                
+            }
         }
+       
     }
 
     @FXML
@@ -225,13 +234,18 @@ public class CadastroProdutoController implements Initializable {
         alert.setContentText("Tem certeza que deseja excluir o produto ? ");
         if(alert.showAndWait().get() ==ButtonType.OK){
             
-            verificaCampos();
+            if(!verificaCampos()){
+               
+
+               if(ctr.deletar(produto.getCod())){
+                    limparTela();
+                    botoesEstadoInicial();
+               }
+
+               
+            }
             
-            String preco = txtPreco.getText().replace(",", ".");
-            if(ctr.deletar(txtNome.getText(),Double.parseDouble(preco),txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()),cbFornecedor.getSelectionModel().getSelectedItem()));
-            
-            limparTela();
-            botoesEstadoInicial();
+           
         }
     }
 
@@ -248,12 +262,53 @@ public class CadastroProdutoController implements Initializable {
     }
     
   
+    @FXML
+    private void clickTabela(MouseEvent event) {
+        
+        limparTela();
+        
+        produto = tbPesquisaProduto.getSelectionModel().getSelectedItem();
+        txtNome.setText(produto.getNome());
+        txtPreco.setText(produto.getPreco()+"");
+        txtQuantidade.setText(produto.getQuantidade()+"");
+        txaDescricao.setText(produto.getDescricao());
+        System.out.println("prouto codigo:"+produto.getCod());
+        
+        cbMarca.getSelectionModel().select(produto.getMarca());
+        botoesEstadoAlterar();
+        
+    }
+
+
+    
+    
+    
+    
+    // ================================================= PROPRIEDADES DA TELA =================================================
+
+    public void carregarMarcas(){
+         
+        
+        cbMarca.getItems().add("");
+        cbMarca.getItems().add("Dell");
+        cbMarca.getItems().add("Lenovo");
+        cbMarca.getItems().add("Accer");
+        cbMarca.getItems().add("Asus");
+        cbMarca.getItems().add("Nvidea");
+        cbMarca.getItems().add("AMD");
+        cbMarca.getItems().add("Intel");
+       
+       
+       
+    }
+    
+    
     public void habilitarCampos(){
         txtNome.setDisable(true);
         txtPreco.setDisable(true);
         txtQuantidade.setDisable(true);
         txaDescricao.setDisable(true);
-        cbFornecedor.setDisable(true);
+        cbMarca.setDisable(true);
     }
     
     public void desabilitarCampos(){
@@ -261,49 +316,130 @@ public class CadastroProdutoController implements Initializable {
         txtPreco.setDisable(false);
         txtQuantidade.setDisable(false);
         txaDescricao.setDisable(false);
-        cbFornecedor.setDisable(false);
+        cbMarca.setDisable(false);
     }
     
-    public void verificaCampos(){
-      if(txtNome.getText().isEmpty())
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("O Produto precisa ter Nome");
-            alert.showAndWait();
-                
-            txtNome.requestFocus();
-            return;
-        }
-        if(txtPreco.getText().isEmpty())
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("O produto precisa ter um preço");
-            alert.showAndWait();
-                
-            txtPreco.requestFocus();
-            return;
-        }
-         if(txtQuantidade.getText().isEmpty())
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("É preciso ter uma quantidade");
-            alert.showAndWait();
-                
-            txtQuantidade.requestFocus();
-            return;
-        }
-         
-        
-        
-        System.out.println("Combo box :"+cbFornecedor.getSelectionModel().getSelectedItem());
-         if(cbFornecedor.getSelectionModel().getSelectedItem() == null)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("É preciso ter um Fornecedor");
-            alert.showAndWait();
-                
-            cbFornecedor.requestFocus();
-            return;
-        }   
+    
+     public void colocarMascaras(){
+     MaskFieldUtil.monetaryField(txtPreco);
+     MaskFieldUtil.numericField(txtQuantidade);
     }
+
+    public void botoesEstadoInicial(){
+        //nao se pode alterar se nao vuscar , nem excluir
+        btnAlterar.setDisable(true);
+        btnExcluir.setDisable(true);
+        cbMarca.getSelectionModel().clearSelection();
+    }
+    
+    //Vai chamar essa função quando ele clicar no item que foi buscado e as informações forem carregadas nos
+    //texts box
+    public void botoesEstadoAlterar(){
+        btnAlterar.setDisable(false);
+        btnExcluir.setDisable(false);
+        
+        btnCadastrar.setDisable(true);
+    }
+    public void limparTela(){
+        txtNome.clear();
+        txtPreco.clear();
+        cbMarca.getSelectionModel().select(0);
+        txtQuantidade.clear();
+        txaDescricao.clear();
+    }
+    
+    
+    public boolean verificaCampos(){
+      
+        
+       boolean erro = false;
+        int index ;
+        
+        /* ==================================== NOME ====================================*/
+
+         if(txtNome.getText().trim().isEmpty())
+        {
+            index = txtNome.getStyleClass().size() -1;
+          
+            if(!txtNome.getStyleClass().get(index).toString().equals("text-field"))
+               txtNome.getStyleClass().remove(index);
+                
+            txtNome.getStyleClass().add("text-field-erro");
+            
+                
+            
+            erro = true;
+            
+        }else{
+            index = txtNome.getStyleClass().size() -1;
+            
+            if(txtNome.getStyleClass().get(index).toString().equals("text-field-erro"))
+                txtNome.getStyleClass().remove(index);
+            
+            txtNome.getStyleClass().add("text-field-success");            
+            
+
+        }
+        /* ==================================== PRECO ====================================*/
+
+         if(txtPreco.getText().trim().isEmpty())
+        {
+            index = txtPreco.getStyleClass().size() -1;
+          
+            if(!txtPreco.getStyleClass().get(index).toString().equals("text-field"))
+               txtPreco.getStyleClass().remove(index);
+                
+            txtPreco.getStyleClass().add("text-field-erro");
+            
+                
+            
+            erro = true;
+            
+        }else{
+            index = txtPreco.getStyleClass().size() -1;
+            
+            if(txtPreco.getStyleClass().get(index).toString().equals("text-field-erro"))
+                txtPreco.getStyleClass().remove(index);
+            
+            txtPreco.getStyleClass().add("text-field-success");            
+            
+
+        }
+         /* ==================================== QUANTIDADE ====================================*/
+
+         if(txtQuantidade.getText().trim().isEmpty())
+        {
+            index = txtQuantidade.getStyleClass().size() -1;
+          
+            if(!txtQuantidade.getStyleClass().get(index).toString().equals("text-field"))
+               txtQuantidade.getStyleClass().remove(index);
+                
+            txtQuantidade.getStyleClass().add("text-field-erro");
+            
+                
+            
+            erro = true;
+            
+        }else{
+            index = txtQuantidade.getStyleClass().size() -1;
+            
+            if(txtQuantidade.getStyleClass().get(index).toString().equals("text-field-erro"))
+                txtQuantidade.getStyleClass().remove(index);
+            
+            txtQuantidade.getStyleClass().add("text-field-success");            
+            
+
+        }
+            
+        
+        
+        
+         
+         return erro;
+    }
+
 }
+
+
+// ================================================= PROPRIEDADES DA TELA =================================================
+

@@ -150,10 +150,11 @@ public class EmpresaController implements Initializable {
     @FXML
     private void clickSalvar(ActionEvent event) {
        
-        verificaTodosCamposDaTela(borderPane);
+        //verificarCamposObrigatorios();
+        //verificaTodosCamposDaTela(borderPane);
         
         if(verificarCamposObrigatorios()){
-           
+          
             CtrEmpresa ctr = new CtrEmpresa();
             boolean resultadoInsercao = ctr.salvarEmpresa(
                                                         txtNome.getText(),txtMissao.getText(), txtCep.getText(), txtEmail.getText(),

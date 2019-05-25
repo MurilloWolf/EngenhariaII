@@ -30,7 +30,7 @@
                      </HBox.margin>
                   </ComboBox>
                   <Label />
-                  <TextField fx:id="txtBuscar" prefHeight="25.0" prefWidth="304.0" promptText="Buscar ..." />
+                  <TextField fx:id="txtBuscar" prefHeight="25.0" prefWidth="304.0" promptText="Buscar ..." styleClass="text-field" />
                   <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar" />
                </children>
             </HBox>
@@ -40,12 +40,12 @@
    <center>
       <BorderPane prefHeight="658.0" prefWidth="592.0" BorderPane.alignment="CENTER">
          <top>
-            <TableView fx:id="tbPesquisaProduto" prefHeight="611.0" prefWidth="499.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tbPesquisaProduto" onMouseClicked="#clickTabela" prefHeight="611.0" prefWidth="499.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="tbCodigo" prefWidth="84.0" text="Codigo" />
                 <TableColumn fx:id="tbNome" prefWidth="218.0" text="Nome" />
                   <TableColumn fx:id="tbPreco" minWidth="0.0" prefWidth="130.0" text="Preço" />
-                  <TableColumn fx:id="tbFornecedor" minWidth="0.0" prefWidth="130.0" text="Fornecedor" />
+                  <TableColumn fx:id="tbMarca" minWidth="0.0" prefWidth="130.0" text="Marca" />
               </columns>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -67,12 +67,12 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Nome" />
-                  <TextField fx:id="txtNome" />
+                  <Label text="Nome*" />
+                  <TextField fx:id="txtNome" styleClass="text-field" />
                   <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="448.0" spacing="100.0">
                      <children>
-                        <Label text="Preço" />
-                        <Label text="Quantidade">
+                        <Label text="Preço*" />
+                        <Label text="Quantidade*">
                            <HBox.margin>
                               <Insets left="130.0" />
                            </HBox.margin>
@@ -81,14 +81,14 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="448.0" spacing="100.0">
                      <children>
-                        <TextField fx:id="txtPreco" />
-                        <TextField fx:id="txtQuantidade" />
+                        <TextField fx:id="txtPreco" styleClass="text-field" />
+                        <TextField fx:id="txtQuantidade" styleClass="text-field" />
                      </children>
                   </HBox>
                   <Label text="Descriçao" />
                   <TextArea fx:id="txaDescricao" prefHeight="77.0" prefWidth="448.0" styleClass="text-field" />
-                  <Label text="Fornecedor" />
-                  <ComboBox fx:id="cbFornecedor" prefHeight="26.0" prefWidth="500.0" promptText="Fornecedores" />
+                  <Label text="Marcas" />
+                  <ComboBox fx:id="cbMarca" prefHeight="26.0" prefWidth="500.0" promptText="Marca" />
                   <HBox alignment="CENTER" prefHeight="79.0" prefWidth="281.0" spacing="20.0">
                      <children>
                         <Button fx:id="btnCadastrar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCadastrar" prefHeight="40.0" prefWidth="114.0" styleClass="button-success" text="Cadastrar" textAlignment="CENTER" />

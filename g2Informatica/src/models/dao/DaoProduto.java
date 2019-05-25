@@ -17,13 +17,13 @@ public class DaoProduto
         {
             Banco.con.getConnect().setAutoCommit(false);
             
-           sql = "insert into Produto (pro_nome, pro_preco,pro_desc,pro_quantidade, Fornecedor_for_cod) values ('$1',$2,'$3',$4,$5);";
+           sql = "insert into Produto (pro_nome, pro_preco,pro_desc,pro_quantidade, pro_marca) values ('$1',$2,'$3',$4,'$5');";
 
             sql = sql.replace("$1", p.getNome());
             sql = sql.replace("$2", p.getPreco()+"");     
             sql = sql.replace("$3", p.getDescricao());
             sql = sql.replace("$4", p.getQuantidade()+"");
-            sql = sql.replace("$5", p.getFornecedor().getCodigo()+"");
+            sql = sql.replace("$5", p.getMarca());
 
             teste = Banco.con.manipular(sql);
             Banco.con.getConnect().commit();
@@ -49,14 +49,14 @@ public class DaoProduto
         {
             Banco.con.getConnect().setAutoCommit(false);
         
-            String sql = "update produto set pro_nome='$1', pro_preco=$2 , pro_desc = '$3' pro_quantidade = $4 Fornecedor_for_cod = $5 where pro_cod="+ p.getCod()+" ;";
+            String sql = "update Produto set pro_nome='$1', pro_preco=$2 , pro_desc = '$3', pro_quantidade = $4, pro_marca = '$5' where pro_cod="+ p.getCod()+" ;";
             sql = sql.replace("$1", p.getNome());
             sql = sql.replace("$2", p.getPreco()+"");
             sql = sql.replace("$3", p.getDescricao());
             sql = sql.replace("$4", p.getQuantidade()+"");
-            sql = sql.replace("$5", p.getFornecedor().getCodigo()+"");
+            sql = sql.replace("$5", p.getMarca());
             
-
+            System.out.println("SQL: "+sql);
             Banco.con.manipular(sql);
 
             Banco.con.getConnect().commit();
@@ -78,12 +78,16 @@ public class DaoProduto
     public boolean apagar(Produto p) throws SQLException
     {
         boolean teste = true;
-        
+        String sql;
         try
         {
             Banco.con.getConnect().setAutoCommit(false);
           
-            Banco.con.manipular("delete from produto where pro_cod=" +p.getCod()+" ;");
+            sql = "delete from Produto where pro_cod=" +p.getCod()+" ;";
+            System.out.println("DELETE:"+sql);
+            
+            teste = Banco.con.manipular(sql);
+            
             Banco.con.getConnect().commit();
         }
         catch(SQLException se)
@@ -104,14 +108,15 @@ public class DaoProduto
     public Produto getProduto(int cod)
     {
         Produto p = null;
-        String sql = "select * from produto where pro_cod="+ cod;
+        String sql = "select * from Produto where pro_cod="+ cod+";";
         ResultSet rs = Banco.con.consultar(sql);
         
         try
         {
             if(rs.next())
             {
-                p = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"));
+                p = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"),rs.getString("pro_desc"),
+                    rs.getInt("pro_quantidade"), rs.getString("pro_marca"));
                
             } 
         }
@@ -137,7 +142,7 @@ public class DaoProduto
             while(rs.next())
             { 
                 Produto resultadoBusca = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"),rs.getString("pro_desc"),
-                    rs.getInt("pro_quantidade"), new Fornecedor(rs.getInt("Endereco_end_cod")));
+                    rs.getInt("pro_quantidade"), rs.getString("pro_marca"));
               
                 lista.add(resultadoBusca);    
             }
@@ -167,7 +172,7 @@ public class DaoProduto
             while(rs.next())
             { 
                 Produto resultadoBusca = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"),rs.getString("pro_desc"),
-                    rs.getInt("pro_quantidade"), new Fornecedor(rs.getInt("Fornecedor_for_cod")));
+                    rs.getInt("pro_quantidade"), rs.getString("pro_marca"));
               
                 lista.add(resultadoBusca);    
             }
@@ -198,7 +203,7 @@ public class DaoProduto
             while(rs.next())
             {
                 Produto resultadoBusca = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"),rs.getString("pro_desc"),
-                    rs.getInt("pro_quantidade"), new Fornecedor(rs.getInt("Endereco_end_cod")));
+                    rs.getInt("pro_quantidade"), rs.getString("pro_marca"));
                 lista.add(resultadoBusca);          
               
             }
@@ -213,31 +218,23 @@ public class DaoProduto
     }
     
     
-    public ArrayList <Produto> getProdutoPorFornecedor(String filtro)
+    public ArrayList <Produto> getProdutoPorMarca(String filtro)
     {
         ArrayList <Produto> lista = new ArrayList();
         
        
-       
+        String sql = "select * from Produto where pro_marca like '%"+filtro+"%';";
         
         try
         {
-            String sql = "select * from Produto";
-            if(!filtro.isEmpty())
-            {
-                String sqlFor = "select * from Fornecedor where upper(for_nome) lik '%"+filtro.toUpperCase()+"%' ;";
-                ResultSet rsFor = Banco.con.consultar(sql);
-                if(rsFor.next()){
-                    sql += " where Fornecedor_for_cod = "+rsFor.getInt("for_cod")+";";
-                }
-                 ResultSet rs = Banco.con.consultar(sql);
-               while(rs.next())
-               { 
-                   Produto resultadoBusca = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"),rs.getString("pro_desc"),
-                       rs.getInt("pro_quantidade"), new Fornecedor(rs.getInt("Endereco_end_cod")));
+            ResultSet rs = Banco.con.consultar(sql);
 
-                   lista.add(resultadoBusca);    
-               }
+            while(rs.next())
+            {
+               Produto resultadoBusca = new Produto(rs.getInt("pro_cod"), rs.getString("pro_nome"), rs.getDouble("pro_preco"),rs.getString("pro_desc"),
+                    rs.getInt("pro_quantidade"), rs.getString("pro_marca"));
+               
+               lista.add(resultadoBusca);  
 
             }
             
@@ -252,34 +249,5 @@ public class DaoProduto
         return lista;
     }
 
-    public boolean deletar(Produto produto) throws SQLException {
-        String sql ="";
-        boolean teste = true;
-        try
-        {
-            Banco.con.getConnect().setAutoCommit(false);
-            
-            sql = "delete from Produto where pro_nome like '%$1%' and pro_preco = $2 and pro_desc like = '%$3%' and pro_quantidade = $4;";
-            sql = sql.replace("$1", produto.getNome());
-            sql = sql.replace("$2", produto.getPreco()+"");
-            sql = sql.replace("$3", produto.getDescricao());
-            sql = sql.replace("$4", produto.getQuantidade()+"");
-            
-            System.out.println("sql Excluir:"+sql);
-            
-            teste = Banco.con.manipular(sql);
-            Banco.con.getConnect().commit();
-        }
-        catch(SQLException se)
-        {
-            Banco.con.getConnect().rollback();
-            teste = false;
-        }
-        finally
-        {
-            Banco.con.getConnect().setAutoCommit(true);
-        }
-        
-        return teste;
-    }
+   
 }

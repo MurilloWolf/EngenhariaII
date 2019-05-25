@@ -14,13 +14,13 @@ public class Produto
     private double preco;
     private int quantidade;
     private String descricao;
-    private Fornecedor fornecedor;
-    
+    private String marca;
     
     public Produto(int codigo){
         Produto pro = Produto.buscarPorCodigo(codigo);
         
         if(pro!=null){
+          this.cod = codigo;
           nome = pro.getNome();
           preco = pro.getPreco();
         }
@@ -50,26 +50,35 @@ public class Produto
         this.preco = -1;
     }
 
-    public Produto(int cod, String nome, double preco, String descricao, int quantidade, Fornecedor fornecedor) {
+    public Produto(int cod, String nome, double preco, String descricao, int quantidade, String marca) {
         this.cod = cod;
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
         this.descricao = descricao;
-        this.fornecedor = fornecedor;
+        this.marca = marca;
     }
     
-    public Produto( String nome, double preco, String descricao, int quantidade, Fornecedor fornecedor) {
+    public Produto( String nome, double preco, String descricao, int quantidade,String marca) {
         this.cod = cod;
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
         this.descricao = descricao;
-        this.fornecedor = fornecedor;
+        this.marca = marca;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
 
 
+    
     public int getQuantidade() {
         return quantidade;
     }
@@ -86,15 +95,7 @@ public class Produto
         this.descricao = descricao;
     }
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-    
-    
+   
 
     public int getCod() {
         return cod;
@@ -157,7 +158,7 @@ public class Produto
     public boolean deletar(){
         DaoProduto deletarProduto = new DaoProduto();
         try {
-            return deletarProduto.deletar(this);
+            return deletarProduto.apagar(this);
         } catch (Exception ex) {
             
               System.out.println("Erro : "+ex.toString());
@@ -206,6 +207,9 @@ public class Produto
         
         if(resultado != null && resultado.size() > 0)
         {
+            for (int i = 0; i < resultado.size(); i++) {
+                System.out.println("R"+i+":"+resultado.get(i).toString());
+            }
             return resultado;
         }
         
@@ -213,11 +217,11 @@ public class Produto
         
         
     } 
-    public static ArrayList<Object> buscarPorPreco(String filtro){
+    public static ArrayList<Produto> buscarPorPreco(String filtro){
         DaoProduto buscaProduto = new DaoProduto();
         
-        ArrayList<Object> resultado;
-        resultado = (ArrayList<Object>) (Object) buscaProduto.getProdutoPorPreco(filtro);
+        ArrayList<Produto> resultado;
+        resultado = buscaProduto.getProdutoPorPreco(filtro);
         
         if(resultado != null && resultado.size() > 0)
         {
@@ -228,12 +232,12 @@ public class Produto
         
         
     } 
-    
-    public static ArrayList<Object> buscarPorFornecedor(String filtro){
+
+    public static ArrayList<Produto> buscarPorMarca(String filtro){
         DaoProduto buscaProduto = new DaoProduto();
         
-        ArrayList<Object> resultado;
-        resultado = (ArrayList<Object>) (Object) buscaProduto.getProdutoPorFornecedor(filtro);
+        ArrayList<Produto> resultado;
+        resultado =  buscaProduto.getProdutoPorMarca(filtro);
         
         if(resultado != null && resultado.size() > 0)
         {
