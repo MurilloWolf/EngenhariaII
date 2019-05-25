@@ -44,7 +44,7 @@ public class DaoFuncionario {
         try {
             Banco.con.getConnect().setAutoCommit(false);
             
-            String sql = "insert into Funcionario (fun_nome, fun_email, fun_telefone, fun_cpf, fun_rg, Endereco_end_cod, fun_if_login, fun_senha, fun_tipo, fun_nivel) values ('$1','$2','$3','$4','$5',$6,'$7','$8','$9','$10')";
+            String sql = "insert into Funcionario (fun_nome, fun_email, fun_telefone, fun_cpf, fun_rg, Endereco_end_cod, fun_id_login, fun_senha, fun_tipo, fun_nivel) values ('$1','$2','$3','$4','$5',$6,'$7','$8','$9','$10')";
 
             sql = sql.replace("$1", p.getNome());
             sql = sql.replace("$2", ((Funcionario) p).getEmail());
@@ -78,7 +78,7 @@ public class DaoFuncionario {
         try {
             Banco.con.getConnect().setAutoCommit(false);
             
-            String sql = "update Funcionario set fun_nome='$1', fun_email='$2', fun_telefone='$3', fun_cpf='$4', fun_rg='$5', fun_if_login='$6', fun_senha='$7', fun_tipo='$8', fun_nivel='$9' where fun_cod="+p.getCod();
+            String sql = "update Funcionario set fun_nome='$1', fun_email='$2', fun_telefone='$3', fun_cpf='$4', fun_rg='$5', fun_id_login='$6', fun_senha='$7', fun_tipo='$8', fun_nivel='$9' where fun_cod="+p.getCod();
 
             sql = sql.replace("$1", p.getNome());
             sql = sql.replace("$2", ((Funcionario) p).getEmail());
@@ -90,7 +90,8 @@ public class DaoFuncionario {
             sql = sql.replace("$8", ((Funcionario) p).getTipo());
             sql = sql.replace("$9", ((Funcionario) p).getNivel());
 
-            Banco.con.manipular(sql);
+            System.out.println("FUNCIONARIO ALTERAR:"+sql);
+           flag =  Banco.con.manipular(sql);
             Banco.con.getConnect().commit();
         } catch (SQLException ex) 
         {
