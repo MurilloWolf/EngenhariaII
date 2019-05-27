@@ -38,6 +38,8 @@ public class Endereco {
         this.bairro = end.getBairro();
         this.rua = end.getRua();
         this.numero = end.getNumero();
+        this.cep = end.getCep();
+        
     }
 
     public Endereco() 

@@ -111,6 +111,7 @@ public class EmpresaController implements Initializable {
         
         //LOCAL
         txtCidade.setText(emp.getEndereco().getCidade());
+        txtBairro.setText(emp.getEndereco().getBairro());
         txtRua.setText(emp.getEndereco().getRua());
         txtUf.setText(emp.getEndereco().getUf());
         txtCep.setText(emp.getEndereco().getCep());
@@ -153,7 +154,7 @@ public class EmpresaController implements Initializable {
         //verificarCamposObrigatorios();
         //verificaTodosCamposDaTela(borderPane);
         
-        if(verificarCamposObrigatorios()){
+        if(!verificarCamposObrigatorios()){
           
             CtrEmpresa ctr = new CtrEmpresa();
             boolean resultadoInsercao = ctr.salvarEmpresa(
@@ -165,10 +166,18 @@ public class EmpresaController implements Initializable {
       
             //se inseriu
             if(resultadoInsercao){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("SUCESSO, é preciso reiniciaro o programa");
-                alert.showAndWait();
-                System.exit(0);
+                
+                if(btnCancelar.isDisabled()){
+                    clickCancelar(null);
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("SUCESSO, é preciso reiniciaro o programa");
+                    alert.showAndWait();
+                    System.exit(0);
+                }
+                
+                
 
 
             }else{
