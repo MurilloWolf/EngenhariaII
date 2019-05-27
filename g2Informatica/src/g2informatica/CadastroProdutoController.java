@@ -181,7 +181,6 @@ public class CadastroProdutoController implements Initializable {
             //se inserir deu certo
             if(ctr.cadastrar(txtNome.getText(),Double.parseDouble(preco),txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()),cbMarca.getSelectionModel().getSelectedItem())){
                 limparTela();
-                botoesEstadoInicial();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Cadastro realizado com sucesso");
                 alert.showAndWait();
@@ -190,6 +189,8 @@ public class CadastroProdutoController implements Initializable {
                 alert.setContentText("Nao foi possivel realizar o cadastro");
                 alert.showAndWait();
             }
+            botoesEstadoInicial();
+
         }
         
         
@@ -211,10 +212,11 @@ public class CadastroProdutoController implements Initializable {
                 String preco =  txtPreco.getText();
                 preco = preco.replace(".","");
                 preco = preco.replace(",", ".");
+                System.out.println("preco :"+preco);
                     //alterar no banco
                 if(ctr.alterar(produto.getCod(),txtNome.getText(), Double.parseDouble(preco), txaDescricao.getText(),Integer.parseInt(txtQuantidade.getText()) , cbMarca.getSelectionModel().getSelectedItem())){
-                  limparTela();
-                  botoesEstadoInicial();
+                    limparTela();
+                    botoesEstadoInicial();
                   
                     Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                     alert1.setContentText("Alteração realizada com SUCESSO");
@@ -257,7 +259,6 @@ public class CadastroProdutoController implements Initializable {
         if(alert.showAndWait().get() ==ButtonType.OK){
             limparTela();
             botoesEstadoInicial();
-            habilitarCampos();
         }
     }
     
@@ -275,6 +276,7 @@ public class CadastroProdutoController implements Initializable {
         System.out.println("prouto codigo:"+produto.getCod());
         
         cbMarca.getSelectionModel().select(produto.getMarca());
+        
         botoesEstadoAlterar();
         
     }
@@ -327,6 +329,7 @@ public class CadastroProdutoController implements Initializable {
 
     public void botoesEstadoInicial(){
         //nao se pode alterar se nao vuscar , nem excluir
+        btnCadastrar.setDisable(false);
         btnAlterar.setDisable(true);
         btnExcluir.setDisable(true);
         cbMarca.getSelectionModel().clearSelection();

@@ -52,7 +52,7 @@ public class FXMLprincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         _pndados = pnDados;
         disabilita();
-        evtLogar(null);
+        //evtLogar(null);
     }    
 
     @FXML

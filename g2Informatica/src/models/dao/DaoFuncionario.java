@@ -15,11 +15,11 @@ public class DaoFuncionario {
         
         if(p instanceof Funcionario)
         {
-            sql += "Funcionario where fun_id_login = '$1' and fun_senha = '$2'";
+            sql += "Funcionario where fun_id_login = '$1' and fun_senha = '$2' ;";
             sql = sql.replace("$1", login);
             sql = sql.replace("$2", senha);
             
-            
+            System.out.println("sql:"+sql);
             ResultSet rs = Banco.con.consultar(sql);
         
             try
@@ -38,14 +38,16 @@ public class DaoFuncionario {
         return p;
     }
     
-    public boolean verificaloguin(Pessoa p)throws SQLException
+    public boolean verificaloguin(String p)throws SQLException
     {
         boolean flag = true;
-       
-            ResultSet rs = Banco.con.consultar("select caunt(fun_if_login) qtde qtde from Funcionario where fun_if_login = "+((Funcionario) p).getId_login()+";");
+               
+            String sql="select count(fun_id_login) qtde from Funcionario where fun_id_login = '"+p+"';";
+            ResultSet rs = Banco.con.consultar(sql);
+            System.out.println("sql");
             if(rs.next())
             {
-                if(rs.getString("qtde").equals("0")){
+                if(rs.getInt("qtd")==0){
                     flag = true;
                 }
                 else
@@ -132,10 +134,10 @@ public class DaoFuncionario {
         
         try
         {
-            ResultSet rs = Banco.con.consultar("select caunt(fun_nivel) qtde from Funcionario where fun_nivel = '1';");
+            ResultSet rs = Banco.con.consultar("select count(fun_nivel) qtde from Funcionario where fun_nivel = '1';");
             if(rs.next())
             {
-                if(!rs.getString("qtde").equals("1")){
+                if(rs.getInt("qtde") > 1){
                     Banco.con.getConnect().setAutoCommit(false);
                     flag = Banco.con.manipular("delete from Funcionario where fun_cod=" +cod);
                     Banco.con.getConnect().commit();

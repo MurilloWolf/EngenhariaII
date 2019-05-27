@@ -21,8 +21,10 @@ public class Produto
         
         if(pro!=null){
           this.cod = codigo;
-          nome = pro.getNome();
-          preco = pro.getPreco();
+          this.nome = pro.getNome();
+          this.preco = pro.getPreco();
+          this.descricao = pro.getDescricao();
+          this.marca = pro.getMarca();
         }
         else{
             nome = "";
@@ -69,6 +71,9 @@ public class Produto
     }
 
     public String getMarca() {
+        if(marca == null)
+            return "";
+        
         return marca;
     }
 
@@ -88,6 +93,9 @@ public class Produto
     }
 
     public String getDescricao() {
+        if(descricao == null || descricao.equals(""))
+            return "";
+        
         return descricao;
     }
 

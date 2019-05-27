@@ -15,8 +15,8 @@ public class CtrcadastroFuncionario {
         DaoFuncionario daof = new DaoFuncionario();
         Endereco e =new Endereco(uf, cidade ,bairro ,rua ,numero ,cep);
         Pessoa p = new Funcionario(nome, email, telefone, cpf, rg, 0, id_login, senha, tipo, nivel);
-        if(daof.verificaloguin(p))
-        {
+        //if(daof.verificaloguin(id_login))
+        //{
             if (!e.verificaEnderecoExistente()) 
             {
                 if (e.salvar()) 
@@ -36,7 +36,7 @@ public class CtrcadastroFuncionario {
                     flag = true;
                 }
             }
-        }
+        //}
         
         return flag;
     }

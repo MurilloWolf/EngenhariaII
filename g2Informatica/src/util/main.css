@@ -15,7 +15,9 @@ and open the template in the editor.
     #00DB78 -   (L)Green    -   SUCCESS
     #EF2917 -   Red         -   ERROR
     #FF4D3D -   (L)Red      -   ERROR
-    
+    #FFBA08 -   Yellow      -   ALTER
+
+
     #0188c8 -   G2
 
     #22223B -   Dark
@@ -60,6 +62,14 @@ and open the template in the editor.
 .button-cancel{
     -fx-background-color: #FF4D3D;
 }
+
+.button-alterar{
+    -fx-background-color: #FFBA08;
+}
+.button-excluir{
+    -fx-background-color: #22223B;
+}
+
 
 /* ==================================== TEXT ====================================*/
 

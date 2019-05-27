@@ -92,8 +92,8 @@
                   <HBox alignment="CENTER" prefHeight="79.0" prefWidth="281.0" spacing="20.0">
                      <children>
                         <Button fx:id="btnCadastrar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCadastrar" prefHeight="40.0" prefWidth="114.0" styleClass="button-success" text="Cadastrar" textAlignment="CENTER" />
-                        <Button fx:id="btnAlterar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickAlterar" prefWidth="100.0" text="Alterar" textAlignment="CENTER" />
-                        <Button fx:id="btnExcluir" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickExcluir" prefWidth="100.0" text="Excluir" textAlignment="CENTER" />
+                        <Button fx:id="btnAlterar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickAlterar" prefWidth="100.0" styleClass="button-alterar" text="Alterar" textAlignment="CENTER" />
+                        <Button fx:id="btnExcluir" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickExcluir" prefWidth="100.0" styleClass="button-excluir" text="Excluir" textAlignment="CENTER" />
                         <Button fx:id="btnCancelar" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickCanccelar" prefHeight="40.0" prefWidth="113.0" styleClass="button-cancel" text="Cancelar" textAlignment="CENTER" />
                      </children>
                   </HBox>

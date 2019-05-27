@@ -72,6 +72,10 @@ public class TelaLoginController implements Initializable {
                 login = "";
             }
             btnLogar.getScene().getWindow().hide();
+            
+            
+            
+            
         }
     }
 
