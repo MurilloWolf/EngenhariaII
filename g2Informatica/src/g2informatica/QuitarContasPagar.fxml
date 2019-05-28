@@ -32,18 +32,18 @@
          </children></HBox>
       <AnchorPane prefHeight="550.0">
          <children>
-            <TableView layoutX="14.0" layoutY="14.0" prefHeight="530.0" prefWidth="300.0">
+            <TableView fx:id="tbContas" layoutX="14.0" layoutY="14.0" prefHeight="530.0" prefWidth="300.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="115.0" text="C2" />
-                  <TableColumn prefWidth="110.0" text="Column X" />
+                <TableColumn fx:id="colCodC" prefWidth="75.0" text="Cod" />
+                <TableColumn fx:id="colValoC" prefWidth="115.0" text="Valor" />
+                  <TableColumn fx:id="colDataC" prefWidth="110.0" text="DataV" />
               </columns>
             </TableView>
-            <TableView layoutX="486.0" layoutY="14.0" prefHeight="530.0" prefWidth="300.0">
+            <TableView fx:id="tbContasEscolhidas" layoutX="486.0" layoutY="14.0" prefHeight="530.0" prefWidth="300.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="115.0" text="C2" />
-                  <TableColumn prefWidth="110.0" text="Column X" />
+                <TableColumn fx:id="colCodCE" prefWidth="75.0" text="Cod" />
+                <TableColumn fx:id="colValorCE" prefWidth="115.0" text="Valor" />
+                  <TableColumn fx:id="colDataCE" prefWidth="110.0" text="DataV" />
               </columns>
             </TableView>
             <Button fx:id="btAdicionar" layoutX="350.0" layoutY="191.0" mnemonicParsing="false" onAction="#evtAdiconar" prefHeight="50.0" prefWidth="100.0" text="Adicionar" />

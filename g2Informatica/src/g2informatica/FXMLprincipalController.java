@@ -33,6 +33,10 @@ public class FXMLprincipalController implements Initializable {
     private Button btnProduto;
     @FXML
     private Button btnOfertas;
+    @FXML
+    private Button btnQuitarContas;
+    @FXML
+    private Button btComprarProdutos;
     
     
     void disabilita()
@@ -141,6 +145,28 @@ public class FXMLprincipalController implements Initializable {
         }catch(Exception e ){
             System.out.println("Erro :"+e);
         }
+    }
+
+    @FXML
+    private void evtQuitarContas(ActionEvent event) {
+        try
+        {    
+            Parent root = FXMLLoader.load(getClass().getResource("QuitarContasPagar.fxml"));
+            pnDados.getChildren().clear();
+            pnDados.getChildren().add(root);
+        } 
+        catch (Exception e) {System.out.println(e);}
+    }
+
+    @FXML
+    private void evtComprarProdutos(ActionEvent event) {
+        try
+        {    
+            Parent root = FXMLLoader.load(getClass().getResource("ComprarProdutos.fxml"));
+            pnDados.getChildren().clear();
+            pnDados.getChildren().add(root);
+        } 
+        catch (Exception e) {System.out.println(e);}
     }
     
 }
