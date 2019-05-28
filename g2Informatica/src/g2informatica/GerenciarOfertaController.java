@@ -27,14 +27,6 @@ public class GerenciarOfertaController implements Initializable {
 
     public static VBox _painel;
     @FXML
-    private DatePicker dateInicial;
-    @FXML
-    private DatePicker dateFinal;
-    @FXML
-    private Button btnConfirmar;
-    @FXML
-    private Button btnOfertas;
-    @FXML
     private Button btnNovo;
     @FXML
     private Button btnAlterar;
@@ -42,10 +34,6 @@ public class GerenciarOfertaController implements Initializable {
     private Button btnExcluir;
     @FXML
     private Button btnCancelar;
-    @FXML
-    private TableView<?> tbProduto;
-    @FXML
-    private TableView<?> tbServico;
     @FXML
     private VBox hboxCentral;
 
@@ -60,11 +48,7 @@ public class GerenciarOfertaController implements Initializable {
         
     }   
 
-    @FXML
-    private void clickConfirmar(ActionEvent event) {
-    }
 
-    @FXML
     private void clickOfertasAbertas(ActionEvent event) {
          try{
             Parent root = FXMLLoader.load(getClass().getResource("OfertasEmAberto.fxml"));

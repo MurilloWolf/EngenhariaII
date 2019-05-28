@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
  *
  * @author wolf
  */
-public class OfertasEmAbertoController implements Initializable {
+public class CrudOfertasController implements Initializable {
 
     @FXML
     private VBox vboxCentral;
