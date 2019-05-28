@@ -6,29 +6,29 @@
 package models;
 
 import db.Banco;
-import java.util.ArrayList;
+import java.sql.ResultSet;
 
 /**
  *
  * @author wolf
  */
-public class OfertaServico {
-   
-   private double preco;
-   private Servico servico;
-   
+public class OfertaProduto {
+    private Produto produto;
+    private double preco;
 
-    public OfertaServico(Servico servico, double preco) {
-        this.servico = servico;
+    public OfertaProduto(Produto produto, double preco) {
+        this.produto = produto;
         this.preco = preco;
     }
 
-    public Servico getServico() {
-        return servico;
+    
+    
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setServico(Servico servico) {
-        this.servico = servico;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     public double getPreco() {
@@ -38,15 +38,16 @@ public class OfertaServico {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-
+    
+    
     /* ========================================== SQL ========================================== */
     public boolean salvarOferta(int codigo){
      boolean resultado = false;
      String sql="";
      
      try{
-         sql = "insert into Oferta_Servico (Servico_ser_cod, Oferta_ofe_cod, ofe_ser_valor) values ($1,$2,$3);";
-         sql = sql.replace("$1",servico.getCodigo()+"" );
+         sql = "insert into Oferta_Produto (Produto_pro_cod, Oferta_ofe_cod, ofe_ser_valor) values ($1,$2,$3);";
+         sql = sql.replace("$1",produto.getCod()+"" );
          sql = sql.replace("$2",codigo+"" );
          sql = sql.replace("$3",preco+"");
          
@@ -60,6 +61,4 @@ public class OfertaServico {
      return resultado ;
     }
     
-   
-   
 }

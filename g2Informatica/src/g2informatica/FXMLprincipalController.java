@@ -31,6 +31,8 @@ public class FXMLprincipalController implements Initializable {
     private Button btnParametrizacao;
     @FXML
     private Button btnProduto;
+    @FXML
+    private Button btnOfertas;
     
     
     void disabilita()
@@ -128,6 +130,17 @@ public class FXMLprincipalController implements Initializable {
             System.out.println("Erro :"+e);
         }
         
+    }
+
+    @FXML
+    private void clickGerenciarOfertas(ActionEvent event) {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("GerenciarOferta.fxml"));
+            pnDados.getChildren().clear();
+            pnDados.getChildren().add(root);
+        }catch(Exception e ){
+            System.out.println("Erro :"+e);
+        }
     }
     
 }
