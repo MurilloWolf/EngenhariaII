@@ -28,11 +28,11 @@
           </TitledPane>
           <TitledPane animated="false" text="Registrar">
                <content>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
                         <Button fx:id="btnOfertas" mnemonicParsing="false" onAction="#clickGerenciarOfertas" prefHeight="33.0" prefWidth="318.0" styleClass="button-menu" text="Gerenciar Ofertas" />
-                        <Button fx:id="btnQuitarContas" mnemonicParsing="false" onAction="#evtQuitarContas" prefHeight="39.0" prefWidth="190.0" text="Quitar Contas" />
-                        <Button fx:id="btComprarProdutos" mnemonicParsing="false" onAction="#evtComprarProdutos" prefHeight="39.0" prefWidth="190.0" text="Comprar Produtos" />
+                        <Button fx:id="btnQuitarContas" mnemonicParsing="false" onAction="#evtQuitarContas" prefHeight="39.0" prefWidth="271.0" styleClass="button-menu" text="Quitar Contas" />
+                        <Button fx:id="btComprarProdutos" mnemonicParsing="false" onAction="#evtComprarProdutos" prefHeight="39.0" prefWidth="249.0" styleClass="button-menu" text="Comprar Produtos" />
                      </children>
                   </VBox>
                </content>

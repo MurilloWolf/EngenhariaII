@@ -1,17 +1,19 @@
 package models;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 
 public class ContasPagar {
     
+    private int cod;
     private double valorPago;
     private double valorConta;
-    private Date dataConta;
-    private Date dataVencimento;
-    private Date dataPagamento;
+    private Timestamp dataConta;
+    private Timestamp dataVencimento;
+    private Timestamp dataPagamento;
 
-    public ContasPagar(double valorPago, double valorConta, Date dataConta, Date dataVencimento, Date dataPagamento) {
+    public ContasPagar(int cod, double valorPago, double valorConta, Timestamp dataConta, Timestamp dataVencimento, Timestamp dataPagamento) {
+        this.cod = cod;
         this.valorPago = valorPago;
         this.valorConta = valorConta;
         this.dataConta = dataConta;
@@ -20,6 +22,14 @@ public class ContasPagar {
     }
 
     public ContasPagar() {
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
     }
 
     public double getValorPago() {
@@ -38,27 +48,27 @@ public class ContasPagar {
         this.valorConta = valorConta;
     }
 
-    public Date getDataConta() {
+    public Timestamp getDataConta() {
         return dataConta;
     }
 
-    public void setDataConta(Date dataConta) {
+    public void setDataConta(Timestamp dataConta) {
         this.dataConta = dataConta;
     }
 
-    public Date getDataVencimento() {
+    public Timestamp getDataVencimento() {
         return dataVencimento;
     }
 
-    public void setDataVencimento(Date dataVencimento) {
+    public void setDataVencimento(Timestamp dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
 
-    public Date getDataPagamento() {
+    public Timestamp getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(Date dataPagamento) {
+    public void setDataPagamento(Timestamp dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
     

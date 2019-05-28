@@ -7,6 +7,8 @@ package g2informatica;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,18 +59,19 @@ public class QuitarContasPagarController implements Initializable {
     @FXML
     private TableColumn colDataCE;
 
-    /**
-     * Initializes the controller class.
-     */
+    ctr
+    ObservableList<ContasPagar> listaContas = FXCollections.observableArrayList();
+    ObservableList<ContasPagar> ListaCEscolidas = FXCollections.observableArrayList();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        colCodC.setCellValueFactory(new PropertyValueFactory<>(""));
-        colCodCE.setCellValueFactory(new PropertyValueFactory<>(""));
-        colDataC.setCellValueFactory(new PropertyValueFactory<>(""));
-        colDataCE.setCellValueFactory(new PropertyValueFactory<>(""));
-        colValoC.setCellValueFactory(new PropertyValueFactory<>(""));
-        colValorCE.setCellValueFactory(new PropertyValueFactory<>(""));
+        colCodC.setCellValueFactory(new PropertyValueFactory<>("cod"));
+        colCodCE.setCellValueFactory(new PropertyValueFactory<>("cod"));
+        colDataC.setCellValueFactory(new PropertyValueFactory<>("dataVencimento"));
+        colDataCE.setCellValueFactory(new PropertyValueFactory<>("dataVencimento"));
+        colValoC.setCellValueFactory(new PropertyValueFactory<>("valorConta"));
+        colValorCE.setCellValueFactory(new PropertyValueFactory<>("valorConta"));
         
         
     }    
