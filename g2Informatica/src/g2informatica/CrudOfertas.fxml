@@ -13,35 +13,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="1159.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.OfertasEmAbertoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="998.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CrudOfertasController">
    <left>
-      <VBox prefHeight="557.0" prefWidth="457.0" styleClass="background-all" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="452.0" spacing="10.0">
-               <children>
-                  <ComboBox prefWidth="150.0" promptText="Filtros" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Buscar" />
-               </children>
-            </HBox>
-            <Label text="Ofertas">
-               <VBox.margin>
-                  <Insets left="10.0" />
-               </VBox.margin></Label>
-            <TableView prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </TableView>
-         </children>
-      </VBox>
-   </left>
-   <center>
-      <VBox fx:id="vboxCentral" alignment="TOP_CENTER" prefHeight="557.0" prefWidth="452.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxCentral" alignment="TOP_CENTER" prefHeight="501.0" prefWidth="386.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="16.0" prefWidth="552.0" text="Adicionar">
                <styleClass>
@@ -83,43 +57,9 @@
                   </HBox>
                </children>
             </VBox>
-            <Label alignment="CENTER" prefHeight="16.0" prefWidth="552.0" text="Remover">
-               <styleClass>
-                  <String fx:value="background-g2" />
-                  <String fx:value="title" />
-               </styleClass>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <VBox alignment="CENTER" prefHeight="70.0" prefWidth="542.0">
-               <children>
-                  <Label prefHeight="30.0" prefWidth="302.0" text="Produtos" textAlignment="CENTER">
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </Label>
-                  <HBox alignment="CENTER" prefHeight="197.0" prefWidth="395.0" spacing="10.0">
-                     <children>
-                        <ComboBox prefHeight="26.0" prefWidth="265.0" />
-                        <Button mnemonicParsing="false" styleClass="button-cancel" text="-" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <Label prefHeight="30.0" prefWidth="305.0" text="Remover">
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </Label>
             <VBox>
                <children>
-                  <HBox alignment="CENTER" prefHeight="8.0" prefWidth="395.0" spacing="10.0">
-                     <children>
-                        <ComboBox prefHeight="26.0" prefWidth="266.0" />
-                        <Button mnemonicParsing="false" styleClass="button-cancel" text="-" />
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="8.0" prefWidth="395.0" spacing="10.0" />
                </children>
             </VBox>
             <Label alignment="CENTER" prefHeight="16.0" prefWidth="552.0" text="Data">
@@ -158,9 +98,9 @@
             </VBox>
          </children>
       </VBox>
-   </center>
-   <right>
-      <VBox fx:id="vboxDireita" prefHeight="557.0" prefWidth="295.0" BorderPane.alignment="CENTER">
+   </left>
+   <center>
+      <VBox fx:id="vboxDireita" prefHeight="501.0" prefWidth="329.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="20.0" prefWidth="372.0" text="Nova Oferta">
                <styleClass>
@@ -174,23 +114,65 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TableView prefHeight="394.0" prefWidth="295.0">
+            <TableView prefHeight="388.0" prefWidth="323.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn prefWidth="135.0" text="Produtos" />
+                <TableColumn prefWidth="136.0" text="Valor" />
               </columns>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </TableView>
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="371.0" styleClass="button-success" text="Confirmar">
+         </children></VBox>
+   </center>
+   <right>
+      <VBox prefHeight="501.0" prefWidth="309.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="35.0" prefWidth="331.0">
+               <styleClass>
+                  <String fx:value="title" />
+                  <String fx:value="button-success" />
+               </styleClass>
+            </Label>
+            <TableView prefHeight="387.0" prefWidth="294.0">
+              <columns>
+                <TableColumn prefWidth="123.0" text="Serviçios" />
+                <TableColumn prefWidth="113.0" text="Valor" />
+              </columns>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </Button>
-         </children></VBox>
+            </TableView>
+         </children>
+      </VBox>
    </right>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="56.0" prefWidth="998.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="button-success" text="Confirmar">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" styleClass="background-g2" text="Alterar">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" styleClass="button-alterar" text="Remover">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" styleClass="button-cancel" text="Cancelar">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>
