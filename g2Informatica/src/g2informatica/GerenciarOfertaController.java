@@ -5,18 +5,32 @@
  */
 package g2informatica;
 
+import controllers.CtrOferta;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import models.Oferta;
+import models.Produto;
+import models.Servico;
+
 
 /**
  * FXML Controller class
@@ -25,6 +39,10 @@ import javafx.scene.layout.VBox;
  */
 public class GerenciarOfertaController implements Initializable {
 
+    
+    ObservableList<Oferta> lista = FXCollections.observableArrayList();
+    Oferta ofe;
+    
     public static VBox _painel;
     @FXML
     private Button btnNovo;
@@ -36,6 +54,36 @@ public class GerenciarOfertaController implements Initializable {
     private Button btnCancelar;
     @FXML
     private VBox hboxCentral;
+    @FXML
+    private ComboBox<String> cbFiltros;
+    @FXML
+    private TextField txtBusca;
+    @FXML
+    private Button btnBuscar;
+    
+    CtrOferta ctr = new CtrOferta();
+    
+    //DUVIDA, NAO SEI SE A TABELA TEM QUE SER DO TIPO PRODUTO E SERVICO OU , OFERTAPRODUTO, OFERTASERVICO
+    @FXML
+    private TableView<Oferta> tbOferta;
+    @FXML
+    private TableView<Produto> tbProduto;
+    @FXML
+    private TableView<Servico> tbServico;
+    @FXML
+    private TableColumn tbDescricao;
+    @FXML
+    private TableColumn tbDataInicial;
+    @FXML
+    private TableColumn tbDataFinal;
+    @FXML
+    private TableColumn clProduto;
+    @FXML
+    private TableColumn clValorPro;
+    @FXML
+    private TableColumn clServico;
+    @FXML
+    private TableColumn clValorSer;
 
     /**
      * Initializes the controller class.
@@ -43,6 +91,9 @@ public class GerenciarOfertaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        linkarTabelas();
+        botoesEstadoInicial();
+        limparTela();
         
         
         
@@ -63,6 +114,7 @@ public class GerenciarOfertaController implements Initializable {
 
     @FXML
     private void clickNovo(ActionEvent event) {
+         
     }
 
     @FXML
@@ -71,14 +123,106 @@ public class GerenciarOfertaController implements Initializable {
 
     @FXML
     private void clickExcluir(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem certeza que deseja excluir essa Promoção ");
+        if(alert.showAndWait().get() ==ButtonType.OK){
+            
+            if(ctr.deletarOferta(ofe.getCodigo())){
+                limparTela();
+                botoesEstadoInicial();
+            }else{
+                Alert erro = new Alert(Alert.AlertType.ERROR);
+                erro.setContentText("Não foi possivel excluir a Oferta");
+                erro.showAndWait();
+            }
+
+           
+        }
     }
 
     @FXML
     private void clickCancelar(ActionEvent event) {
+        botoesEstadoInicial();
+        limparTela();
+    }
+
+    @FXML
+    private void clickBuscar(ActionEvent event) {
+        
+        boolean buscou = false;
+        
+        if(txtBusca.getText().trim().isEmpty()){
+            lista.addAll(ctr.getAllOfertas());
+            
+            buscou = true;
+        }
+        
+        
+        if(buscou){
+            limparTabelas();     
+            tbOferta.getItems().addAll(lista);
+            
+        }
+        
     }
     
     
-   
+   // ====================================== CONTROLE TELA ======================================
     
+    private void botoesEstadoInicial(){
+        btnNovo.setDisable(false);
+        btnAlterar.setDisable(true);
+        btnExcluir.setDisable(true);
+        btnCancelar.setDisable(false);
+    }
     
+     private void botoesEstadoAlterar(){
+        btnNovo.setDisable(true);
+        btnAlterar.setDisable(false);
+        btnExcluir.setDisable(false);
+        btnCancelar.setDisable(false);
+    }
+    
+     private void limparTela(){
+         txtBusca.clear();
+         cbFiltros.getSelectionModel().clearSelection();
+         limparTabelas();
+     }
+     
+     private void limparTabelas(){
+          tbOferta.getItems().clear();
+          tbProduto.getItems().clear();
+          tbServico.getItems().clear();
+     }
+     
+     private void linkarTabelas(){
+      
+         //tabela de Oferta
+        tbDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        tbDataInicial.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+        tbDataFinal.setCellValueFactory(new PropertyValueFactory<>("dataFinal"));
+        
+        //tabela de Produto
+        clProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        clValorPro.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        
+        //tabela de Servvico
+        clServico.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        clValorSer.setCellValueFactory(new PropertyValueFactory<>("preco"));
+
+
+     }
+
+    // ====================================== EVENTOS ======================================
+
+    @FXML
+    private void clickTabelaOfertas(MouseEvent event) {
+        ofe = tbOferta.getSelectionModel().getSelectedItem();
+        if ( ofe == null){
+            botoesEstadoAlterar();
+            
+            //carregar outras duas tabelas
+        }
+           
+    }
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="1007.0" styleClass="background-all" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.GerenciarOfertaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="1182.0" styleClass="background-all" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.GerenciarOfertaController">
    <top>
       <VBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="600.0" styleClass="background-g2" BorderPane.alignment="CENTER">
          <children>
@@ -46,9 +46,9 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="906.0" spacing="10.0">
                      <children>
-                        <ComboBox prefWidth="150.0" />
-                        <TextField prefHeight="25.0" prefWidth="186.0" />
-                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" text="Buscar" />
+                        <ComboBox fx:id="cbFiltros" prefWidth="150.0" promptText="Filtros" />
+                        <TextField fx:id="txtBusca" prefHeight="25.0" prefWidth="186.0" />
+                        <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#clickBuscar" prefHeight="34.0" prefWidth="80.0" text="Buscar" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
@@ -59,23 +59,23 @@
                         <Insets left="30.0" />
                      </padding>
                      <children>
-                        <TableView prefHeight="307.0" prefWidth="447.0">
+                        <TableView fx:id="tbOferta" onMouseClicked="#clickTabelaOfertas" prefHeight="307.0" prefWidth="447.0">
                           <columns>
-                            <TableColumn prefWidth="156.0" text="Descrição" />
-                              <TableColumn minWidth="0.0" prefWidth="140.0" text="Data Inicial" />
-                              <TableColumn minWidth="0.0" prefWidth="149.0" text="Data Final" />
+                            <TableColumn fx:id="tbDescricao" prefWidth="156.0" text="Descrição" />
+                              <TableColumn fx:id="tbDataInicial" minWidth="0.0" prefWidth="140.0" text="Data Inicial" />
+                              <TableColumn fx:id="tbDataFinal" minWidth="0.0" prefWidth="149.0" text="Data Final" />
                           </columns>
                         </TableView>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="tbProduto" prefHeight="200.0" prefWidth="300.0">
                           <columns>
-                            <TableColumn prefWidth="83.0" text="Produto" />
-                            <TableColumn prefWidth="116.0" text="ValorPromoção" />
+                            <TableColumn fx:id="clProduto" prefWidth="106.0" text="Produto" />
+                            <TableColumn fx:id="clValorPro" prefWidth="182.0" text="ValorPromoção" />
                           </columns>
                         </TableView>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="tbServico" prefHeight="200.0" prefWidth="300.0">
                           <columns>
-                            <TableColumn prefWidth="85.0" text="Serviço" />
-                            <TableColumn prefWidth="113.0" text="ValorPromoção" />
+                            <TableColumn fx:id="clServico" prefWidth="138.0" text="Serviço" />
+                            <TableColumn fx:id="clValorSer" prefWidth="150.0" text="ValorPromoção" />
                           </columns>
                         </TableView>
                      </children>

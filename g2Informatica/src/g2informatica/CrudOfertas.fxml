@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="998.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CrudOfertasController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="998.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CrudOfertasController">
    <left>
       <VBox fx:id="vboxCentral" alignment="TOP_CENTER" prefHeight="501.0" prefWidth="386.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="16.0" prefWidth="552.0" text="Adicionar">
+            <Label alignment="CENTER" prefHeight="36.0" prefWidth="552.0" text="Adicionar">
                <styleClass>
                   <String fx:value="background-g2" />
                   <String fx:value="title" />
@@ -102,7 +102,7 @@
    <center>
       <VBox fx:id="vboxDireita" prefHeight="501.0" prefWidth="329.0" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="20.0" prefWidth="372.0" text="Nova Oferta">
+            <Label prefHeight="36.0" prefWidth="303.0" text="Nova Oferta">
                <styleClass>
                   <String fx:value="button-success" />
                   <String fx:value="title" />
@@ -128,7 +128,7 @@
    <right>
       <VBox prefHeight="501.0" prefWidth="309.0" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="35.0" prefWidth="331.0">
+            <Label prefHeight="36.0" prefWidth="331.0">
                <styleClass>
                   <String fx:value="title" />
                   <String fx:value="button-success" />

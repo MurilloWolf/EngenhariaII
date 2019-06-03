@@ -5,6 +5,7 @@
  */
 package g2informatica;
 
+import controllers.CtrQuitarContasApagar;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -59,9 +60,10 @@ public class QuitarContasPagarController implements Initializable {
     @FXML
     private TableColumn colDataCE;
 
-    ctr
+    CtrQuitarContasApagar ctrQTP = new CtrQuitarContasApagar();
     ObservableList<ContasPagar> listaContas = FXCollections.observableArrayList();
     ObservableList<ContasPagar> ListaCEscolidas = FXCollections.observableArrayList();
+    ContasPagar cp;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,6 +84,9 @@ public class QuitarContasPagarController implements Initializable {
 
     @FXML
     private void evtLImpar(ActionEvent event) {
+        ListaCEscolidas.clear();
+        
+        
     }
 
     @FXML
@@ -96,6 +101,9 @@ public class QuitarContasPagarController implements Initializable {
 
     @FXML
     private void evtAdiconar(ActionEvent event) {
+        cp=tbContas.getSelectionModel().getSelectedItem();
+        ListaCEscolidas.add(cp);
+        
     }
 
     @FXML
@@ -104,6 +112,8 @@ public class QuitarContasPagarController implements Initializable {
 
     @FXML
     private void evtRemovar(ActionEvent event) {
+        ListaCEscolidas.remove(tbContasEscolhidas.getSelectionModel().getSelectedItem().hashCode());
+        tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
     }
     
 }
