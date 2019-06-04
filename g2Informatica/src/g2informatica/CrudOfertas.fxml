@@ -32,15 +32,15 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="197.0" prefWidth="395.0" spacing="10.0">
                      <children>
-                        <ComboBox prefWidth="150.0" />
-                        <Button mnemonicParsing="false" styleClass="button-success" text="+" />
-                        <TextField prefHeight="26.0" prefWidth="49.0" promptText="\%" />
-                        <TextField prefHeight="26.0" prefWidth="88.0" promptText="Novo Valor" />
+                        <ComboBox fx:id="cbProdutos" prefWidth="150.0" />
+                        <Button fx:id="btnAdicionarProdutos" mnemonicParsing="false" onAction="#addProdutos" styleClass="button-success" text="+" />
+                        <TextField fx:id="txtPorcentagemProduto" prefHeight="26.0" prefWidth="49.0" promptText="\%" />
+                        <TextField fx:id="txtValorProduto" prefHeight="26.0" prefWidth="88.0" promptText="Novo Valor" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Label prefHeight="30.0" prefWidth="355.0" text="Remover">
+            <Label prefHeight="30.0" prefWidth="355.0" text="Serviços">
                <padding>
                   <Insets top="10.0" />
                </padding>
@@ -49,10 +49,10 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="8.0" prefWidth="395.0" spacing="10.0">
                      <children>
-                        <ComboBox prefWidth="150.0" />
-                        <Button mnemonicParsing="false" styleClass="button-success" text="+" />
-                        <TextField prefHeight="26.0" prefWidth="49.0" promptText="\%" />
-                        <TextField prefHeight="26.0" prefWidth="88.0" promptText="Novo Valor" />
+                        <ComboBox fx:id="cbServicos" prefWidth="150.0" />
+                        <Button fx:id="btnAdicionarServicos" mnemonicParsing="false" onAction="#addServico" styleClass="button-success" text="+" />
+                        <TextField fx:id="txtPorcentagemServico" prefHeight="26.0" prefWidth="49.0" promptText="\%" />
+                        <TextField fx:id="txtValorServico" prefHeight="26.0" prefWidth="88.0" promptText="Novo Valor" />
                      </children>
                   </HBox>
                </children>
@@ -77,7 +77,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="197.0" prefWidth="395.0" spacing="10.0">
                      <children>
-                        <DatePicker prefHeight="26.0" prefWidth="306.0" />
+                        <DatePicker fx:id="dtInicial" prefHeight="26.0" prefWidth="306.0" />
                      </children>
                   </HBox>
                </children>
@@ -91,7 +91,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="197.0" prefWidth="395.0" spacing="10.0">
                      <children>
-                        <DatePicker prefHeight="26.0" prefWidth="305.0" />
+                        <DatePicker fx:id="dtFinal" prefHeight="26.0" prefWidth="305.0" />
                      </children>
                   </HBox>
                </children>
@@ -114,10 +114,10 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TableView prefHeight="388.0" prefWidth="323.0">
+            <TableView fx:id="tbProduto" prefHeight="388.0" prefWidth="323.0">
               <columns>
-                <TableColumn prefWidth="135.0" text="Produtos" />
-                <TableColumn prefWidth="136.0" text="Valor" />
+                <TableColumn fx:id="clProduto" prefWidth="156.0" text="Produtos" />
+                <TableColumn fx:id="clValorProdutos" prefWidth="130.0" text="Valor" />
               </columns>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -134,10 +134,10 @@
                   <String fx:value="button-success" />
                </styleClass>
             </Label>
-            <TableView prefHeight="387.0" prefWidth="294.0">
+            <TableView fx:id="tbServico" prefHeight="387.0" prefWidth="294.0">
               <columns>
-                <TableColumn prefWidth="123.0" text="Serviçios" />
-                <TableColumn prefWidth="113.0" text="Valor" />
+                <TableColumn fx:id="clServico" prefWidth="163.0" text="Serviçios" />
+                <TableColumn fx:id="clValorServico" prefWidth="128.0" text="Valor" />
               </columns>
                <VBox.margin>
                   <Insets />
@@ -152,22 +152,22 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="56.0" prefWidth="998.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="button-success" text="Confirmar">
+            <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#clickConfirmar" prefHeight="30.0" prefWidth="150.0" styleClass="button-success" text="Confirmar">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" styleClass="background-g2" text="Alterar">
+            <Button fx:id="btnAlterar" mnemonicParsing="false" onAction="#clickAlterar" prefHeight="20.0" prefWidth="150.0" styleClass="background-g2" text="Alterar">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" styleClass="button-alterar" text="Remover">
+            <Button fx:id="btnRemover" mnemonicParsing="false" onAction="#clickRemover" prefHeight="20.0" prefWidth="150.0" styleClass="button-alterar" text="Remover">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" styleClass="button-cancel" text="Cancelar">
+            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#clickCancelar" prefHeight="20.0" prefWidth="150.0" styleClass="button-cancel" text="Cancelar">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>

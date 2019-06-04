@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -27,6 +28,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.Oferta;
 import models.OfertaProduto;
 import models.OfertaServico;
@@ -117,6 +120,17 @@ public class GerenciarOfertaController implements Initializable {
 
     @FXML
     private void clickNovo(ActionEvent event) {
+           try {
+            Parent root = FXMLLoader.load(getClass().getResource("CrudOfertas.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("Login");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
          
     }
 
@@ -180,7 +194,7 @@ public class GerenciarOfertaController implements Initializable {
     }
     
      private void botoesEstadoAlterar(){
-        btnNovo.setDisable(true);
+        btnNovo.setDisable(false);
         btnAlterar.setDisable(false);
         btnExcluir.setDisable(false);
         btnCancelar.setDisable(false);
