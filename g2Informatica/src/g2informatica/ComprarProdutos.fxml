@@ -59,7 +59,7 @@
             <TextField fx:id="txPesquisa" layoutX="245.0" layoutY="13.0" prefHeight="26.0" prefWidth="422.0" />
             <ComboBox fx:id="cbTipoPesq" layoutX="39.0" layoutY="13.0" prefHeight="26.0" prefWidth="200.0" promptText="Filtro" />
             <Button fx:id="btAdicionar" layoutX="39.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtadicionar" prefHeight="33.0" prefWidth="118.0" styleClass="button-success" text="Adicionar" />
-            <Button fx:id="btPesquisar" layoutX="679.0" layoutY="10.0" mnemonicParsing="false" onAction="#evtPesquisar" prefHeight="33.0" prefWidth="118.0" text="Pesquisar" />
+            <Button fx:id="btPesquisar" layoutX="679.0" layoutY="10.0" mnemonicParsing="false" onAction="#evtPesquisar" prefHeight="33.0" prefWidth="47.0" styleClass="icon-search" />
             <ComboBox fx:id="cbFornecedor" layoutX="518.0" layoutY="286.0" prefHeight="26.0" prefWidth="295.0" promptText="Fornecedor" />
             <Button fx:id="btCancelar" layoutX="327.0" layoutY="283.0" mnemonicParsing="false" onAction="#evtCancelar" prefHeight="33.0" prefWidth="118.0" text="Cancelar" />
             <TextField fx:id="txValorTotal" editable="false" layoutX="118.0" layoutY="589.0" prefHeight="25.0" prefWidth="185.0" />

@@ -22,7 +22,7 @@ public class Oferta {
     private int codigo;
     private Timestamp dataInicio;
     private Timestamp dataFinal;
-    private String descicao;
+    private String descricao;
     private Funcionario funcionario;
     private ArrayList<OfertaProduto> listaOfertaProduto;
     private ArrayList<OfertaServico> listaOfertaServico;
@@ -75,12 +75,12 @@ public class Oferta {
         this.dataFinal = dataFinal;
     }
 
-    public String getDescicao() {
-        return descicao;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescicao(String descicao) {
-        this.descicao = descicao;
+    public void setDescricao(String descicao) {
+        this.descricao = descicao;
     }
 
     public Funcionario getFuncionario() {
@@ -135,7 +135,7 @@ public class Oferta {
            sql = sql.replace("$1",this.codigo+"" );
            sql = sql.replace("$2",this.getDataInicio().toLocalDateTime().toString() );
            sql = sql.replace("$3",this.getDataFinal().toLocalDateTime().toString());
-           sql = sql.replace("$4",this.descicao );
+           sql = sql.replace("$4",this.descricao );
            sql = sql.replace("$5",this.funcionario.getCod()+"" );
 
             System.out.println("Sql: "+sql);
@@ -174,7 +174,7 @@ public class Oferta {
         ArrayList<OfertaProduto> produtos = new ArrayList();
         
         Oferta novaOferta = new Oferta();
-        String sqlOferta = "select * from Oferta where ofe_dataFinal <= SYSDATE";
+        String sqlOferta = "select * from Oferta where ofe_dataFinal >= SYSDATE() or ofe_dataFinal IS NOT NULL;";
         String sqlServico ="select * from Oferta_Servico where Oferta_ofe_cod = ";
         String sqlProduto = "select * from Oferta_Produto where Oferta_ofe_cod = ";
         
@@ -190,41 +190,50 @@ public class Oferta {
                 novaOferta.setCodigo( rsOferta.getInt("ofe_cod"));
                 novaOferta.setDataFinal(rsOferta.getTimestamp("ofe_dataFinal"));
                 novaOferta.setDataInicio(rsOferta.getTimestamp("ofe_dataInicio"));
-                novaOferta.setDescicao(rsOferta.getString("ofe_desc"));
+                novaOferta.setDescricao(rsOferta.getString("ofe_desc"));
                 novaOferta.setFuncionario( new Funcionario (rsOferta.getInt("Funcionario_fun_cod")) );
                 
                 
                 
                 //Busca dos Servicos daquela oferta
-                sqlIntermediaria = sqlServico+" "+rsOferta.getInt("ofe_cod")+"; ";             
-                rsServico = Banco.con.consultar(sqlIntermediaria);
+                sqlIntermediaria = sqlServico+" "+rsOferta.getInt("ofe_cod")+"; ";     
                 System.out.println("Sql Servico: "+sqlIntermediaria);
-                
-                while(rsServico.next()){
+
+                rsServico = Banco.con.consultar(sqlIntermediaria);
+                if (rsServico != null) {
+                    while(rsServico.next()){
                     
-                    OfertaServico s = new OfertaServico( new Servico( rsServico.getInt("Servico_ser_cod") ), rsServico.getDouble("ofe_ser_valor") );
-                    servicos.add(s);
+                        OfertaServico s = new OfertaServico( new Servico( rsServico.getInt("Servico_ser_cod") ), rsServico.getDouble("ofe_ser_valor") );
+                        servicos.add(s);
+                    }
                 }
+                
                 
                 
                 //Busca dos Produtos daquela oferta
-                sqlIntermediaria = sqlProduto+" "+rsOferta.getInt("Produto_pro_cod")+"; ";
+                sqlIntermediaria = sqlProduto+" "+rsOferta.getInt("ofe_cod")+"; ";
+                System.out.println("Sql Produto: "+sqlIntermediaria);
                 rsProduto = Banco.con.consultar(sqlProduto);
                
-                System.out.println("Sql Produto: "+sqlIntermediaria);
-                while(rsProduto.next()){
+              
+                if(rsProduto != null){
+                    while(rsProduto.next()){
                     
-                    OfertaProduto p = new OfertaProduto( new Produto (rsProduto.getInt("Produto_pro_cod")) , rsProduto.getDouble("ofe_pro_valor"));
-                    produtos.add(p);
+                        OfertaProduto p = new OfertaProduto( new Produto (rsProduto.getInt("Produto_pro_cod")) , rsProduto.getDouble("ofe_pro_valor"));
+                        produtos.add(p);
                     
+                    }
                 }
+                
                 
                 novaOferta.setListaOfertaProduto(produtos);
                 novaOferta.setListaOfertaServico(servicos);
+                
+                lista.add(novaOferta);
             }
             
         }catch(Exception ex){
-         
+            System.out.println("erro :"+Banco.con.getMensagemErro());
             lista = null;
         }
         return lista; 

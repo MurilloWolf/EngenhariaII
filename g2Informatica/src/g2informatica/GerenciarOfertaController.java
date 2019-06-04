@@ -28,6 +28,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Oferta;
+import models.OfertaProduto;
+import models.OfertaServico;
 import models.Produto;
 import models.Servico;
 
@@ -67,9 +69,9 @@ public class GerenciarOfertaController implements Initializable {
     @FXML
     private TableView<Oferta> tbOferta;
     @FXML
-    private TableView<Produto> tbProduto;
+    private TableView<OfertaProduto> tbProduto;
     @FXML
-    private TableView<Servico> tbServico;
+    private TableView<OfertaServico> tbServico;
     @FXML
     private TableColumn tbDescricao;
     @FXML
@@ -91,6 +93,7 @@ public class GerenciarOfertaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        carregaComboBox();
         linkarTabelas();
         botoesEstadoInicial();
         limparTela();
@@ -212,15 +215,30 @@ public class GerenciarOfertaController implements Initializable {
 
 
      }
+     
+    private void carregaComboBox(){
+        cbFiltros.getItems().add("");
+        cbFiltros.getItems().add("Descricao");
+        cbFiltros.getItems().add("Data de Inicio");
+        cbFiltros.getItems().add("Data de Termino");
+    }
 
     // ====================================== EVENTOS ======================================
 
     @FXML
     private void clickTabelaOfertas(MouseEvent event) {
         ofe = tbOferta.getSelectionModel().getSelectedItem();
-        if ( ofe == null){
+        if ( ofe != null){
             botoesEstadoAlterar();
             
+            tbProduto.getItems().clear();
+            tbServico.getItems().clear();
+            
+            
+            
+            
+            tbProduto.getItems().addAll(ofe.getListaOfertaProduto());
+            tbServico.getItems().addAll(ofe.getListaOfertaServico());
             //carregar outras duas tabelas
         }
            

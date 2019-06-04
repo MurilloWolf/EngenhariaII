@@ -14,11 +14,21 @@ import java.sql.ResultSet;
  */
 public class OfertaProduto {
     private Produto produto;
+    private String nome;
     private double preco;
 
     public OfertaProduto(Produto produto, double preco) {
         this.produto = produto;
+        this.nome = produto.getNome();
         this.preco = preco;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     
