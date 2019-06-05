@@ -233,7 +233,7 @@ public class GerenciarOfertaController implements Initializable {
     private void carregaComboBox(){
         cbFiltros.getItems().add("");
         cbFiltros.getItems().add("Descricao");
-        cbFiltros.getItems().add("Data de Inicio");
+        cbFiltros.getItems().add("Encerradas");
         cbFiltros.getItems().add("Data de Termino");
     }
 

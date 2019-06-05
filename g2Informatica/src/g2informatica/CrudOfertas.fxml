@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="998.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.CrudOfertasController">
    <left>
-      <VBox fx:id="vboxCentral" alignment="TOP_CENTER" prefHeight="501.0" prefWidth="386.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxCentral" alignment="TOP_CENTER" prefHeight="501.0" prefWidth="396.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="36.0" prefWidth="552.0" text="Adicionar">
                <styleClass>
@@ -34,8 +34,8 @@
                      <children>
                         <ComboBox fx:id="cbProdutos" prefWidth="150.0" />
                         <Button fx:id="btnAdicionarProdutos" mnemonicParsing="false" onAction="#addProdutos" styleClass="button-success" text="+" />
-                        <TextField fx:id="txtPorcentagemProduto" prefHeight="26.0" prefWidth="49.0" promptText="\%" />
-                        <TextField fx:id="txtValorProduto" prefHeight="26.0" prefWidth="88.0" promptText="Novo Valor" />
+                        <TextField fx:id="txtPorcentagemProduto" onAction="#textChangeProduto" prefHeight="26.0" prefWidth="70.0" promptText="\%" />
+                        <TextField fx:id="txtValorProduto" prefHeight="26.0" prefWidth="88.0" promptText="*Novo Valor" />
                      </children>
                   </HBox>
                </children>
@@ -51,8 +51,8 @@
                      <children>
                         <ComboBox fx:id="cbServicos" prefWidth="150.0" />
                         <Button fx:id="btnAdicionarServicos" mnemonicParsing="false" onAction="#addServico" styleClass="button-success" text="+" />
-                        <TextField fx:id="txtPorcentagemServico" prefHeight="26.0" prefWidth="49.0" promptText="\%" />
-                        <TextField fx:id="txtValorServico" prefHeight="26.0" prefWidth="88.0" promptText="Novo Valor" />
+                        <TextField fx:id="txtPorcentagemServico" prefHeight="26.0" prefWidth="70.0" promptText="\%" />
+                        <TextField fx:id="txtValorServico" prefHeight="26.0" prefWidth="88.0" promptText="*Novo Valor" />
                      </children>
                   </HBox>
                </children>
@@ -70,7 +70,7 @@
             </Label>
             <VBox alignment="CENTER" prefHeight="70.0" prefWidth="542.0">
                <children>
-                  <Label prefHeight="30.0" prefWidth="302.0" text="Data Inicial" textAlignment="CENTER">
+                  <Label prefHeight="30.0" prefWidth="302.0" text="*Data Inicial" textAlignment="CENTER">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
@@ -84,7 +84,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="70.0" prefWidth="542.0">
                <children>
-                  <Label prefHeight="30.0" prefWidth="302.0" text="Data Final" textAlignment="CENTER">
+                  <Label prefHeight="30.0" prefWidth="302.0" text="*Data Final" textAlignment="CENTER">
                      <padding>
                         <Insets top="10.0" />
                      </padding>

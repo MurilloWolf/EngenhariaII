@@ -7,6 +7,7 @@ package g2informatica;
 
 import controllers.CtrProduto;
 import controllers.CtrServico;
+import eng2.util.MaskFieldUtil;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -22,6 +23,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.OfertaProduto;
@@ -77,6 +80,9 @@ public class CrudOfertasController implements Initializable {
     
     ArrayList<Servico> listaS;
     ArrayList<Produto> listaP;
+    
+    ArrayList<Servico> listaBuscaS;
+    ArrayList<Produto> listaBuscaP;
     @FXML
     private TableColumn clProduto;
     @FXML
@@ -93,6 +99,7 @@ public class CrudOfertasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        aplicarMascaras();
         linkarTabela();
         limparTela();
         carregarProdutos();
@@ -101,10 +108,20 @@ public class CrudOfertasController implements Initializable {
 
     @FXML
     private void addProdutos(ActionEvent event) {
+        if(txtValorProduto.getText().trim().isEmpty())
+            preencherCampoValor(txtPorcentagemProduto.getText().trim(),  txtValorProduto , cbProdutos);
+        
+        if(!verificarCampoValor(txtPorcentagemProduto,txtValorProduto,cbProdutos)){
+            //adicionar na tabela 
+            
+        }
     }
 
     @FXML
     private void addServico(ActionEvent event) {
+         if(!verificarCampoValor(txtPorcentagemServico,txtValorServico,cbServicos)){
+            //adicionar na tabela 
+        }
     }
 
     @FXML
@@ -138,6 +155,13 @@ public class CrudOfertasController implements Initializable {
     
     // ============================================== TELA ==============================================
     
+    private void aplicarMascaras(){
+        
+        MaskFieldUtil.monetaryField(txtPorcentagemProduto);
+        MaskFieldUtil.monetaryField(txtValorProduto);
+        MaskFieldUtil.monetaryField(txtPorcentagemServico);
+        MaskFieldUtil.monetaryField(txtValorServico);
+    }
     private void limparTela(){
         txtPorcentagemProduto.clear();
         txtPorcentagemServico.clear();
@@ -156,6 +180,7 @@ public class CrudOfertasController implements Initializable {
     private void carregarProdutos(){
         cbProdutos.getItems().clear();
         listaP = ctrP.getAllProdutos();
+        listaBuscaP = ctrP.getAllProdutos();
         for(Produto p : listaP ){
             cbProdutos.getItems().add(p.getNome());
             
@@ -165,6 +190,8 @@ public class CrudOfertasController implements Initializable {
     private void carregarServicos(){
         cbServicos.getItems().clear();
         listaS = ctrS.getAllServicos();
+        listaBuscaS = ctrS.getAllServicos();
+
         for(Servico s : listaS ){
             cbServicos.getItems().add(s.getDescricao());
             
@@ -182,5 +209,105 @@ public class CrudOfertasController implements Initializable {
         
         
     }
+    
+    
+    // =============================================== Verificar Campos ===============================================
+    private boolean verificarCampoValor(TextField porcentagem, TextField valor, ComboBox cb){
+        boolean erro = false;
+        
+        int index ;
+        
+        //SE OS DOIS CAMPOS ESTAO VAZIOS
+
+         if(valor.getText().trim().isEmpty() && porcentagem.getText().isEmpty() )
+        {
+            index = valor.getStyleClass().size() -1;
+          
+            if(!valor.getStyleClass().get(index).toString().equals("text-field"))
+               valor.getStyleClass().remove(index);
+                
+            valor.getStyleClass().add("text-field-erro");
+                    
+            
+            erro = true;
+            
+        }else{
+             
+            //SE SO O CAMPO DE VALOR ESTA VAZIO , PREENCHER CAMPO DE PORCENTAGEM 
+            if(valor.getText().trim().isEmpty() && !porcentagem.getText().isEmpty()){
+                preencherCampoValor(porcentagem.getText().trim(),  valor , cb);
+            }else{
+                
+                index = porcentagem.getStyleClass().size() -1;
+
+                if(valor.getStyleClass().get(index).toString().equals("text-field-erro"))
+                    valor.getStyleClass().remove(index);
+
+                valor.getStyleClass().add("text-field-success");     
+
+                
+                
+            }
+            
+            
+            
+
+        }
+         return erro;
+    }
+    
+    private void preencherCampoValor(String porcentagem, TextField valor, ComboBox cb){
+        
+        //
+        porcentagem = porcentagem.replace(".", "");
+        porcentagem = porcentagem.replace(",", ".");
+        
+        double valorAntigo = -1;
+        
+        //buscar valor Servico
+        for (Servico s : listaBuscaS) {
+            if(s.getDescricao().equals(cb.getSelectionModel().getSelectedItem().toString()))
+                valorAntigo = s.getValor();
+        }
+        
+        //se nao achou um valorAntigo na busca do Servico é porque é um produto
+        if(valorAntigo == -1){
+            //buscar valor Produto
+            for (int i = 0; i < listaBuscaP.size() ; i ++) {
+                Produto p  = listaBuscaP.get(i);
+                if(p.getNome().equals(cb.getSelectionModel().getSelectedItem().toString()))
+                    valorAntigo = p.getPreco();
+            }
+          
+        }
+        
+        
+        
+       try{
+           double porcent =  Double.parseDouble(porcentagem);
+           double novoValor;
+           if(porcent!=0)
+            novoValor = Math.ceil( valorAntigo  - (valorAntigo * (porcent/100)));
+           else
+               novoValor = valorAntigo;
+           
+           valor.setText(novoValor+"");
+       }catch(Exception e){
+           System.out.println("Erro:"+e.getMessage());
+       }
+        
+    }
+
+ 
+  
+
+    @FXML
+    private void textChangeProduto(ActionEvent event) {
+        txtValorProduto.clear();
+        preencherCampoValor(txtPorcentagemProduto.getText().trim() ,txtValorProduto,cbProdutos);
+       
+    }
+
+   
     
 }
