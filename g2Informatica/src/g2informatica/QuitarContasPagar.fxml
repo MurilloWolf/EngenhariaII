@@ -32,14 +32,14 @@
          </children></HBox>
       <AnchorPane prefHeight="550.0">
          <children>
-            <TableView fx:id="tbContas" layoutX="14.0" layoutY="14.0" prefHeight="530.0" prefWidth="300.0">
+            <TableView fx:id="tbContas" layoutX="14.0" layoutY="14.0" onMouseClicked="#evtTabelasContas" prefHeight="530.0" prefWidth="300.0">
               <columns>
                 <TableColumn fx:id="colCodC" prefWidth="75.0" text="Cod" />
                 <TableColumn fx:id="colValoC" prefWidth="115.0" text="Valor" />
                   <TableColumn fx:id="colDataC" prefWidth="110.0" text="DataV" />
               </columns>
             </TableView>
-            <TableView fx:id="tbContasEscolhidas" layoutX="486.0" layoutY="14.0" prefHeight="530.0" prefWidth="300.0">
+            <TableView fx:id="tbContasEscolhidas" layoutX="486.0" layoutY="14.0" onMouseClicked="#evtTabelaContasEscolhidas" prefHeight="530.0" prefWidth="300.0">
               <columns>
                 <TableColumn fx:id="colCodCE" prefWidth="75.0" text="Cod" />
                 <TableColumn fx:id="colValorCE" prefWidth="115.0" text="Valor" />
