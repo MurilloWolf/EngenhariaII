@@ -99,7 +99,8 @@ public class QuitarContasPagarController implements Initializable {
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             ListaCEscolidas.clear();
-            tbContasEscolhidas.getItems().clear();cp = null;
+            tbContasEscolhidas.getItems().clear();
+            cp = null;
             btRemover.setDisable(true);
             btCancelar.setDisable(true);
             btAdicionar.setDisable(true);

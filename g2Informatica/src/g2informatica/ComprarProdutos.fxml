@@ -42,14 +42,14 @@
       <AnchorPane prefHeight="650.0" prefWidth="800.0">
          <children>
             <Button fx:id="btRemover" layoutX="176.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtRemover" prefHeight="33.0" prefWidth="127.0" text="Remover" />
-            <TableView fx:id="tbProdutosEscolhidos" layoutX="48.0" layoutY="367.0" prefHeight="200.0" prefWidth="764.0">
+            <TableView fx:id="tbProdutosEscolhidos" layoutX="48.0" layoutY="367.0" onMouseClicked="#evtTabelaCompras" prefHeight="200.0" prefWidth="764.0">
                <columns>
                   <TableColumn fx:id="colCodPE" prefWidth="100.0" text="Cod" />
                   <TableColumn fx:id="colDescPE" prefWidth="475.0" text="Descrição" />
                   <TableColumn fx:id="colValorPE" prefWidth="200.0" text="Valor" />
                </columns>
             </TableView>
-            <TableView fx:id="tbProdutos" layoutX="38.0" layoutY="50.0" prefHeight="219.0" prefWidth="775.0">
+            <TableView fx:id="tbProdutos" layoutX="38.0" layoutY="50.0" onMouseClicked="#evtTabelaProdutos" prefHeight="219.0" prefWidth="775.0">
                <columns>
                   <TableColumn fx:id="colCodP" prefWidth="100.0" text="Cod" />
                   <TableColumn fx:id="colDescP" prefWidth="475.0" text="Descrição" />

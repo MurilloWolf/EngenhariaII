@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package g2informatica;
 
+import controllers.CtrProduto;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,13 +18,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import models.Produto;
 
-/**
- * FXML Controller class
- *
- * @author Aluno
- */
 public class ComprarProdutosController implements Initializable {
 
     @FXML
@@ -70,18 +64,20 @@ public class ComprarProdutosController implements Initializable {
     @FXML
     private TextField txValorTotal;
     @FXML
-    private Spinner<?> spQtde;
+    private Spinner<Integer> spQtde;
     @FXML
-    private ComboBox<?> cbPagamento;
+    private ComboBox<String> cbPagamento;
     @FXML
     private DatePicker dpDataVencimento;
 
-    /**
-     * Initializes the controller class.
-     */
+    CtrProduto ctrP = new CtrProduto();
+    ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
+    ObservableList<Produto> listaProdutosEscolhidos = FXCollections.observableArrayList();
+    Produto p, pe;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
         colCodP.setCellValueFactory(new PropertyValueFactory<>("cod"));
         colCodPE.setCellValueFactory(new PropertyValueFactory<>("cod"));
         colDescP.setCellValueFactory(new PropertyValueFactory<>("descricao"));
@@ -98,10 +94,36 @@ public class ComprarProdutosController implements Initializable {
 
     @FXML
     private void evtLimpaProdutos(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem certeza que deseja Limpar ?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            listaProdutosEscolhidos.clear();
+            tbProdutosEscolhidos.getItems().clear();
+            pe = null;
+            btRemover.setDisable(true);
+            btCancelar.setDisable(true);
+            btAdicionar.setDisable(true);
+            btConfirma.setDisable(true);
+            spQtde.setDisable(true);
+        }
     }
 
     @FXML
     private void evtLimpaComprar(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem certeza que deseja Limpar ?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            listaProdutos.clear();
+            tbProdutos.getItems().clear();
+            p = null;
+            btRemover.setDisable(true);
+            btCancelar.setDisable(true);
+            btAdicionar.setDisable(true);
+            btConfirma.setDisable(true);
+            cbPagamento.setDisable(true);
+        }
     }
 
     @FXML
@@ -116,22 +138,58 @@ public class ComprarProdutosController implements Initializable {
 
     @FXML
     private void evtRemover(ActionEvent event) {
+        ListaCEscolidas.remove(cpE);
+        tbContasEscolhidas.getItems().clear();
+        tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
+        btRemover.setDisable(true);
+        btCancelar.setDisable(true);
+        if(ListaCEscolidas.isEmpty())
+        {
+            btConfirma.setDisable(true);
+        }
     }
 
     @FXML
     private void evtadicionar(ActionEvent event) {
+        listaProdutosEscolhidos.add(p);
+        tbProdutosEscolhidos.getItems().clear();
+        tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
+        btConfirma.setDisable(false);
+        btRemover.setDisable(true);
+        btCancelar.setDisable(true);
+        btAdicionar.setDisable(true);
     }
 
     @FXML
     private void evtPesquisar(ActionEvent event) {
+        
     }
 
     @FXML
     private void evtCancelar(ActionEvent event) {
+        btRemover.setDisable(true);
+        btCancelar.setDisable(true);
+        btAdicionar.setDisable(true);
+        p = null;
+        pe = null;
     }
 
     @FXML
     private void evtCbFormaPagamento(ActionEvent event) {
+    }
+
+    @FXML
+    private void evtTabelaCompras(MouseEvent event) {
+        pe = tbProdutosEscolhidos.getSelectionModel().getSelectedItem();
+        btRemover.setDisable(false);
+        btCancelar.setDisable(false);
+    }
+
+    @FXML
+    private void evtTabelaProdutos(MouseEvent event) {
+        p = tbProdutos.getSelectionModel().getSelectedItem();
+        btAdicionar.setDisable(false);
+        btCancelar.setDisable(false);
     }
     
 }
