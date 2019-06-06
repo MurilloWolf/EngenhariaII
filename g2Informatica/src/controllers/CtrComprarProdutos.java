@@ -1,14 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-/**
- *
- * @author Aluno
- */
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import models.Produto;
+import models.dao.DaoProduto;
+
 public class CtrComprarProdutos {
     
+    public ArrayList <Produto> Pesquisa()
+    {
+        DaoProduto daoD = new DaoProduto();
+        ArrayList <Produto> lista = new ArrayList();
+        lista = daoD.getTodosProdutos();
+        return lista;
+    }
+    
+    
+    public boolean ConfirmarCompra(ObservableList lista)
+    {
+        boolean flag =true;
+        
+        return flag;
+    }
 }

@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Projetos/EngenhariaII/g2Informatica/src/controllers/CtrComprarProdutos.java</file>
-            <file>file:/D:/Projetos/EngenhariaII/g2Informatica/src/controllers/CtrQuitarContasApagar.java</file>
-            <file>file:/D:/Projetos/EngenhariaII/g2Informatica/src/controllers/CtrcadastroFuncionario.java</file>
-            <file>file:/D:/Projetos/EngenhariaII/g2Informatica/src/g2informatica/QuitarContasPagarController.java</file>
-            <file>file:/D:/Projetos/EngenhariaII/g2Informatica/src/models/dao/DaoContasApagar.java</file>
-            <file>file:/D:/Projetos/EngenhariaII/g2Informatica/src/models/ContasPagar.java</file>
-            <file>file:/D:/Projetos/EngenhariaII/g2Informatica/src/g2informatica/CadastroFuncionarioController.java</file>
+            <file>file:/D:/EngenhariaII/g2Informatica/src/g2informatica/QuitarContasPagarController.java</file>
+            <file>file:/D:/EngenhariaII/g2Informatica/src/g2informatica/ComprarProdutosController.java</file>
         </group>
     </open-files>
 </project-private>

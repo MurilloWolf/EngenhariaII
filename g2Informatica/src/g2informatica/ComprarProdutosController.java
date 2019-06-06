@@ -1,5 +1,6 @@
 package g2informatica;
 
+import controllers.CtrComprarProdutos;
 import controllers.CtrProduto;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -70,7 +71,7 @@ public class ComprarProdutosController implements Initializable {
     @FXML
     private DatePicker dpDataVencimento;
 
-    CtrProduto ctrP = new CtrProduto();
+    CtrComprarProdutos ctrCP = new CtrComprarProdutos();
     ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
     ObservableList<Produto> listaProdutosEscolhidos = FXCollections.observableArrayList();
     Produto p, pe;
@@ -90,6 +91,17 @@ public class ComprarProdutosController implements Initializable {
 
     @FXML
     private void evtConfirmaCompra(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem certeza que deseja Confirmar ?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos)) {
+                listaProdutosEscolhidos.clear();
+                tbProdutosEscolhidos.getItems().clear();
+                btConfirma.setDisable(true);
+                
+            }
+        }
     }
 
     @FXML
@@ -138,15 +150,16 @@ public class ComprarProdutosController implements Initializable {
 
     @FXML
     private void evtRemover(ActionEvent event) {
-        ListaCEscolidas.remove(cpE);
-        tbContasEscolhidas.getItems().clear();
-        tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
+        listaProdutosEscolhidos.remove(pe);
+        tbProdutosEscolhidos.getItems().clear();
+        tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
         btRemover.setDisable(true);
         btCancelar.setDisable(true);
-        if(ListaCEscolidas.isEmpty())
+        if(listaProdutosEscolhidos.isEmpty())
         {
             btConfirma.setDisable(true);
         }
+        pe=null;
     }
 
     @FXML
@@ -158,20 +171,40 @@ public class ComprarProdutosController implements Initializable {
         btRemover.setDisable(true);
         btCancelar.setDisable(true);
         btAdicionar.setDisable(true);
+        p=null;
     }
 
     @FXML
     private void evtPesquisar(ActionEvent event) {
+        tbProdutos.getItems().clear();
         
+        listaProdutos.clear();
+        
+        listaProdutos.addAll(ctrCP.Pesquisa());
+        
+        tbProdutos.getItems().addAll(listaProdutos);
     }
 
     @FXML
     private void evtCancelar(ActionEvent event) {
-        btRemover.setDisable(true);
+        /*btRemover.setDisable(true);
         btCancelar.setDisable(true);
         btAdicionar.setDisable(true);
         p = null;
-        pe = null;
+        pe = null;*/
+        if(!btAdicionar.isDisable())
+        {
+            p = null;
+            btAdicionar.setDisable(true);
+            btCancelar.setDisable(true);
+        }
+        else
+            if(!btRemover.isDisable())
+            {
+                pe = null;
+                btRemover.setDisable(true);
+                btCancelar.setDisable(true);
+            }
     }
 
     @FXML
