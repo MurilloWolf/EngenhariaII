@@ -61,8 +61,8 @@ public class QuitarContasPagarController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        listaContas.addAll(ctrQ.addTabelaContas());
-        tbContas.getItems().addAll(listaContas);
+        //listaContas.addAll(ctrQ.addTabelaContas());
+        //tbContas.getItems().addAll(listaContas);
         ctrQ.IniciaEntidades(cp,cpE);
         colCodC.setCellValueFactory(new PropertyValueFactory<>("cod"));
         colCodCE.setCellValueFactory(new PropertyValueFactory<>("cod"));
@@ -82,13 +82,13 @@ public class QuitarContasPagarController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Tem certeza que deseja Confirmar ?");
 
-        if (alert.showAndWait().get() == ButtonType.OK) {
+        /*if (alert.showAndWait().get() == ButtonType.OK) {
             if (ctrQ.pagarAScontas(ListaCEscolidas)) {
                 ListaCEscolidas.clear();
                 tbContasEscolhidas.getItems().clear();
                 btConfirmar.setDisable(true);
             }
-        }
+        }*/
       
     }
 
@@ -125,6 +125,7 @@ public class QuitarContasPagarController implements Initializable {
         btAdicionar.setDisable(true);
         btCancelar.setDisable(true);
         btConfirmar.setDisable(false);
+        
     }
 
     @FXML
