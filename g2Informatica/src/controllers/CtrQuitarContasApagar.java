@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import models.ContasPagar;
@@ -13,21 +14,22 @@ public class CtrQuitarContasApagar {
         cpE = new ContasPagar();
     }
     
-    public boolean pagarAScontas(ObservableList listas)
+    public boolean pagarAScontas(ObservableList listas) throws SQLException
     {
         DaoContasApagar dao = new DaoContasApagar();
         boolean flag = false;
-        //dao.pagar((ArrayList) listas);
-        //fazer
+        if(dao.pagar((ArrayList) listas))
+            flag = true;
+        
         return flag;
     }
     
     public ArrayList <ContasPagar> addTabelaContas()
     {
         ArrayList <ContasPagar> lista = new ArrayList();
+        DaoContasApagar dao = new DaoContasApagar();
         
-        //lista = dao.todasContas();
-        //fazer
+        lista = dao.todasContas();
         return lista;
     }
 }

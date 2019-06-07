@@ -3,6 +3,7 @@ package g2informatica;
 
 import controllers.CtrQuitarContasApagar;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,8 +62,8 @@ public class QuitarContasPagarController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //listaContas.addAll(ctrQ.addTabelaContas());
-        //tbContas.getItems().addAll(listaContas);
+        listaContas.addAll(ctrQ.addTabelaContas());
+        tbContas.getItems().addAll(listaContas);
         ctrQ.IniciaEntidades(cp,cpE);
         colCodC.setCellValueFactory(new PropertyValueFactory<>("cod"));
         colCodCE.setCellValueFactory(new PropertyValueFactory<>("cod"));
@@ -78,17 +79,18 @@ public class QuitarContasPagarController implements Initializable {
     }    
 
     @FXML
-    private void evtConfirmar(ActionEvent event) {
+    private void evtConfirmar(ActionEvent event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Tem certeza que deseja Confirmar ?");
 
-        /*if (alert.showAndWait().get() == ButtonType.OK) {
+        if (alert.showAndWait().get() == ButtonType.OK) {
             if (ctrQ.pagarAScontas(ListaCEscolidas)) {
                 ListaCEscolidas.clear();
                 tbContasEscolhidas.getItems().clear();
                 btConfirmar.setDisable(true);
+                listaContas.addAll(ctrQ.addTabelaContas());
             }
-        }*/
+        }
       
     }
 
@@ -120,13 +122,15 @@ public class QuitarContasPagarController implements Initializable {
 
     @FXML
     private void evtAdiconar(ActionEvent event) {
-        ListaCEscolidas.add(cp);
-        tbContasEscolhidas.getItems().clear();
-        tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
-        btAdicionar.setDisable(true);
-        btCancelar.setDisable(true);
-        btConfirmar.setDisable(false);
-        
+        if(!tbContasEscolhidas.getItems().equals(cp))
+        {
+            ListaCEscolidas.add(cp);
+            tbContasEscolhidas.getItems().clear();
+            tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
+            btAdicionar.setDisable(true);
+            btCancelar.setDisable(true);
+            btConfirmar.setDisable(false);
+        }
     }
 
     @FXML
