@@ -375,7 +375,7 @@ public class CrudOfertasController implements Initializable {
         clValorProdutos.setCellValueFactory(new PropertyValueFactory<>("preco"));
         
         
-        clServico.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        clServico.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         clValorServico.setCellValueFactory(new PropertyValueFactory<>("preco"));
 
         

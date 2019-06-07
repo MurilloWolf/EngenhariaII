@@ -24,10 +24,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Cliente;
 import models.Produto;
 import models.Servico;
 
@@ -61,9 +63,9 @@ public class GerenciarOrcamentoController implements Initializable {
     @FXML
     private ComboBox<String> cbStatus;
     @FXML
-    private TableView tbProdutos;
+    private TableView<Produto> tbProdutos;
     @FXML
-    private TableView tbServicos;
+    private TableView<Servico> tbServicos;
     @FXML
     private TextArea txaDescricao;
     @FXML
@@ -87,6 +89,8 @@ public class GerenciarOrcamentoController implements Initializable {
     private TableColumn clPrecoServico;
     @FXML
     private Button btnRemover;
+    @FXML
+    private TextField txtValorTotal;
     /**
      * Initializes the controller class.
      */
@@ -95,6 +99,9 @@ public class GerenciarOrcamentoController implements Initializable {
         // TODO
         carregarComboBoxProdutos();
         carregarComboBoxServicos();
+        carregarComboBoxClientes();
+        carregarStatus();
+        botoesEstadoInicial();
     }    
 
     @FXML
@@ -155,7 +162,7 @@ public class GerenciarOrcamentoController implements Initializable {
         clProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
         clPrecoProduto.setCellValueFactory(new PropertyValueFactory<>("preco"));
         
-        clServico.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        clServico.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         clPrecoServico.setCellValueFactory(new PropertyValueFactory<>("preco"));
     }
     
@@ -194,6 +201,16 @@ public class GerenciarOrcamentoController implements Initializable {
             cbProdutos.getItems().add(p.getNome());
             
         }
+        listaP.clear();
+    }
+    
+    private void carregarComboBoxClientes(){
+     cbClientes.getItems().clear();
+     ArrayList<Cliente> clientes = Cliente.getAllClientes();
+        for (int i = 0; i < clientes.size(); i++) {
+            cbClientes.getItems().add(clientes.get(i).getNome());
+        }
+     
     }
     
     private void carregarComboBoxServicos(){
@@ -205,6 +222,14 @@ public class GerenciarOrcamentoController implements Initializable {
             cbServicos.getItems().add(s.getDescricao());
             
         }
+    }
+    private void carregarStatus(){
+        cbStatus.getItems().clear();
+        cbStatus.getItems().add("aberto");
+        cbStatus.getItems().add("OS aberta");
+        cbStatus.getItems().add("finalizado");
+        
+       
     }
     
     private boolean verificarDados(){
@@ -288,10 +313,38 @@ public class GerenciarOrcamentoController implements Initializable {
 
     @FXML
     private void btnAddProduto(ActionEvent event) {
+        
+        //verificar se produto ta em promocao
+        
+            //adicionar na tabela 
+            Produto p;
+            for (int i = 0; i < listaBuscaP.size() ; i ++) {
+                p  = listaBuscaP.get(i);
+                if(p.getNome().equals(cbProdutos.getSelectionModel().getSelectedItem().toString())){
+                    listaP.add(p);
+                    
+                    tbProdutos.getItems().clear();
+                    tbProdutos.getItems().addAll(listaP);
+                }
+                    
+            }
+            
+            
+       
     }
 
     @FXML
     private void btnAddServico(ActionEvent event) {
+          Servico s;
+            for (int i = 0; i < listaBuscaP.size() ; i ++) {
+                s  = listaBuscaS.get(i);
+                if(s.getDescricao().equals(cbServicos.getSelectionModel().getSelectedItem().toString())){
+                    
+                    tbServicos.getItems().add(s);
+                }
+                    
+            }
+            
     }
 
     @FXML

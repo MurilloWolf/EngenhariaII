@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -27,6 +28,14 @@ public class BuscaOrcamentosController implements Initializable {
     private TextField txtBusca;
     @FXML
     private TableView<?> tbOrcamento;
+    @FXML
+    private TableColumn<?, ?> clCodigo;
+    @FXML
+    private TableColumn<?, ?> clCliente;
+    @FXML
+    private TableColumn<?, ?> clPreco;
+    @FXML
+    private TableColumn<?, ?> clStatus;
 
     /**
      * Initializes the controller class.

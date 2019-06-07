@@ -68,7 +68,6 @@ public class GerenciarOfertaController implements Initializable {
     
     CtrOferta ctr = new CtrOferta();
     
-    //DUVIDA, NAO SEI SE A TABELA TEM QUE SER DO TIPO PRODUTO E SERVICO OU , OFERTAPRODUTO, OFERTASERVICO
     @FXML
     private TableView<Oferta> tbOferta;
     @FXML
@@ -243,11 +242,13 @@ public class GerenciarOfertaController implements Initializable {
     @FXML
     private void clickTabelaOfertas(MouseEvent event) {
         ofe = tbOferta.getSelectionModel().getSelectedItem();
+        
         if ( ofe != null){
             botoesEstadoAlterar();
             
             tbProduto.getItems().clear();
             tbServico.getItems().clear();
+            
             
             
             

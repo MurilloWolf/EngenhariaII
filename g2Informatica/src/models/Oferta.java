@@ -29,7 +29,7 @@ public class Oferta {
     private ArrayList<OfertaServico> listaOfertaServico;
 
     public Oferta(ObservableList<OfertaProduto> listaOP, ObservableList<OfertaServico> listaOS, Timestamp dtI, Timestamp dtF, String nome) {
-        if(listaOP == null)
+        if(listaOP == null || listaOP.size() <=0)
             this.listaOfertaProduto = null;
         else{
             this.listaOfertaProduto = new ArrayList();
@@ -38,12 +38,12 @@ public class Oferta {
             }
         }
         
-        if(listaOS == null)
-            listaOfertaServico = null;
+        if(listaOS == null || listaOS.size() <=0)
+            this.listaOfertaServico = null;
         else{
-            this.listaOfertaProduto = new ArrayList();
-            for (int i = 0; i < listaOP.size(); i++) {
-                this.listaOfertaProduto.add(listaOP.get(i));
+            this.listaOfertaServico = new ArrayList();
+            for (int i = 0; i < listaOS.size(); i++) {
+                this.listaOfertaServico.add(listaOS.get(i));
             }
         }
             
@@ -178,7 +178,7 @@ public class Oferta {
             
             this.codigo = Banco.con.getMaxPK("Oferta","ofe_cod");
             
-            if(listaOfertaServico!=null)
+            if(this.listaOfertaServico!=null)
                 salvarServico = salvarOfertaServico();
 
             if(this.listaOfertaProduto!=null)
@@ -250,7 +250,7 @@ public class Oferta {
                 //Busca dos Produtos daquela oferta
                 sqlIntermediaria = sqlProduto+" "+rsOferta.getInt("ofe_cod")+"; ";
                 System.out.println("Sql Produto: "+sqlIntermediaria);
-                rsProduto = Banco.con.consultar(sqlProduto);
+                rsProduto = Banco.con.consultar(sqlIntermediaria);
                
               
                 if(rsProduto != null){
@@ -269,6 +269,8 @@ public class Oferta {
                 lista.add(novaOferta);
                 
                 novaOferta = new Oferta();
+                produtos = new ArrayList();
+                servicos = new ArrayList();
             }
             
         }catch(Exception ex){

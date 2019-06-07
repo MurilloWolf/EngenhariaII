@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="524.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.BuscaOrcamentosController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="696.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.BuscaOrcamentosController">
    <top>
-      <Label prefHeight="25.0" prefWidth="673.0" text="Busca" BorderPane.alignment="CENTER">
+      <Label prefHeight="30.0" prefWidth="714.0" text="Busca" BorderPane.alignment="CENTER">
          <styleClass>
             <String fx:value="title" />
             <String fx:value="background-g2" />
@@ -28,12 +28,12 @@
       </Label>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="594.0" prefWidth="548.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="428.0" spacing="10.0">
                <children>
                   <ComboBox fx:id="cbFiltros" prefWidth="150.0" promptText="Filtros" />
-                  <TextField fx:id="txtBusca" prefHeight="25.0" prefWidth="180.0" />
+                  <TextField fx:id="txtBusca" prefHeight="26.0" prefWidth="306.0" />
                   <Button mnemonicParsing="false" onAction="#clickBuscar" prefHeight="39.0" prefWidth="40.0" styleClass="icon-search" />
                </children>
                <VBox.margin>
@@ -43,13 +43,12 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <TableView fx:id="tbOrcamento" prefHeight="350.0" prefWidth="524.0">
+            <TableView fx:id="tbOrcamento" prefHeight="458.0" prefWidth="696.0">
               <columns>
-                <TableColumn prefWidth="66.0" text="Codigo" />
-                <TableColumn prefWidth="113.0" text="Cliente" />
-                  <TableColumn prefWidth="75.0" text="Preco" />
-                  <TableColumn prefWidth="102.0" text="Produto" />
-                  <TableColumn prefWidth="71.0" text="Servico" />
+                <TableColumn fx:id="clCodigo" prefWidth="82.0" text="Codigo" />
+                <TableColumn fx:id="clCliente" prefWidth="172.0" text="Cliente" />
+                  <TableColumn fx:id="clPreco" minWidth="0.0" prefWidth="143.0" text="Preco" />
+                  <TableColumn fx:id="clStatus" minWidth="0.0" prefWidth="143.0" text="Status" />
               </columns>
             </TableView>
             <HBox alignment="CENTER" spacing="10.0">

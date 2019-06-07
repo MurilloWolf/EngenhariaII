@@ -37,6 +37,8 @@ public class FXMLprincipalController implements Initializable {
     private Button btnQuitarContas;
     @FXML
     private Button btComprarProdutos;
+    @FXML
+    private Button btnOrcamento;
     
     
     void disabilita()
@@ -163,6 +165,17 @@ public class FXMLprincipalController implements Initializable {
         try
         {    
             Parent root = FXMLLoader.load(getClass().getResource("ComprarProdutos.fxml"));
+            pnDados.getChildren().clear();
+            pnDados.getChildren().add(root);
+        } 
+        catch (Exception e) {System.out.println(e);}
+    }
+
+    @FXML
+    private void clickGerenciarOrcamento(ActionEvent event) {
+         try
+        {    
+            Parent root = FXMLLoader.load(getClass().getResource("GerenciarOrcamento.fxml"));
             pnDados.getChildren().clear();
             pnDados.getChildren().add(root);
         } 

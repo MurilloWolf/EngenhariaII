@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="1225.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.FXMLprincipalController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="1458.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.FXMLprincipalController">
    <left>
-      <Accordion prefHeight="720.0" prefWidth="197.0" BorderPane.alignment="CENTER">
+      <Accordion prefHeight="695.0" prefWidth="284.0" BorderPane.alignment="CENTER">
         <panes>
-          <TitledPane animated="false" text="Cadastro">
+          <TitledPane animated="false" prefHeight="603.0" prefWidth="275.0" text="Cadastro">
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btnCadFunc" mnemonicParsing="false" onAction="#evtCadFunc" prefHeight="33.0" prefWidth="240.0" styleClass="button-menu" text="Funcionario" />
+                        <Button fx:id="btnCadFunc" mnemonicParsing="false" onAction="#evtCadFunc" prefHeight="35.0" prefWidth="306.0" styleClass="button-menu" text="Funcionario" />
                         <Button fx:id="btnProduto" mnemonicParsing="false" onAction="#clickAbrirProdutos" prefHeight="26.0" prefWidth="343.0" styleClass="button-menu" text="Produto" />
                      </children>
                   </VBox>
@@ -31,6 +31,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
                         <Button fx:id="btnOfertas" mnemonicParsing="false" onAction="#clickGerenciarOfertas" prefHeight="33.0" prefWidth="318.0" styleClass="button-menu" text="Gerenciar Ofertas" />
+                        <Button fx:id="btnOrcamento" mnemonicParsing="false" onAction="#clickGerenciarOrcamento" prefHeight="33.0" prefWidth="318.0" styleClass="button-menu" text="Gerenciar Orçamentos" />
                         <Button fx:id="btnQuitarContas" mnemonicParsing="false" onAction="#evtQuitarContas" prefHeight="39.0" prefWidth="271.0" styleClass="button-menu" text="Quitar Contas" />
                         <Button fx:id="btComprarProdutos" mnemonicParsing="false" onAction="#evtComprarProdutos" prefHeight="39.0" prefWidth="249.0" styleClass="button-menu" text="Comprar Produtos" />
                      </children>
@@ -52,7 +53,7 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="background-all" BorderPane.alignment="CENTER">
          <content>
-            <HBox fx:id="pnDados" prefHeight="691.0" prefWidth="984.0" styleClass="background-all" />
+            <HBox fx:id="pnDados" prefHeight="691.0" prefWidth="1166.0" styleClass="background-all" />
          </content>
       </ScrollPane>
    </center>
