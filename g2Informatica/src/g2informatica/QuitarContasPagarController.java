@@ -91,6 +91,7 @@ public class QuitarContasPagarController implements Initializable {
                 tbContasEscolhidas.getItems().clear();
                 btConfirmar.setDisable(true);
                 listaContas.addAll(ctrQ.addTabelaContas());
+                tbContas.getItems().addAll(listaContas);
             }
         }
       
@@ -128,7 +129,6 @@ public class QuitarContasPagarController implements Initializable {
     @FXML
     private void evtAdiconar(ActionEvent event) {
         cp=tbContas.getSelectionModel().getSelectedItem();
-        ListaCEscolidas.add(cp);
         
         if(!tbContasEscolhidas.getItems().equals(cp))
         {

@@ -18,7 +18,7 @@ public class CtrQuitarContasApagar {
     {
         DaoContasApagar dao = new DaoContasApagar();
         boolean flag = false;
-        if(dao.pagar((ArrayList) listas))
+        if(dao.pagar(listas))
             flag = true;
         
         return flag;

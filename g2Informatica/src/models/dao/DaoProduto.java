@@ -134,7 +134,7 @@ public class DaoProduto
         ArrayList <Produto> lista = new ArrayList();
         
         String sql = "select * from Produto";
-        
+        Banco.conectar();
         ResultSet rs = Banco.con.consultar(sql);
         
         try

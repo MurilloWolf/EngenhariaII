@@ -19,11 +19,11 @@ public class CtrComprarProdutos {
     }
     
     
-    public boolean ConfirmarCompra(ObservableList lista, Fornecedor fo) throws SQLException
+    public boolean ConfirmarCompra(ObservableList lista) throws SQLException
     {
         boolean flag = false;
         DaoComprarProdutos daoCP = new DaoComprarProdutos();
-        if(daoCP.RegistrarCompra((ArrayList)lista, fo))
+        if(daoCP.RegistrarCompra(lista))
         {
             flag = true;
         }

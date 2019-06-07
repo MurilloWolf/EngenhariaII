@@ -3,6 +3,7 @@ package g2informatica;
 import controllers.CtrComprarProdutos;
 import controllers.CtrFornecedor;
 import controllers.CtrProduto;
+import db.Banco;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -78,7 +79,6 @@ public class ComprarProdutosController implements Initializable {
     ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
     ObservableList<Produto> listaProdutosEscolhidos = FXCollections.observableArrayList();
     Produto p, pe;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -89,7 +89,7 @@ public class ComprarProdutosController implements Initializable {
         colDescPE.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         colValorP.setCellValueFactory(new PropertyValueFactory<>("preco"));
         colValorPE.setCellValueFactory(new PropertyValueFactory<>("preco"));
-        cbFornecedor.getItems().addAll((ObservableList)ctrF.getListaDeFornecedores());
+        //cbFornecedor.getItems().addAll((ObservableList)ctrF.getListaDeFornecedores());
     }    
 
     @FXML
@@ -98,7 +98,8 @@ public class ComprarProdutosController implements Initializable {
         alert.setContentText("Tem certeza que deseja Confirmar ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos, cbFornecedor.getItems().get(cbFornecedor.getSelectionModel().getSelectedIndex()))) {
+            //if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos, cbFornecedor.getItems().get(cbFornecedor.getSelectionModel().getSelectedIndex()))) {
+            if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos)) {
                 listaProdutosEscolhidos.clear();
                 tbProdutosEscolhidos.getItems().clear();
                 btConfirma.setDisable(true);
@@ -167,11 +168,11 @@ public class ComprarProdutosController implements Initializable {
 
     @FXML
     private void evtadicionar(ActionEvent event) {
+        //p.setQuantidade(spQtde.getValue());
         listaProdutosEscolhidos.add(p);
         tbProdutosEscolhidos.getItems().clear();
         tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
         btConfirma.setDisable(false);
-        btRemover.setDisable(true);
         btCancelar.setDisable(true);
         btAdicionar.setDisable(true);
         p=null;
@@ -224,7 +225,7 @@ public class ComprarProdutosController implements Initializable {
     @FXML
     private void evtTabelaProdutos(MouseEvent event) {
         p = tbProdutos.getSelectionModel().getSelectedItem();
-        p.setQuantidade(spQtde.getValue());
+        
         btAdicionar.setDisable(false);
         btCancelar.setDisable(false);
     }

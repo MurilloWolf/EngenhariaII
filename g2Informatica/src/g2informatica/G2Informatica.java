@@ -22,14 +22,15 @@ public class G2Informatica extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GerenciarOferta.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ComprarProdutos.fxml"));
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
 
         //se conectar com o banco de dados
-        if(  Banco.conectar() ){
+        boolean conectado = Banco.conectar();
+        if(conectado){
             
             System.out.println("Status:"+Empresa.getStatus());
             //se ja há uma parametrização , login da tela inicial

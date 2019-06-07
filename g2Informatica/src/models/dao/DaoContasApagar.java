@@ -5,29 +5,30 @@ import db.Banco;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
 import models.ContasPagar;
 
 public class DaoContasApagar {
     
-    public boolean pagar(ArrayList <ContasPagar> listas) throws SQLException
+    public boolean pagar(ObservableList <ContasPagar> listas) throws SQLException
     {
         boolean flag = true;
-        int aux= listas.size();
-        int codigo = listas.get(aux).getCod();
-        String sql ;
+        String sql ="";
+        Banco.conectar();
         try {
             Banco.con.getConnect().setAutoCommit(false);
-            while (aux < listas.size()) {
-                sql = "update Contas_Pagar set conp_valorPago=$1, conp_dataPagamento=SYSDATE(), conp_status='$3' where fun_cod="+codigo;
+            for(int aux=0; aux < listas.size(); aux++) {
+                sql = "update Contas_Pagar set conp_valorPago=$1, conp_dataPagamento=SYSDATE(), conp_status='$3' where conp_cod="+listas.get(aux).getCod();
                 sql = sql.replace("$1", listas.get(aux).getValorConta()+"");
                 sql = sql.replace("$3", "pago");
                 System.out.println("contas ALTERAR: " + sql);
                 flag = Banco.con.manipular(sql);
-                Banco.con.getConnect().commit();
             }
+            Banco.con.getConnect().commit();
         } catch (SQLException ex) {
             Banco.con.getConnect().rollback();
             flag = false;
+            System.out.println(ex+"");
         } finally {
             Banco.con.getConnect().setAutoCommit(true);
         }
@@ -41,6 +42,7 @@ public class DaoContasApagar {
         String sql = "select * from Contas_Pagar where conp_status = 'pendente';";
         
         System.out.println("conta_todas: "+sql);
+        Banco.conectar();
         ResultSet rs = Banco.con.consultar(sql);
         
         try 
