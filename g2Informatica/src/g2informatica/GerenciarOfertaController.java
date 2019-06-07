@@ -167,7 +167,7 @@ public class GerenciarOfertaController implements Initializable {
     private void clickBuscar(ActionEvent event) {
         
         boolean buscou = false;
-        
+        lista.clear();
         if(txtBusca.getText().trim().isEmpty()){
             lista.addAll(ctr.getAllOfertas());
             
@@ -201,6 +201,7 @@ public class GerenciarOfertaController implements Initializable {
     }
     
      private void limparTela(){
+         lista.clear();
          txtBusca.clear();
          cbFiltros.getSelectionModel().clearSelection();
          limparTabelas();

@@ -5,10 +5,14 @@
  */
 package g2informatica;
 
+import controllers.CtrOferta;
+import controllers.CtrOfertaProduto;
+import controllers.CtrOfertaServico;
 import controllers.CtrProduto;
 import controllers.CtrServico;
 import eng2.util.MaskFieldUtil;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -41,6 +45,10 @@ public class CrudOfertasController implements Initializable {
 
     CtrProduto ctrP = new CtrProduto();
     CtrServico ctrS = new CtrServico();
+    CtrOfertaProduto ctrOP = new CtrOfertaProduto();
+    CtrOfertaServico ctrOS = new CtrOfertaServico();
+    CtrOferta ctrOferta = new CtrOferta();
+    
     @FXML
     private VBox vboxCentral;
     @FXML
@@ -91,6 +99,8 @@ public class CrudOfertasController implements Initializable {
     private TableColumn clServico;
     @FXML
     private TableColumn clValorServico;
+    @FXML
+    private TextField txtNome;
     
 
     /**
@@ -108,26 +118,105 @@ public class CrudOfertasController implements Initializable {
 
     @FXML
     private void addProdutos(ActionEvent event) {
+        
         if(txtValorProduto.getText().trim().isEmpty())
             preencherCampoValor(txtPorcentagemProduto.getText().trim(),  txtValorProduto , cbProdutos);
         
         if(!verificarCampoValor(txtPorcentagemProduto,txtValorProduto,cbProdutos)){
             //adicionar na tabela 
+            Produto p;
+            for (int i = 0; i < listaBuscaP.size() ; i ++) {
+                p  = listaBuscaP.get(i);
+                if(p.getNome().equals(cbProdutos.getSelectionModel().getSelectedItem().toString())){
+                    
+                    String valor = txtValorProduto.getText().trim();
+                    if(valor.contains(",")){
+                        valor = valor.replace(".", "");
+                        valor = valor.replace(",", ".");
+                    }
+                   
+                    tbProduto.getItems().add(ctrOP.novaOfertaProduto(p,Double.parseDouble(valor)));
+                }
+                    
+            }
+            
+            limparTela();
             
         }
     }
 
     @FXML
     private void addServico(ActionEvent event) {
-         if(!verificarCampoValor(txtPorcentagemServico,txtValorServico,cbServicos)){
+          
+        if(txtValorServico.getText().trim().isEmpty())
+            preencherCampoValor(txtPorcentagemServico.getText().trim(),  txtValorServico , cbServicos);
+        
+        if(!verificarCampoValor(txtPorcentagemServico,txtValorServico,cbServicos)){
             //adicionar na tabela 
+            Servico s;
+            for (int i = 0; i < listaBuscaS.size() ; i ++) {
+                s  = listaBuscaS.get(i);
+                if(s.getDescricao().equals(cbServicos.getSelectionModel().getSelectedItem().toString())){
+                    
+                    String valor = txtValorServico.getText().trim();
+                    if(valor.contains(",")){
+                        valor = valor.replace(".", "");
+                        valor = valor.replace(",", ".");
+                    }
+                    tbServico.getItems().add(ctrOS.novaOfertaServico(s,Double.parseDouble(valor)));
+                }
+                    
+            }
+            
+            limparTela();
+            
         }
     }
 
     @FXML
     private void clickConfirmar(ActionEvent event) {
         
+        //verificar se datas estao preenchidas 
+        //verificar se data final menor que data inicial
+        if(!verificaDatasPreenchidas()){
         
+            //verificar se tem itens em oferta 
+            if(!listaS.isEmpty() || !listaP.isEmpty()){
+                 //verificar se a oferta tem uma descricao
+                if(!verificarNome()){
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setContentText("Deseja Cadastrar a Oferta  ?");
+                    if(alert.showAndWait().get() == ButtonType.OK){
+                        
+                        if(ctrOferta.salvarOferta(tbProduto.getItems(),tbServico.getItems(), dtInicial.getValue() , dtFinal.getValue(), txtNome.getText()) ){
+                            alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Oferta Cadastrada com SUCESSO");
+                            alert.showAndWait();
+                            Stage s = (Stage)txtNome.getScene().getWindow();
+                            s.close();
+                        } else {
+                            alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setContentText("ERRO ao cadastrar Oferta");
+                            alert.showAndWait();
+                            
+                        }
+                    }
+                }
+                
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Nao há itens em oferta");
+                alert.showAndWait();
+            }
+                    
+        }
+     
+        
+       
+        //perguntar se deseja realizar a operação
+        //fechar tela
     }
 
     @FXML
@@ -136,6 +225,7 @@ public class CrudOfertasController implements Initializable {
 
     @FXML
     private void clickRemover(ActionEvent event) {
+        
     }
 
     @FXML
@@ -155,17 +245,99 @@ public class CrudOfertasController implements Initializable {
     
     // ============================================== TELA ==============================================
     
+    private boolean verificarNome(){
+     
+        int index;
+        
+        boolean erro = false;
+      
+        
+        if(txtNome.getText().trim().isEmpty()){
+            
+            index = txtNome.getStyleClass().size() - 1;
+
+            if (!txtNome.getStyleClass().get(index).toString().equals("text-field")) {
+                txtNome.getStyleClass().remove(index);
+            }
+
+            txtNome.getStyleClass().add("text-field-erro");
+            erro = true;
+
+        } else {
+
+            index = txtNome.getStyleClass().size() - 1;
+           
+            if (txtNome.getStyleClass().get(index).toString().equals("text-field-erro")) {
+                txtNome.getStyleClass().remove(index);
+            }
+
+            txtNome.getStyleClass().add("text-field-success");
+
+        }
+
+        return erro;
+    }
+    
+    private boolean verificaDatasPreenchidas(){
+        boolean erro = false;
+        int index ;
+        if (dtInicial.getValue() == null || dtInicial.getValue().toString().trim().isEmpty()) {
+            
+            index = dtInicial.getStyleClass().size() - 1;
+
+            if (!dtInicial.getStyleClass().get(index).toString().equals("date-picker")) {
+                dtInicial.getStyleClass().remove(index);
+            }
+
+            dtInicial.getStyleClass().add("text-field-erro");
+            erro = true;
+
+        } else {
+
+            index = dtInicial.getStyleClass().size() - 1;
+           
+            if (dtInicial.getStyleClass().get(index).toString().equals("text-field-erro")) {
+                dtInicial.getStyleClass().remove(index);
+            }
+
+            dtInicial.getStyleClass().add("text-field-success");
+
+        }
+
+        if (dtFinal.getValue() ==null ||dtFinal.getValue().toString().isEmpty() || (dtFinal.getValue().isBefore(dtInicial.getValue()))) {
+
+            index = dtFinal.getStyleClass().size() - 1;
+
+            if (!dtFinal.getStyleClass().get(index).toString().equals("date-picker")) {
+                dtFinal.getStyleClass().remove(index);
+            }
+
+            dtFinal.getStyleClass().add("text-field-erro");
+            erro = true;
+        } else {
+
+            index = dtFinal.getStyleClass().size() - 1;
+
+            if (dtFinal.getStyleClass().get(index).toString().equals("text-field-erro")) {
+                dtFinal.getStyleClass().remove(index);
+            }
+
+            dtFinal.getStyleClass().add("text-field-success");
+        }
+
+        return erro;
+    }
+    
     private void aplicarMascaras(){
         
         MaskFieldUtil.monetaryField(txtPorcentagemProduto);
-        MaskFieldUtil.monetaryField(txtValorProduto);
         MaskFieldUtil.monetaryField(txtPorcentagemServico);
-        MaskFieldUtil.monetaryField(txtValorServico);
     }
     private void limparTela(){
         txtPorcentagemProduto.clear();
         txtPorcentagemServico.clear();
         
+        txtNome.clear();
         txtValorProduto.clear();
         txtValorServico.clear();
         
@@ -262,6 +434,7 @@ public class CrudOfertasController implements Initializable {
         porcentagem = porcentagem.replace(".", "");
         porcentagem = porcentagem.replace(",", ".");
         
+       
         double valorAntigo = -1;
         
         //buscar valor Servico
@@ -275,8 +448,11 @@ public class CrudOfertasController implements Initializable {
             //buscar valor Produto
             for (int i = 0; i < listaBuscaP.size() ; i ++) {
                 Produto p  = listaBuscaP.get(i);
-                if(p.getNome().equals(cb.getSelectionModel().getSelectedItem().toString()))
-                    valorAntigo = p.getPreco();
+                if(p.getNome().equals(cb.getSelectionModel().getSelectedItem().toString())){
+                     valorAntigo = p.getPreco();
+                     i = listaBuscaP.size();
+                }
+                   
             }
           
         }
@@ -285,13 +461,22 @@ public class CrudOfertasController implements Initializable {
         
        try{
            double porcent =  Double.parseDouble(porcentagem);
-           double novoValor;
-           if(porcent!=0)
-            novoValor = Math.ceil( valorAntigo  - (valorAntigo * (porcent/100)));
-           else
-               novoValor = valorAntigo;
-           
-           valor.setText(novoValor+"");
+           double novoValor =0 ;
+          
+           if(porcent <= 100){
+               if(porcent!=0)
+                novoValor = Math.ceil(valorAntigo  - (valorAntigo * (porcent/100)));
+               else
+                   novoValor = valorAntigo;
+               
+               valor.setText(novoValor+"");
+           }else{
+                
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("A porcentagem nao pode ser maior que 100% ");
+                alert.showAndWait();
+           }
+        
        }catch(Exception e){
            System.out.println("Erro:"+e.getMessage());
        }
@@ -306,6 +491,12 @@ public class CrudOfertasController implements Initializable {
         txtValorProduto.clear();
         preencherCampoValor(txtPorcentagemProduto.getText().trim() ,txtValorProduto,cbProdutos);
        
+    }
+
+    @FXML
+    private void textChangeServico(ActionEvent event) {
+        txtValorServico.clear();
+        preencherCampoValor(txtPorcentagemServico.getText().trim() ,txtValorServico,cbServicos);
     }
 
    

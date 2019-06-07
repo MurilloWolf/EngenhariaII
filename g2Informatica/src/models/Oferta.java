@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -26,6 +27,38 @@ public class Oferta {
     private Funcionario funcionario;
     private ArrayList<OfertaProduto> listaOfertaProduto;
     private ArrayList<OfertaServico> listaOfertaServico;
+
+    public Oferta(ObservableList<OfertaProduto> listaOP, ObservableList<OfertaServico> listaOS, Timestamp dtI, Timestamp dtF, String nome) {
+        if(listaOP == null)
+            this.listaOfertaProduto = null;
+        else{
+            this.listaOfertaProduto = new ArrayList();
+            for (int i = 0; i < listaOP.size(); i++) {
+                this.listaOfertaProduto.add(listaOP.get(i));
+            }
+        }
+        
+        if(listaOS == null)
+            listaOfertaServico = null;
+        else{
+            this.listaOfertaProduto = new ArrayList();
+            for (int i = 0; i < listaOP.size(); i++) {
+                this.listaOfertaProduto.add(listaOP.get(i));
+            }
+        }
+            
+        
+        this.dataInicio = dtI;
+        this.dataFinal = dtF;
+        
+        this.descricao = nome;
+        this.funcionario = null;
+        
+    }
+    
+    public Oferta(){
+        
+    }
 
     
     
@@ -136,15 +169,19 @@ public class Oferta {
            sql = sql.replace("$2",this.getDataInicio().toLocalDateTime().toString() );
            sql = sql.replace("$3",this.getDataFinal().toLocalDateTime().toString());
            sql = sql.replace("$4",this.descricao );
-           sql = sql.replace("$5",this.funcionario.getCod()+"" );
+           
+           if(this.funcionario==null)
+           sql = sql.replace("$5","null" );
 
             System.out.println("Sql: "+sql);
             resultadoFinal = Banco.con.manipular(sql);
             
+            this.codigo = Banco.con.getMaxPK("Oferta","ofe_cod");
+            
             if(listaOfertaServico!=null)
                 salvarServico = salvarOfertaServico();
 
-            if(listaOfertaProduto!=null)
+            if(this.listaOfertaProduto!=null)
                 salvarProduto = salvarOfertaProduto();
             
             
@@ -230,6 +267,8 @@ public class Oferta {
                 novaOferta.setListaOfertaServico(servicos);
                 
                 lista.add(novaOferta);
+                
+                novaOferta = new Oferta();
             }
             
         }catch(Exception ex){

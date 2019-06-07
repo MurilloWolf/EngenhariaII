@@ -51,7 +51,7 @@
                      <children>
                         <ComboBox fx:id="cbServicos" prefWidth="150.0" />
                         <Button fx:id="btnAdicionarServicos" mnemonicParsing="false" onAction="#addServico" styleClass="button-success" text="+" />
-                        <TextField fx:id="txtPorcentagemServico" prefHeight="26.0" prefWidth="70.0" promptText="\%" />
+                        <TextField fx:id="txtPorcentagemServico" onAction="#textChangeServico" prefHeight="26.0" prefWidth="70.0" promptText="\%" />
                         <TextField fx:id="txtValorServico" prefHeight="26.0" prefWidth="88.0" promptText="*Novo Valor" />
                      </children>
                   </HBox>
@@ -96,6 +96,27 @@
                   </HBox>
                </children>
             </VBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="393.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" text="*Nome da Oferta">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </Label>
+                        <TextField fx:id="txtNome" alignment="CENTER_RIGHT" prefWidth="332.0">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
    </left>

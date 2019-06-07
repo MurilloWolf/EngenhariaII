@@ -56,7 +56,7 @@ public class OfertaProduto {
      String sql="";
      
      try{
-         sql = "insert into Oferta_Produto (Produto_pro_cod, Oferta_ofe_cod, ofe_ser_valor) values ($1,$2,$3);";
+         sql = "insert into Oferta_Produto (Produto_pro_cod, Oferta_ofe_cod, ofe_pro_valor) values ($1,$2,$3);";
          sql = sql.replace("$1",produto.getCod()+"" );
          sql = sql.replace("$2",codigo+"" );
          sql = sql.replace("$3",preco+"");
