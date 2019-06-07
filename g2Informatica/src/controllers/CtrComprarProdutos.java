@@ -1,14 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-/**
- *
- * @author Aluno
- */
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import models.Fornecedor;
+import models.Produto;
+import models.dao.DaoComprarProdutos;
+import models.dao.DaoProduto;
+
 public class CtrComprarProdutos {
     
+    public ArrayList <Produto> Pesquisa()
+    {
+        DaoProduto daoD = new DaoProduto();
+        ArrayList <Produto> lista = new ArrayList();
+        lista = daoD.getTodosProdutos();
+        return lista;
+    }
+    
+    
+    public boolean ConfirmarCompra(ObservableList lista, Fornecedor fo) throws SQLException
+    {
+        boolean flag = false;
+        DaoComprarProdutos daoCP = new DaoComprarProdutos();
+        if(daoCP.RegistrarCompra((ArrayList)lista, fo))
+        {
+            flag = true;
+        }
+        return flag;
+    }
 }

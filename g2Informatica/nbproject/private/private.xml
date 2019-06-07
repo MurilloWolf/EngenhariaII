@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/GerenciarOfertaController.java</file>
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/Oferta.java</file>
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrOferta.java</file>
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/CrudOfertasController.java</file>
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/OfertaProduto.java</file>
+
         </group>
     </open-files>
 </project-private>
