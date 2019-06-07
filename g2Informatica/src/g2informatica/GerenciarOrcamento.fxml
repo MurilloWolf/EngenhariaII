@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="860.0" stylesheets="@../util/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g2informatica.GerenciarOrcamentoController">
+   <top>
+      <Label prefHeight="35.0" prefWidth="879.0" text="Orçamentos" BorderPane.alignment="CENTER">
+         <styleClass>
+            <String fx:value="background-g2" />
+            <String fx:value="title" />
+         </styleClass>
+      </Label>
+   </top>
+   <left>
+      <VBox prefHeight="365.0" prefWidth="211.0" spacing="10.0" styleClass="background-g2" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="211.0">
+               <children>
+                  <VBox prefHeight="71.0" prefWidth="211.0">
+                     <children>
+                        <Button fx:id="btnBuscar" alignment="CENTER" mnemonicParsing="false" onAction="#clickBuscar" prefHeight="39.0" prefWidth="230.0" styleClass="icon-search" text="Buscar">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Label styleClass="label-white" text="Produto" />
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <ComboBox fx:id="cbProdutos" prefHeight="25.0" prefWidth="312.0" styleClass="background-all" />
+                              <Button mnemonicParsing="false" onAction="#btnAddProduto" prefHeight="39.0" prefWidth="30.0" styleClass="button-success" text="+" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="59.0" prefWidth="211.0">
+               <children>
+                  <VBox prefHeight="73.0" prefWidth="211.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="91.0" styleClass="label-white" text="Serviço" />
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <ComboBox fx:id="cbServicos" prefHeight="25.0" prefWidth="312.0" styleClass="background-all" />
+                              <Button mnemonicParsing="false" onAction="#btnAddServico" prefHeight="39.0" prefWidth="30.0" styleClass="button-success" text="+" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label styleClass="label-white" text="*Clientes" />
+                        <ComboBox fx:id="cbClientes" prefHeight="25.0" prefWidth="299.0" styleClass="background-all" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="263.0">
+               <children>
+                  <VBox prefHeight="50.0" prefWidth="232.0">
+                     <children>
+                        <Label styleClass="label-white" text="*Data de Vencimento" />
+                        <DatePicker fx:id="dtDataDeVencimento" prefHeight="25.0" prefWidth="247.0" styleClass="background-all" />
+                        <Label styleClass="label-white" text="Status" />
+                        <ComboBox fx:id="cbStatus" prefHeight="25.0" prefWidth="232.0" styleClass="background-all" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <right>
+      <VBox prefHeight="421.0" prefWidth="215.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label text="Descrição" />
+            <TextArea fx:id="txaDescricao" prefHeight="200.0" prefWidth="200.0" />
+            <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#clickConfirmar" prefHeight="39.0" prefWidth="200.0" styleClass="button-success" text="Confirmar" />
+            <Button fx:id="btnAlterar" mnemonicParsing="false" onAction="#clickAlterar" prefHeight="39.0" prefWidth="200.0" styleClass="background-g2" text="Alterar" />
+            <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#clickExcluir" prefHeight="39.0" prefWidth="200.0" styleClass="button-alterar" text="Excluir" />
+            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#clickCancelar" prefHeight="39.0" prefWidth="200.0" styleClass="button-cancel" text="Cancelar" />
+         </children>
+      </VBox>
+   </right>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="421.0" prefWidth="434.0" spacing="10.0">
+               <children>
+                  <TableView fx:id="tbProdutos" onMouseClicked="#clickTabelaproduto" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="clProduto" prefWidth="122.0" text="Produto" />
+                      <TableColumn fx:id="clPrecoProduto" prefWidth="77.0" text="Preco" />
+                    </columns>
+                  </TableView>
+                  <TableView fx:id="tbServicos" onMouseClicked="#clickTabelaServico" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="clServico" prefWidth="119.0" text="Servico" />
+                      <TableColumn fx:id="clPrecoServico" text="Preco" />
+                    </columns>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <Button fx:id="btnRemover" mnemonicParsing="false" onAction="#clickRemover" prefHeight="39.0" prefWidth="437.0" styleClass="button-cancel" text="Remover">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

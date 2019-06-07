@@ -140,3 +140,7 @@ and open the template in the editor.
     -fx-background-size: contain;
     -fx-background-color: transparent;
 }
+
+.label-white{
+    -fx-text-fill: #FFF;
+}
