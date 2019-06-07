@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import models.Empresa;
 
@@ -172,9 +173,11 @@ public class EmpresaController implements Initializable {
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("SUCESSO, é preciso reiniciaro o programa");
+                    alert.setContentText("SUCESSO");
                     alert.showAndWait();
-                    System.exit(0);
+                    
+                    Stage stage = (Stage) txtNome.getScene().getWindow(); //Obtendo a janela atual
+                    stage.close(); 
                 }
                 
                 

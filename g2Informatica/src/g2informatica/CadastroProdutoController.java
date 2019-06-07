@@ -233,7 +233,7 @@ public class CadastroProdutoController implements Initializable {
     @FXML
     private void clickExcluir(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Tem certeza que deseja excluir o produto ? ");
+        alert.setContentText("Tem certeza que deseja excluir o Produto ? ");
         if(alert.showAndWait().get() ==ButtonType.OK){
             
             if(!verificaCampos()){
@@ -242,7 +242,11 @@ public class CadastroProdutoController implements Initializable {
                if(ctr.deletar(produto.getCod())){
                     limparTela();
                     botoesEstadoInicial();
-               }
+               }else{
+                    Alert erro = new Alert(Alert.AlertType.ERROR);
+                    erro.setContentText("Não foi possivel excluir o Produto");
+                    erro.showAndWait();
+                }
 
                
             }

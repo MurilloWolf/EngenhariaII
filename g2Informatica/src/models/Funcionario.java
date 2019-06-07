@@ -53,6 +53,10 @@ public class Funcionario extends Pessoa
         this.nivel = nivel;
     }
 
+    Funcionario(int cod) {
+        
+    }
+
     
     
     public String getEmail() {

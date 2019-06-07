@@ -54,11 +54,13 @@ public class QuitarContasPagarController implements Initializable {
     @FXML
     private TableColumn colDataCE;
 
+
     CtrQuitarContasApagar ctrQ = new CtrQuitarContasApagar();
     ObservableList<ContasPagar> listaContas = FXCollections.observableArrayList();
     ObservableList<ContasPagar> ListaCEscolidas = FXCollections.observableArrayList();
     ContasPagar cp , cpE;
     
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,6 +98,9 @@ public class QuitarContasPagarController implements Initializable {
 
     @FXML
     private void evtLImpar(ActionEvent event) {
+
+        ListaCEscolidas.clear();
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Tem certeza que deseja Limpar ?");
 
@@ -122,6 +127,9 @@ public class QuitarContasPagarController implements Initializable {
 
     @FXML
     private void evtAdiconar(ActionEvent event) {
+        cp=tbContas.getSelectionModel().getSelectedItem();
+        ListaCEscolidas.add(cp);
+        
         if(!tbContasEscolhidas.getItems().equals(cp))
         {
             ListaCEscolidas.add(cp);
@@ -152,6 +160,8 @@ public class QuitarContasPagarController implements Initializable {
 
     @FXML
     private void evtRemovar(ActionEvent event) {
+        ListaCEscolidas.remove(tbContasEscolhidas.getSelectionModel().getSelectedItem().hashCode());
+        tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
         ListaCEscolidas.remove(cpE);
         tbContasEscolhidas.getItems().clear();
         tbContasEscolhidas.getItems().addAll(ListaCEscolidas);

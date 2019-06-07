@@ -16,11 +16,12 @@ public class OfertaServico {
    
    private double preco;
    private Servico servico;
-   
+   private String descricao;
 
     public OfertaServico(Servico servico, double preco) {
         this.servico = servico;
         this.preco = preco;
+        this.descricao = servico.getDescricao();
     }
 
     public Servico getServico() {
@@ -38,6 +39,15 @@ public class OfertaServico {
     public void setPreco(double preco) {
         this.preco = preco;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
 
     /* ========================================== SQL ========================================== */
     public boolean salvarOferta(int codigo){

@@ -24,7 +24,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Button>
-            <Button fx:id="btnEditar" alignment="CENTER" mnemonicParsing="false" onAction="#evtEditar" prefWidth="100.0" styleClass="button-alterar" text="Editar">
+            <Button fx:id="btnEditar" alignment="CENTER" mnemonicParsing="false" onAction="#evtEditar" prefWidth="100.0" styleClass="background-g2" text="Editar">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
@@ -32,7 +32,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Button>
-            <Button fx:id="btnExcluir" alignment="CENTER" mnemonicParsing="false" onAction="#evtExcluir" prefWidth="100.0" styleClass="button-excluir" text="Excluir">
+            <Button fx:id="btnExcluir" alignment="CENTER" mnemonicParsing="false" onAction="#evtExcluir" prefWidth="100.0" styleClass="button-alterar" text="Excluir">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
@@ -107,21 +107,21 @@
       </AnchorPane>
       <HBox fx:id="hbPesquisa" alignment="CENTER" prefHeight="55.0" prefWidth="880.0">
          <children>
-            <Button fx:id="btnPesquisa" mnemonicParsing="false" onAction="#evtPesquisa" prefHeight="33.0" prefWidth="127.0" text="Pesquisar">
-               <HBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </HBox.margin>
-            </Button>
-            <TextField fx:id="txfPesquisa" prefWidth="300.0">
-               <HBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </HBox.margin>
-            </TextField>
             <ComboBox fx:id="cbPesquisa" prefWidth="200.0" promptText="Filtro">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </ComboBox>
+            <TextField fx:id="txfPesquisa" prefWidth="300.0">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btnPesquisa" mnemonicParsing="false" onAction="#evtPesquisa" prefHeight="33.0" prefWidth="61.0" styleClass="icon-search">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
       <TableView fx:id="tbPesquisaFuncionario" onMouseClicked="#evtTabela" prefHeight="240.0" prefWidth="800.0">
