@@ -5,6 +5,7 @@
  */
 package g2informatica;
 
+import controllers.CtrOrcamento;
 import controllers.CtrProduto;
 import controllers.CtrServico;
 import java.net.URL;
@@ -41,14 +42,10 @@ import models.Servico;
 public class GerenciarOrcamentoController implements Initializable {
 
     
-    ArrayList<Produto> listaP;
-    ArrayList<Produto> listaBuscaP;
-    CtrProduto ctrP = new CtrProduto();
+   
+   
     
-    
-    ArrayList<Servico> listaS;
-    ArrayList<Servico> listaBuscaS;
-    CtrServico ctrS = new CtrServico();
+    CtrOrcamento ctrO = new CtrOrcamento();
     
     @FXML
     private Button btnBuscar;
@@ -77,12 +74,17 @@ public class GerenciarOrcamentoController implements Initializable {
     @FXML
     private Button btnCancelar;
 
+    ArrayList<Produto> listaP;
+    ArrayList<Produto> listaBuscaP;
+    ArrayList<Servico> listaS;
+    ArrayList<Servico> listaBuscaS;
     
+    Produto produtoSelecionado;
+    Servico servicoSelecionado;
+    String tabela="";
     boolean resultadoDaBusca = false; 
-    @FXML
-    private TableColumn clProduto;
-    @FXML
-    private TableColumn clPrecoProduto;
+    double valorTotal = 0;
+    
     @FXML
     private TableColumn clServico;
     @FXML
@@ -91,6 +93,10 @@ public class GerenciarOrcamentoController implements Initializable {
     private Button btnRemover;
     @FXML
     private TextField txtValorTotal;
+    @FXML
+    private TableColumn clProdutos;
+    @FXML
+    private TableColumn clPrecoProdutos;
     /**
      * Initializes the controller class.
      */
@@ -101,7 +107,11 @@ public class GerenciarOrcamentoController implements Initializable {
         carregarComboBoxServicos();
         carregarComboBoxClientes();
         carregarStatus();
+        linkarTabelas();
         botoesEstadoInicial();
+        
+        txtValorTotal.setText(valorTotal+"");
+        
     }    
 
     @FXML
@@ -121,13 +131,39 @@ public class GerenciarOrcamentoController implements Initializable {
     @FXML
     private void clickConfirmar(ActionEvent event) {
         //se o nao tem resultado de busca entao é uma insercao e nao um update
-        if(!resultadoDaBusca){
+        if (!resultadoDaBusca) {
             botoesEstadoInicial();
-            
-            if(!verificarDados()){
-                
+
+            if (!verificarDados()) {
+
+                //verificar se tem itens em oferta 
+                if (!listaS.isEmpty() || !listaP.isEmpty()) {
+                    //verificar se a oferta tem uma descricao
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setContentText("Deseja Cadastrar o Orçamento  ?");
+                    if (alert.showAndWait().get() == ButtonType.OK) {
+
+                        if (ctrO.salvar()) {
+                            alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Orçamento Cadastrado com SUCESSO");
+                            alert.showAndWait();
+
+                        } else {
+                            alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setContentText("ERRO ao cadastrar Orcamento");
+                            alert.showAndWait();
+
+                        }
+                    }
+                }
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Nao há itens no Orcamento");
+                alert.showAndWait();
             }
-            
+
         }
     }
 
@@ -159,8 +195,8 @@ public class GerenciarOrcamentoController implements Initializable {
     /* ================================= TELA =================================*/
     
     private void linkarTabelas(){
-        clProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        clPrecoProduto.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        clProdutos.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        clPrecoProdutos.setCellValueFactory(new PropertyValueFactory<>("preco"));
         
         clServico.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         clPrecoServico.setCellValueFactory(new PropertyValueFactory<>("preco"));
@@ -195,8 +231,8 @@ public class GerenciarOrcamentoController implements Initializable {
     
     private void carregarComboBoxProdutos(){
         cbProdutos.getItems().clear();
-        listaP = ctrP.getAllProdutos();
-        listaBuscaP = ctrP.getAllProdutos();
+        listaP = ctrO.getAllProdutos();
+        listaBuscaP = ctrO.getAllProdutos();
         for(Produto p : listaP ){
             cbProdutos.getItems().add(p.getNome());
             
@@ -215,8 +251,8 @@ public class GerenciarOrcamentoController implements Initializable {
     
     private void carregarComboBoxServicos(){
         cbServicos.getItems().clear();
-        listaS = ctrS.getAllServicos();
-        listaBuscaS = ctrS.getAllServicos();
+        listaS = ctrO.getAllServicos();
+        listaBuscaS = ctrO.getAllServicos();
 
         for(Servico s : listaS ){
             cbServicos.getItems().add(s.getDescricao());
@@ -320,11 +356,20 @@ public class GerenciarOrcamentoController implements Initializable {
             Produto p;
             for (int i = 0; i < listaBuscaP.size() ; i ++) {
                 p  = listaBuscaP.get(i);
+                
                 if(p.getNome().equals(cbProdutos.getSelectionModel().getSelectedItem().toString())){
-                    listaP.add(p);
                     
-                    tbProdutos.getItems().clear();
-                    tbProdutos.getItems().addAll(listaP);
+                   if(!verificarDuplicataDeProduto(p)){
+                   
+                       listaP.add(p);
+                       tbProdutos.getItems().add(p);
+                       
+                       limparSelecao();
+                       calcularValorTotal();
+
+                       
+                   }
+                    
                 }
                     
             }
@@ -340,7 +385,12 @@ public class GerenciarOrcamentoController implements Initializable {
                 s  = listaBuscaS.get(i);
                 if(s.getDescricao().equals(cbServicos.getSelectionModel().getSelectedItem().toString())){
                     
-                    tbServicos.getItems().add(s);
+                    if(!verificarDuplicataDeServico(s)){
+                        listaS.add(s);
+                        tbServicos.getItems().add(s);
+                        limparSelecao();
+                        calcularValorTotal();
+                    }
                 }
                     
             }
@@ -349,21 +399,101 @@ public class GerenciarOrcamentoController implements Initializable {
 
     @FXML
     private void clickRemover(ActionEvent event) {
-        
+        boolean removeu = false;
+        if(tabela.equals("servicos")){
+           
+            for (int i = 0; i < tbServicos.getItems().size() && !removeu; i++) {
+                if(servicoSelecionado.equals(tbServicos.getItems().get(i))){
+                    
+                    removeu = true;
+                    listaS.remove(tbServicos.getItems().get(i));
+                    tbServicos.getItems().remove(i);
+                }
+                    
+            }
+            calcularValorTotal();
+
+            
+        }else{
+         
+            if(tabela.equals("produtos")){
+                for (int i = 0; i < tbProdutos.getItems().size() && !removeu; i++) {
+                    if(produtoSelecionado.equals(tbProdutos.getItems().get(i))){
+                        
+                        removeu = true;
+                        listaP.remove(tbProdutos.getItems().get(i));
+                        tbProdutos.getItems().remove(i);
+                        
+                    }
+
+                }
+                calcularValorTotal();
+
+            }
+        }
         
         btnRemover.setDisable(true);
     }
 
     @FXML
     private void clickTabelaproduto(MouseEvent event) {
+        tabela = "produtos";
+        produtoSelecionado = tbProdutos.getSelectionModel().getSelectedItem();
+        
+        
         btnRemover.setDisable(false);
     }
 
     @FXML
     private void clickTabelaServico(MouseEvent event) {
+        tabela ="servicos";
+        servicoSelecionado = tbServicos.getSelectionModel().getSelectedItem();
+
         btnRemover.setDisable(false);
 
     }
+    
+    private void limparSelecao(){
+        cbProdutos.getSelectionModel().clearSelection();
+        cbServicos.getSelectionModel().clearSelection();
+    }
          
+    
+    //=========================== FUNCOES COPIADAS ============================
+     private boolean verificarDuplicataDeProduto(Produto novaOferta){
+        boolean erro = false;
+        for (Produto p : tbProdutos.getItems()) {
+            if(novaOferta.getCod() == p.getCod())
+                erro = true;
+        }
+        
+        
+        return erro ;
+    }
+    
+     private boolean verificarDuplicataDeServico(Servico novaOferta){
+        boolean erro = false;
+        for (Servico s : tbServicos.getItems()) {
+            if(novaOferta.getCodigo() == s.getCodigo())
+                erro = true;
+        }
+        
+        
+        return erro ;
+    }
+     
+     
+     public void calcularValorTotal(){
+         double novoValor = 0;
+         for (Produto p : tbProdutos.getItems()) {
+             novoValor +=p.getPreco();
+         }
+         for (Servico s : tbServicos.getItems()) {
+             novoValor += s.getValor();
+         }
+         
+         valorTotal = novoValor;
+         txtValorTotal.setText(""+valorTotal);
+     }
     
 }

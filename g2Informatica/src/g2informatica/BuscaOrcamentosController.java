@@ -47,6 +47,7 @@ public class BuscaOrcamentosController implements Initializable {
 
     @FXML
     private void clickBuscar(ActionEvent event) {
+        
     }
     
 }

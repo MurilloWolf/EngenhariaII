@@ -5,7 +5,10 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import models.Orcamento;
+import models.Produto;
+import models.Servico;
 
 /**
  *
@@ -16,5 +19,15 @@ public class CtrOrcamento {
     public boolean salvar (){
         Orcamento o = new Orcamento();
         return o.salvar();
+    }
+
+    
+    // PRODUTO E SERVICO
+    public ArrayList<Produto> getAllProdutos() {
+        return Produto.buscarTodosOsProdutos();
+    }
+
+    public ArrayList<Servico> getAllServicos() {
+        return Servico.buscarTodosServicos();
     }
 }

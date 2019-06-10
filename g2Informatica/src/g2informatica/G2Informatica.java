@@ -22,7 +22,7 @@ public class G2Informatica extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GerenciarOferta.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GerenciarOrcamento.fxml"));
         
         Scene scene = new Scene(root);
         
