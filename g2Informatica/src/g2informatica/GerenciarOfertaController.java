@@ -7,6 +7,7 @@ package g2informatica;
 
 import controllers.CtrOferta;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -144,15 +145,24 @@ public class GerenciarOfertaController implements Initializable {
         
         if(ofe!=null){
             try {
-            operacao = "alterar";
+           
+                if(ofe.getDataFinal().before( new Timestamp(System.currentTimeMillis()))){
+                    
+                    operacao = "alterar";
+
+                    Parent root = FXMLLoader.load(getClass().getResource("CrudOfertas.fxml"));
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root);
+                    stage.setTitle("Login");
+                    stage.setScene(scene);
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Não é possivel alterar uma oferta que ja se encerrou");
+                    alert.showAndWait();
+                }
             
-            Parent root = FXMLLoader.load(getClass().getResource("CrudOfertas.fxml"));
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
             
             
             
@@ -194,10 +204,16 @@ public class GerenciarOfertaController implements Initializable {
         
         boolean buscou = false;
         lista.clear();
-        if(txtBusca.getText().trim().isEmpty()){
+        if(txtBusca.getText().trim().isEmpty() && cbFiltros.getSelectionModel().getSelectedItem().trim().isEmpty()){
             lista.addAll(ctr.getAllOfertas());
             
             buscou = true;
+        }else{
+            if(cbFiltros.getSelectionModel().getSelectedItem().toUpperCase().equals("ENCERRADAS")){
+                
+                lista.addAll(ctr.getOfertasEncerradas());
+                buscou = true;
+            }
         }
         
         

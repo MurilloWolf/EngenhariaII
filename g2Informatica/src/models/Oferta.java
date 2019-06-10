@@ -204,6 +204,83 @@ public class Oferta {
         
         return resultado ;
     }
+    
+    public ArrayList<Oferta> buscarOfertas(String where){
+        ArrayList<Oferta> lista = new ArrayList();
+        ArrayList<OfertaServico> servicos = new ArrayList();
+        ArrayList<OfertaProduto> produtos = new ArrayList();
+        
+        Oferta novaOferta = new Oferta();
+        String sqlOferta = "select * from Oferta "+where;
+        System.out.println("Busca generica: "+sqlOferta);
+        
+        String sqlServico ="select * from Oferta_Servico where Oferta_ofe_cod = ";
+        String sqlProduto = "select * from Oferta_Produto where Oferta_ofe_cod = ";
+        
+        String sqlIntermediaria;
+        try{
+            ResultSet rsOferta = Banco.con.consultar(sqlOferta);
+            ResultSet rsProduto;
+            ResultSet rsServico;
+            
+            while(rsOferta.next()){
+                
+                //mudando atributos da oferta
+                novaOferta.setCodigo( rsOferta.getInt("ofe_cod"));
+                novaOferta.setDataFinal(rsOferta.getTimestamp("ofe_dataFinal"));
+                novaOferta.setDataInicio(rsOferta.getTimestamp("ofe_dataInicio"));
+                novaOferta.setDescricao(rsOferta.getString("ofe_desc"));
+                novaOferta.setFuncionario( new Funcionario (rsOferta.getInt("Funcionario_fun_cod")) );
+                
+                
+                
+                //Busca dos Servicos daquela oferta
+                sqlIntermediaria = sqlServico+" "+rsOferta.getInt("ofe_cod")+"; ";     
+                System.out.println("Sql Servico: "+sqlIntermediaria);
+
+                rsServico = Banco.con.consultar(sqlIntermediaria);
+                if (rsServico != null) {
+                    while(rsServico.next()){
+                    
+                        OfertaServico s = new OfertaServico( new Servico( rsServico.getInt("Servico_ser_cod") ), rsServico.getDouble("ofe_ser_valor") );
+                        servicos.add(s);
+                    }
+                }
+                
+                
+                
+                //Busca dos Produtos daquela oferta
+                sqlIntermediaria = sqlProduto+" "+rsOferta.getInt("ofe_cod")+"; ";
+                System.out.println("Sql Produto: "+sqlIntermediaria);
+                rsProduto = Banco.con.consultar(sqlIntermediaria);
+               
+              
+                if(rsProduto != null){
+                    while(rsProduto.next()){
+                    
+                        OfertaProduto p = new OfertaProduto( new Produto (rsProduto.getInt("Produto_pro_cod")) , rsProduto.getDouble("ofe_pro_valor"));
+                        produtos.add(p);
+                    
+                    }
+                }
+                
+                
+                novaOferta.setListaOfertaProduto(produtos);
+                novaOferta.setListaOfertaServico(servicos);
+                
+                lista.add(novaOferta);
+                
+                novaOferta = new Oferta();
+                produtos = new ArrayList();
+                servicos = new ArrayList();
+            }
+            
+        }catch(Exception ex){
+            System.out.println("erro :"+Banco.con.getMensagemErro());
+            lista = null;
+        }
+        return lista; 
+    }
 
     public ArrayList<Oferta> buscarTodasOfertas() {
         ArrayList<Oferta> lista = new ArrayList();
@@ -279,5 +356,23 @@ public class Oferta {
         }
         return lista; 
         
+    }
+
+    public ArrayList<Oferta> buscarOfertasEncerradas() {
+        String sql = "where ofe_dataFinal IS NULL or ofe_dataFinal < SYSDATE();";
+        return buscarOfertas(sql);
+
+    }
+    
+    public ArrayList<Oferta> buscarOfertasDataFinal() {
+        String sql = "where ofe_dataFinal like '"+this.getDataFinal()+"';";
+        return buscarOfertas(sql);
+
+    }
+    
+    public ArrayList<Oferta> buscarOfertasFuturas() {
+        String sql = "where ofe_dataFinal IS NULL or ofe_dataFinal < SYSDATE();";
+        return buscarOfertas(sql);
+
     }
 }

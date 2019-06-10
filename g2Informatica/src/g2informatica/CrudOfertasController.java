@@ -44,10 +44,7 @@ import models.Servico;
  */
 public class CrudOfertasController implements Initializable {
 
-    CtrProduto ctrP = new CtrProduto();
-    CtrServico ctrS = new CtrServico();
-    CtrOfertaProduto ctrOP = new CtrOfertaProduto();
-    CtrOfertaServico ctrOS = new CtrOfertaServico();
+   
     CtrOferta ctrOferta = new CtrOferta();
     
     @FXML
@@ -154,7 +151,7 @@ public class CrudOfertasController implements Initializable {
                         valor = valor.replace(",", ".");
                     }
                     if(!verificarDuplicataDeProduto(p))
-                        tbProduto.getItems().add(ctrOP.novaOfertaProduto(p,Double.parseDouble(valor)));
+                        tbProduto.getItems().add(ctrOferta.novaOfertaProduto(p,Double.parseDouble(valor)));
                     
                     btnRemover.setDisable(true);
                 }
@@ -190,7 +187,7 @@ public class CrudOfertasController implements Initializable {
                     }
                     
                     if(!verificarDuplicataDeServico(s))
-                        tbServico.getItems().add(ctrOS.novaOfertaServico(s,Double.parseDouble(valor)));
+                        tbServico.getItems().add(ctrOferta.novaOfertaServico(s,Double.parseDouble(valor)));
                     
                     btnRemover.setDisable(true);
 
@@ -253,6 +250,16 @@ public class CrudOfertasController implements Initializable {
 
     @FXML
     private void clickAlterar(ActionEvent event) {
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem que deseja alterar essa Oferta? ");
+        
+        if(alert.showAndWait().get() ==ButtonType.OK){
+           
+            Stage stage = (Stage) btnAlterar.getScene().getWindow(); //Obtendo a janela atual
+            stage.close(); 
+        } 
+        
     }
 
     @FXML
@@ -431,8 +438,8 @@ public class CrudOfertasController implements Initializable {
     
     private void carregarProdutos(){
         cbProdutos.getItems().clear();
-        listaP = ctrP.getAllProdutos();
-        listaBuscaP = ctrP.getAllProdutos();
+        listaP = ctrOferta.getAllProdutos();
+        listaBuscaP = ctrOferta.getAllProdutos();
         for(Produto p : listaP ){
             cbProdutos.getItems().add(p.getNome());
             
@@ -441,8 +448,8 @@ public class CrudOfertasController implements Initializable {
     
     private void carregarServicos(){
         cbServicos.getItems().clear();
-        listaS = ctrS.getAllServicos();
-        listaBuscaS = ctrS.getAllServicos();
+        listaS = ctrOferta.getAllServicos();
+        listaBuscaS = ctrOferta.getAllServicos();
 
         for(Servico s : listaS ){
             cbServicos.getItems().add(s.getDescricao());
@@ -558,7 +565,6 @@ public class CrudOfertasController implements Initializable {
            }
         
        }catch(Exception e){
-           System.out.println("Erro:"+e.getMessage());
        }
         
     }

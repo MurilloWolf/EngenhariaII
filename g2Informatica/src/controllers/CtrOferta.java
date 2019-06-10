@@ -15,6 +15,8 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import models.Produto;
+import models.Servico;
 
 /**
  *
@@ -59,8 +61,59 @@ public class CtrOferta {
     }
 
     public Timestamp toTimestamp(LocalDate localDate) {
-     Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         Timestamp timeStamp = new Timestamp(date.getTime());
-    return timeStamp;
-  }
+        return timeStamp;
+    }
+    
+    public ArrayList<Oferta> getOfertasEncerradas(){
+        ArrayList<Oferta> lista = new ArrayList();
+        try{
+            Oferta of = new Oferta();
+            lista = of.buscarOfertasEncerradas();
+            
+        }catch(Exception ex){
+         lista = null;
+         
+        }
+        
+        return lista;
+        
+    }
+    
+    public ArrayList<Oferta> getOfertasDataFinal(Timestamp dataFinal){
+        ArrayList<Oferta> lista = new ArrayList();
+        try{
+            Oferta of = new Oferta();
+            of.setDataFinal(dataFinal);
+            lista = of.buscarOfertasDataFinal();
+            
+        }catch(Exception ex){
+         lista = null;
+         
+        }
+        
+        return lista;
+        
+    }
+    
+    
+    // ========================================== CONTROLE DE PRODUTO E SERVICO ========================================== 
+    
+     public OfertaProduto novaOfertaProduto(Produto p, double preco){
+        return new OfertaProduto(p,preco);
+    }
+     
+     
+      public OfertaServico novaOfertaServico(Servico s, double preco){
+        return new OfertaServico(s,preco);
+    }
+      
+    public ArrayList<Produto> getAllProdutos(){
+        return Produto.buscarTodosOsProdutos();
+    }
+    
+    public ArrayList<Servico> getAllServicos(){
+        return Servico.buscarTodosServicos();
+    }
 }
