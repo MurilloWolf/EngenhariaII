@@ -159,8 +159,10 @@ public class CrudOfertasController implements Initializable {
                         valor = valor.replace(".", "");
                         valor = valor.replace(",", ".");
                     }
-                    if(!verificarDuplicataDeProduto(p))
+                    if(!verificarDuplicataDeProduto(p)){
                         tbProduto.getItems().add(ctrOferta.novaOfertaProduto(p,Double.parseDouble(valor)));
+                        listaP.add(p);
+                    }
                     
                     btnRemover.setDisable(true);
                 }
@@ -168,6 +170,7 @@ public class CrudOfertasController implements Initializable {
             }
             
             limparTela();
+               
             
         }
     }
@@ -195,15 +198,18 @@ public class CrudOfertasController implements Initializable {
                         valor = valor.replace(",", ".");
                     }
                     
-                    if(!verificarDuplicataDeServico(s))
+                    if(!verificarDuplicataDeServico(s)){
+                        
                         tbServico.getItems().add(ctrOferta.novaOfertaServico(s,Double.parseDouble(valor)));
-                    
+                        listaS.add(s);
+                    }
                     btnRemover.setDisable(true);
 
                 }
                     
             }
             
+   
             limparTela();
             
         
@@ -268,7 +274,7 @@ public class CrudOfertasController implements Initializable {
             //se tiver datas preenchidas altera as datas 
             if(!verificaDatasPreenchidas()){
                 
-                 if(!listaS.isEmpty() || !listaP.isEmpty()){
+                 if(!tbServico.getItems().isEmpty() || !tbProduto.getItems().isEmpty()){
                      if(!verificarNome()){
                          
                         if(ctrOferta.alterarOferta(tbProduto.getItems(),tbServico.getItems(), dtInicial.getValue() , dtFinal.getValue(), txtNome.getText(),alterar.getCodigo() )){
@@ -290,7 +296,7 @@ public class CrudOfertasController implements Initializable {
             }else{
                 
                 //se nao foi inserido novas datas ele utiliza as antigas
-                if(!listaS.isEmpty() || !listaP.isEmpty()){
+                if(!tbServico.getItems().isEmpty() || !tbProduto.getItems().isEmpty()){
                      if(!verificarNome()){
                          
                         if(ctrOferta.alterarOferta(tbProduto.getItems(),tbServico.getItems(), alterar.getDataInicio() ,  alterar.getDataFinal(), txtNome.getText(),alterar.getCodigo()))
@@ -500,7 +506,10 @@ public class CrudOfertasController implements Initializable {
         txtPorcentagemProduto.clear();
         txtPorcentagemServico.clear();
         
-        txtNome.clear();
+        if(!GerenciarOfertaController.operacao.equals("alterar"))
+            txtNome.clear();
+        
+        
         txtValorProduto.clear();
         txtValorServico.clear();
         

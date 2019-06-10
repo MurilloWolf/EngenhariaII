@@ -470,7 +470,7 @@ public class Oferta {
     }
     
     public ArrayList<Oferta> buscarOfertasPorNome(String nome) {
-        String sql = "where ofe_desc like '%"+nome+"%;'";
+        String sql = "where ofe_desc like '%"+nome+"%';";
         return buscarOfertas(sql);
 
     }
