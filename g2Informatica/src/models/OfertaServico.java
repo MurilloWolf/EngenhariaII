@@ -69,6 +69,45 @@ public class OfertaServico {
      
      return resultado ;
     }
+
+    public boolean alterarOferta(int codigo) {
+        boolean resultado = false;
+        String sql="";
+     
+        try{
+            sql = "update Oferta_Servico set Servico_ser_cod = $1, ofe_ser_valor = $2  where Oferta_ofe_cod =  "+codigo+";";
+            sql = sql.replace("$1",servico.getCodigo()+"" );
+            sql = sql.replace("$2",preco+"");
+
+            System.out.println("sql Servico:"+sql);
+
+            resultado = Banco.con.manipular(sql);
+
+        }catch(Exception e ){
+            System.out.println("Sql:"+e.getMessage());
+        }
+
+        return resultado ;
+
+    }
+    
+    
+    public static boolean deletarOferta(int codigo){
+        boolean resultado = false;
+        String sql="";
+
+        try{
+            sql = "delete from Oferta_Servico where Oferta_ofe_cod ="+codigo+";";
+     
+            System.out.println("sql Produto:"+sql);
+            resultado = Banco.con.manipular(sql);
+
+        }catch(Exception e ){
+            System.out.println("Sql:"+e.getMessage());
+        }
+
+        return resultado ;
+    }
     
    
    

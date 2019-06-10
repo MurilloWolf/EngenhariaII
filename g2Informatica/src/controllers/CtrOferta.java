@@ -40,8 +40,11 @@ public class CtrOferta {
     }
 
     public boolean deletarOferta(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Oferta ofe = new Oferta(codigo);
+        return ofe.excluir();
     }
+    
+    
 
     public boolean salvarOferta(ObservableList<OfertaProduto> listaOP, ObservableList<OfertaServico>  listaOS, LocalDate dataInicial, LocalDate dataFinal, String nome ) {
         Timestamp dtI = toTimestamp(dataInicial);
@@ -115,5 +118,72 @@ public class CtrOferta {
     
     public ArrayList<Servico> getAllServicos(){
         return Servico.buscarTodosServicos();
+    }
+
+    public ArrayList<Oferta> getOfertasPorNome(String text) {
+        ArrayList<Oferta> lista = new ArrayList();
+        if(!text.trim().isEmpty()){
+           
+            try{
+                Oferta of = new Oferta();
+
+                lista = of.buscarOfertasPorNome(text);
+
+            }catch(Exception ex){
+             lista = null;
+
+            }
+            
+        }
+        
+        
+        return lista;        
+    }
+    
+    public boolean alterarOferta(ObservableList<OfertaProduto> listaOP, ObservableList<OfertaServico>  listaOS, LocalDate dataInicial, LocalDate dataFinal, String nome,int codigo ){
+        Timestamp dtI = toTimestamp(dataInicial);
+        Timestamp dtF = toTimestamp(dataFinal);
+        
+        
+        Oferta ofe = new Oferta(listaOP,listaOS,dtI,dtF,nome);
+        ofe.setCodigo(codigo);
+        boolean resultado;
+        try{
+            resultado = ofe.excluir() && ofe.salvar();
+        }catch(Exception e){
+            
+            resultado = false;
+        }
+        return resultado;        
+    }
+    
+    public boolean alterarOferta(ObservableList<OfertaProduto> listaOP, ObservableList<OfertaServico>  listaOS, Timestamp dataInicial, Timestamp dataFinal, String nome, int codigo ){
+       
+        
+        
+        Oferta ofe = new Oferta(listaOP,listaOS,dataInicial,dataFinal,nome);
+        ofe.setCodigo(codigo);
+        boolean resultado;
+        try{
+            resultado = ofe.excluir() && ofe.salvar();
+        }catch(Exception e){
+            
+            resultado = false;
+        }
+        return resultado;        
+    }
+
+    public ArrayList<Oferta> getOfertasAbertas() {
+        ArrayList<Oferta> lista = new ArrayList();
+        try{
+            Oferta of = new Oferta();
+            lista = of.buscarOfertas("where ofe_dataFinal IS NULL OR ofe_dataFinal >= SYSDATE()");
+            
+        }catch(Exception ex){
+         lista = null;
+         
+        }
+        
+        return lista;
     }
 }

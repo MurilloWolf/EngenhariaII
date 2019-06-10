@@ -146,7 +146,7 @@ public class GerenciarOfertaController implements Initializable {
         if(ofe!=null){
             try {
            
-                if(ofe.getDataFinal().before( new Timestamp(System.currentTimeMillis()))){
+                if(ofe.getDataFinal().after( new Timestamp(System.currentTimeMillis()))){
                     
                     operacao = "alterar";
 
@@ -183,6 +183,8 @@ public class GerenciarOfertaController implements Initializable {
             if(ctr.deletarOferta(ofe.getCodigo())){
                 limparTela();
                 botoesEstadoInicial();
+                limparTabelas();
+                
             }else{
                 Alert erro = new Alert(Alert.AlertType.ERROR);
                 erro.setContentText("Não foi possivel excluir a Oferta");
@@ -204,8 +206,8 @@ public class GerenciarOfertaController implements Initializable {
         
         boolean buscou = false;
         lista.clear();
-        if(txtBusca.getText().trim().isEmpty() && cbFiltros.getSelectionModel().getSelectedItem().trim().isEmpty()){
-            lista.addAll(ctr.getAllOfertas());
+        if(txtBusca.getText().trim().isEmpty() && (cbFiltros.getSelectionModel().getSelectedItem() == null ||cbFiltros.getSelectionModel().getSelectedItem().trim().isEmpty() ) ){
+            lista.addAll(ctr.getOfertasAbertas());
             
             buscou = true;
         }else{
@@ -213,6 +215,12 @@ public class GerenciarOfertaController implements Initializable {
                 
                 lista.addAll(ctr.getOfertasEncerradas());
                 buscou = true;
+            }else
+            {
+                if(cbFiltros.getSelectionModel().getSelectedItem().toUpperCase().equals("NOME")){
+                    lista.addAll(ctr.getOfertasPorNome(txtBusca.getText()));
+                    buscou = true;
+                }
             }
         }
         

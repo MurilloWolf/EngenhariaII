@@ -56,6 +56,10 @@ public class Oferta {
         
     }
     
+    public Oferta(int codigo){
+        this.codigo = codigo;
+        
+    }
     public Oferta(){
         
     }
@@ -125,6 +129,7 @@ public class Oferta {
     }
     
     
+    // ======================================= SALVAR PRODUTO/SERVICO =======================================
     public boolean salvarOfertaProduto(){
         int cont = 0;
         
@@ -144,6 +149,37 @@ public class Oferta {
         
         for(OfertaServico i : listaOfertaServico){
             if(i.salvarOferta(this.codigo))
+                cont++;
+        }
+        
+        if(cont == listaOfertaServico.size())
+            return true;
+        
+        return false ;
+    }
+    
+    // ======================================= ALTERAR PRODUTO/SERVICO =======================================
+
+    public boolean alterarOfertaProduto(){
+         int cont = 0;
+        
+        for(OfertaProduto i : listaOfertaProduto){
+            if(i.alterarOferta(this.codigo))
+                cont++;
+        }
+        
+        if(cont == listaOfertaProduto.size())
+            return true;
+        
+        return false ;
+        
+    }
+    
+    public boolean alterarOfertaServico(){
+        int cont = 0;
+        
+        for(OfertaServico i : listaOfertaServico){
+            if(i.alterarOferta(this.codigo))
                 cont++;
         }
         
@@ -198,11 +234,49 @@ public class Oferta {
     }
     
     
-    public boolean alterar (){
+    public boolean alterar () throws SQLException{
         boolean resultado = true ;
+        boolean salvarServico =true ;
+        boolean salvarProduto =true ;
+        boolean resultadoFinal = false;
+        try{
+            Banco.con.getConnect().setAutoCommit(false);
         
         
-        return resultado ;
+         /*FORMATO DATA YYYY-MM-DD hh:mm:ss*/
+           
+
+           String sql="update Oferta set ofe_dataInicio = '$1', ofe_dataFinal = '$2', ofe_desc = '$3' where ofe_cod = "+this.getCodigo()+";";
+           
+           sql = sql.replace("$1",this.getDataInicio().toLocalDateTime().toString() );
+           sql = sql.replace("$2",this.getDataFinal().toLocalDateTime().toString());
+           sql = sql.replace("$3",this.descricao );
+           
+           
+
+            System.out.println("Sql: "+sql);
+            resultadoFinal = Banco.con.manipular(sql);
+            
+            
+            if(this.listaOfertaServico!=null)
+                salvarServico = alterarOfertaServico();
+
+            if(this.listaOfertaProduto!=null)
+                salvarProduto = alterarOfertaProduto();
+            
+            
+            Banco.con.getConnect().commit();
+        }catch(Exception e){
+            
+            Banco.con.getConnect().rollback();
+            
+        }finally{
+            Banco.con.getConnect().setAutoCommit(true);
+        }
+        
+        return salvarProduto && salvarServico && resultadoFinal; 
+        
+        
     }
     
     public ArrayList<Oferta> buscarOfertas(String where){
@@ -357,6 +431,31 @@ public class Oferta {
         return lista; 
         
     }
+    
+    // ================================== EXCLUIR ===================================
+    public boolean excluir(){
+        boolean resultadoProduto =true ; 
+        boolean resultadoServico = true;
+        boolean resultadoOferta = true;
+        
+        String sql = "delete from Oferta where ofe_cod = "+this.getCodigo()+";";
+        
+        
+        try{
+            
+            resultadoProduto = OfertaProduto.deletarOferta(this.getCodigo());
+            resultadoServico = OfertaServico.deletarOferta(this.getCodigo());
+            
+            resultadoOferta = Banco.con.manipular(sql);
+            
+            
+        }catch(Exception e){
+            
+        }
+        
+        return true;
+        //return resultadoProduto && resultadoServico && resultadoOferta;
+    }
 
     public ArrayList<Oferta> buscarOfertasEncerradas() {
         String sql = "where ofe_dataFinal IS NULL or ofe_dataFinal < SYSDATE();";
@@ -366,6 +465,12 @@ public class Oferta {
     
     public ArrayList<Oferta> buscarOfertasDataFinal() {
         String sql = "where ofe_dataFinal like '"+this.getDataFinal()+"';";
+        return buscarOfertas(sql);
+
+    }
+    
+    public ArrayList<Oferta> buscarOfertasPorNome(String nome) {
+        String sql = "where ofe_desc like '%"+nome+"%;'";
         return buscarOfertas(sql);
 
     }

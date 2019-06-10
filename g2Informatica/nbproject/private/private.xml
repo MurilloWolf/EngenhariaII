@@ -6,7 +6,8 @@
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/GerenciarOfertaController.java</file>
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/Oferta.java</file>
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrOferta.java</file>
-            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrOfertaProduto.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/CrudOfertasController.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/OfertaProduto.java</file>
         </group>
     </open-files>
 </project-private>

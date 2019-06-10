@@ -13,6 +13,7 @@ import controllers.CtrServico;
 import eng2.util.MaskFieldUtil;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -32,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.Oferta;
 import models.OfertaProduto;
 import models.OfertaServico;
 import models.Produto;
@@ -94,6 +96,8 @@ public class CrudOfertasController implements Initializable {
     OfertaServico servicoSelecionado;
     String tabela="";
     
+    Oferta alterar;
+    
     @FXML
     private TableColumn clProduto;
     @FXML
@@ -123,8 +127,13 @@ public class CrudOfertasController implements Initializable {
         
         if(GerenciarOfertaController.operacao.equals("alterar")){
             //carregar oferta
+           alterar = GerenciarOfertaController.ofertaAlterar;
            btnConfirmar.setDisable(true);
            btnAlterar.setDisable(false);
+           carregarInformacoesALterar();
+           
+          
+           
         }else{
            btnConfirmar.setDisable(false);
            btnAlterar.setDisable(true);
@@ -256,10 +265,55 @@ public class CrudOfertasController implements Initializable {
         
         if(alert.showAndWait().get() ==ButtonType.OK){
            
-            Stage stage = (Stage) btnAlterar.getScene().getWindow(); //Obtendo a janela atual
-            stage.close(); 
-        } 
+            //se tiver datas preenchidas altera as datas 
+            if(!verificaDatasPreenchidas()){
+                
+                 if(!listaS.isEmpty() || !listaP.isEmpty()){
+                     if(!verificarNome()){
+                         
+                        if(ctrOferta.alterarOferta(tbProduto.getItems(),tbServico.getItems(), dtInicial.getValue() , dtFinal.getValue(), txtNome.getText(),alterar.getCodigo() )){
+                            alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Oferta Alterada com SUCESSO");
+                            alert.showAndWait();
+                            Stage s = (Stage)txtNome.getScene().getWindow();
+                            s.close();
+                        } else {
+                            alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setContentText("ERRO ao alterar Oferta");
+                            alert.showAndWait();
+                            
+                        }
+                     }
+                 }
+                
+                
+            }else{
+                
+                //se nao foi inserido novas datas ele utiliza as antigas
+                if(!listaS.isEmpty() || !listaP.isEmpty()){
+                     if(!verificarNome()){
+                         
+                        if(ctrOferta.alterarOferta(tbProduto.getItems(),tbServico.getItems(), alterar.getDataInicio() ,  alterar.getDataFinal(), txtNome.getText(),alterar.getCodigo()))
+{
+                            alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Oferta Alterada com SUCESSO");
+                            alert.showAndWait();
+                            Stage s = (Stage)txtNome.getScene().getWindow();
+                            s.close();
+                        } else {
+                            alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setContentText("ERRO ao alterar Oferta");
+                            alert.showAndWait();
+                            
+                        }
+                    }
+                }
+            
+            
+           
+            } 
         
+        }
     }
 
     @FXML
@@ -329,6 +383,28 @@ public class CrudOfertasController implements Initializable {
         
         
         return erro ;
+    }
+     
+     
+    private void carregarInformacoesALterar(){
+        listaS = new ArrayList();
+        listaP = new ArrayList();
+        
+        txtNome.setText(alterar.getDescricao());
+        tbProduto.getItems().addAll(alterar.getListaOfertaProduto());
+        tbServico.getItems().addAll(alterar.getListaOfertaServico());
+        
+        if(tbServico.getItems() != null)
+            for (int i = 0; i <tbServico.getItems().size(); i++) {
+                listaS.add(tbServico.getItems().get(i).getServico());
+            }
+        if(tbProduto.getItems()!=null)
+            for (int i = 0; i <tbProduto.getItems().size(); i++) {
+                listaP.add(tbProduto.getItems().get(i).getProduto());
+            }
+
+        
+           
     }
     
     
