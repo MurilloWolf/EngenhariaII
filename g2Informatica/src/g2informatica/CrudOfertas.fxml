@@ -32,10 +32,10 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="197.0" prefWidth="395.0" spacing="10.0">
                      <children>
-                        <ComboBox fx:id="cbProdutos" prefWidth="150.0" />
-                        <Button fx:id="btnAdicionarProdutos" mnemonicParsing="false" onAction="#addProdutos" styleClass="button-success" text="+" />
+                        <ComboBox fx:id="cbProdutos" onAction="#actProdutoSelecionado" prefWidth="150.0" />
                         <TextField fx:id="txtPorcentagemProduto" onAction="#textChangeProduto" prefHeight="26.0" prefWidth="70.0" promptText="\%" />
                         <TextField fx:id="txtValorProduto" prefHeight="26.0" prefWidth="88.0" promptText="*Novo Valor" />
+                        <Button fx:id="btnAdicionarProdutos" mnemonicParsing="false" onAction="#addProdutos" styleClass="button-success" text="+" />
                      </children>
                   </HBox>
                </children>
@@ -49,10 +49,10 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="8.0" prefWidth="395.0" spacing="10.0">
                      <children>
-                        <ComboBox fx:id="cbServicos" prefWidth="150.0" />
-                        <Button fx:id="btnAdicionarServicos" mnemonicParsing="false" onAction="#addServico" styleClass="button-success" text="+" />
+                        <ComboBox fx:id="cbServicos" onAction="#actServicoSelecionado" prefWidth="150.0" />
                         <TextField fx:id="txtPorcentagemServico" onAction="#textChangeServico" prefHeight="26.0" prefWidth="70.0" promptText="\%" />
                         <TextField fx:id="txtValorServico" prefHeight="26.0" prefWidth="88.0" promptText="*Novo Valor" />
+                        <Button fx:id="btnAdicionarServicos" mnemonicParsing="false" onAction="#addServico" styleClass="button-success" text="+" />
                      </children>
                   </HBox>
                </children>
@@ -105,7 +105,7 @@
                               <Insets top="10.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="txtNome" alignment="CENTER_RIGHT" prefWidth="332.0">
+                        <TextField fx:id="txtNome" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="332.0">
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -135,7 +135,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TableView fx:id="tbProduto" prefHeight="388.0" prefWidth="323.0">
+            <TableView fx:id="tbProduto" onMouseClicked="#clickProdutos" prefHeight="388.0" prefWidth="323.0">
               <columns>
                 <TableColumn fx:id="clProduto" prefWidth="156.0" text="Produtos" />
                 <TableColumn fx:id="clValorProdutos" prefWidth="130.0" text="Valor" />
@@ -155,7 +155,7 @@
                   <String fx:value="button-success" />
                </styleClass>
             </Label>
-            <TableView fx:id="tbServico" prefHeight="387.0" prefWidth="294.0">
+            <TableView fx:id="tbServico" onMouseClicked="#clickServicos" prefHeight="387.0" prefWidth="294.0">
               <columns>
                 <TableColumn fx:id="clServico" prefWidth="163.0" text="Serviçios" />
                 <TableColumn fx:id="clValorServico" prefWidth="128.0" text="Valor" />

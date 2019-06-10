@@ -147,7 +147,7 @@ public class Oferta {
                 cont++;
         }
         
-        if(cont == listaOfertaProduto.size())
+        if(cont == listaOfertaServico.size())
             return true;
         
         return false ;

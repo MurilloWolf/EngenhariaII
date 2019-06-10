@@ -45,9 +45,12 @@ import models.Servico;
 public class GerenciarOfertaController implements Initializable {
 
     
+    
     ObservableList<Oferta> lista = FXCollections.observableArrayList();
     Oferta ofe;
     
+    public static String operacao="";
+    public static Oferta ofertaAlterar;
     public static VBox _painel;
     @FXML
     private Button btnNovo;
@@ -120,6 +123,9 @@ public class GerenciarOfertaController implements Initializable {
     @FXML
     private void clickNovo(ActionEvent event) {
            try {
+               
+            operacao = "novo";
+               
             Parent root = FXMLLoader.load(getClass().getResource("CrudOfertas.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -135,6 +141,27 @@ public class GerenciarOfertaController implements Initializable {
 
     @FXML
     private void clickAlterar(ActionEvent event) {
+        
+        if(ofe!=null){
+            try {
+            operacao = "alterar";
+            
+            Parent root = FXMLLoader.load(getClass().getResource("CrudOfertas.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("Login");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            
+            
+            
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        
+        
     }
 
     @FXML
@@ -255,6 +282,8 @@ public class GerenciarOfertaController implements Initializable {
             
             tbProduto.getItems().addAll(ofe.getListaOfertaProduto());
             tbServico.getItems().addAll(ofe.getListaOfertaServico());
+            
+            ofertaAlterar = ofe;
             //carregar outras duas tabelas
         }
            

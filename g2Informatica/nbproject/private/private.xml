@@ -3,8 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/GerenciarOrcamentoController.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrOfertaServico.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrFornecedor.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/ContasPagar.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/QuitarContasPagarController.java</file>
             <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/CrudOfertasController.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/dao/DaoContasApagar.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrOfertaProduto.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/Oferta.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrQuitarContasApagar.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/Produto.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/g2informatica/ComprarProdutosController.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrOferta.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/models/dao/DaoComprarProdutos.java</file>
+            <file>file:/home/wolf/Documentos/Git/EngenhariaII/g2Informatica/src/controllers/CtrComprarProdutos.java</file>
         </group>
     </open-files>
 </project-private>

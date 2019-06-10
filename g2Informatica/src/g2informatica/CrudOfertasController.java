@@ -29,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.OfertaProduto;
@@ -91,6 +92,11 @@ public class CrudOfertasController implements Initializable {
     
     ArrayList<Servico> listaBuscaS;
     ArrayList<Produto> listaBuscaP;
+    
+    OfertaProduto produtoSelecionado;
+    OfertaServico servicoSelecionado;
+    String tabela="";
+    
     @FXML
     private TableColumn clProduto;
     @FXML
@@ -109,11 +115,24 @@ public class CrudOfertasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
         aplicarMascaras();
         linkarTabela();
         limparTela();
         carregarProdutos();
         carregarServicos();
+        btnRemover.setDisable(true);
+        
+        if(GerenciarOfertaController.operacao.equals("alterar")){
+            //carregar oferta
+           btnConfirmar.setDisable(true);
+           btnAlterar.setDisable(false);
+        }else{
+           btnConfirmar.setDisable(false);
+           btnAlterar.setDisable(true);
+        }
+        
     }    
 
     @FXML
@@ -134,8 +153,10 @@ public class CrudOfertasController implements Initializable {
                         valor = valor.replace(".", "");
                         valor = valor.replace(",", ".");
                     }
-                   
-                    tbProduto.getItems().add(ctrOP.novaOfertaProduto(p,Double.parseDouble(valor)));
+                    if(!verificarDuplicataDeProduto(p))
+                        tbProduto.getItems().add(ctrOP.novaOfertaProduto(p,Double.parseDouble(valor)));
+                    
+                    btnRemover.setDisable(true);
                 }
                     
             }
@@ -151,7 +172,11 @@ public class CrudOfertasController implements Initializable {
         if(txtValorServico.getText().trim().isEmpty())
             preencherCampoValor(txtPorcentagemServico.getText().trim(),  txtValorServico , cbServicos);
         
-        if(!verificarCampoValor(txtPorcentagemServico,txtValorServico,cbServicos)){
+        
+        
+        
+        
+             if(!verificarCampoValor(txtPorcentagemServico,txtValorServico,cbServicos)){
             //adicionar na tabela 
             Servico s;
             for (int i = 0; i < listaBuscaS.size() ; i ++) {
@@ -163,14 +188,21 @@ public class CrudOfertasController implements Initializable {
                         valor = valor.replace(".", "");
                         valor = valor.replace(",", ".");
                     }
-                    tbServico.getItems().add(ctrOS.novaOfertaServico(s,Double.parseDouble(valor)));
+                    
+                    if(!verificarDuplicataDeServico(s))
+                        tbServico.getItems().add(ctrOS.novaOfertaServico(s,Double.parseDouble(valor)));
+                    
+                    btnRemover.setDisable(true);
+
                 }
                     
             }
             
             limparTela();
             
+        
         }
+       
     }
 
     @FXML
@@ -225,7 +257,33 @@ public class CrudOfertasController implements Initializable {
 
     @FXML
     private void clickRemover(ActionEvent event) {
+        boolean removeu = false;
         
+        if(tabela.equals("servicos")){
+           
+            for (int i = 0; i < tbServico.getItems().size() && !removeu; i++) {
+                if(servicoSelecionado.equals(tbServico.getItems().get(i))){
+                    tbServico.getItems().remove(i);
+                    removeu = true;
+                }
+                    
+            }
+            
+        }else{
+         
+            if(tabela.equals("produtos")){
+                for (int i = 0; i < tbProduto.getItems().size() && !removeu; i++) {
+                    if(produtoSelecionado.equals(tbProduto.getItems().get(i))){
+                        tbProduto.getItems().remove(i);
+                        removeu = true;
+                    }
+
+                }
+            }
+        }
+            
+        
+        btnRemover.setDisable(true);
     }
 
     @FXML
@@ -244,6 +302,28 @@ public class CrudOfertasController implements Initializable {
     }
     
     // ============================================== TELA ==============================================
+    private boolean verificarDuplicataDeProduto(Produto novaOferta){
+        boolean erro = false;
+        for (OfertaProduto p : tbProduto.getItems()) {
+            if(novaOferta.getCod() == p.getProduto().getCod())
+                erro = true;
+        }
+        
+        
+        return erro ;
+    }
+    
+     private boolean verificarDuplicataDeServico(Servico novaOferta){
+        boolean erro = false;
+        for (OfertaServico s : tbServico.getItems()) {
+            if(novaOferta.getCodigo() == s.getServico().getCodigo())
+                erro = true;
+        }
+        
+        
+        return erro ;
+    }
+    
     
     private boolean verificarNome(){
      
@@ -497,6 +577,44 @@ public class CrudOfertasController implements Initializable {
     private void textChangeServico(ActionEvent event) {
         txtValorServico.clear();
         preencherCampoValor(txtPorcentagemServico.getText().trim() ,txtValorServico,cbServicos);
+    }
+
+    @FXML
+    private void clickProdutos(MouseEvent event) {
+        produtoSelecionado = tbProduto.getSelectionModel().getSelectedItem();
+        btnRemover.setDisable(false);
+        tabela = "produtos";
+    }
+
+    @FXML
+    private void clickServicos(MouseEvent event) {
+         servicoSelecionado = tbServico.getSelectionModel().getSelectedItem();
+                btnRemover.setDisable(false);
+
+                tabela = "servicos";
+
+        
+    }
+    
+    
+    
+
+    @FXML
+    private void actProdutoSelecionado(ActionEvent event) {
+        
+        for (Produto p : listaBuscaP) {
+            if(p.getNome().equals(cbProdutos.getSelectionModel().getSelectedItem()) )
+                txtValorProduto.setText(p.getPreco()+"");
+        }
+            
+    }
+
+    @FXML
+    private void actServicoSelecionado(ActionEvent event) {
+         for (Servico s : listaBuscaS) {
+            if(s.getDescricao().equals(cbServicos.getSelectionModel().getSelectedItem()) )
+                txtValorServico.setText(s.getValor()+"");
+        }
     }
 
    
