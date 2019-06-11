@@ -83,42 +83,51 @@ public class QuitarContasPagarController implements Initializable {
         colDataReg.setCellValueFactory(new PropertyValueFactory<>("dataConta"));
         btCancelar.setDisable(true);
         btConfirmar.setDisable(true);
+        dpDataPagamento.setValue(LocalDate.now());
+        btEstornar.setDisable(false);
+        btLimpar.setDisable(false);
         
     }    
 
     @FXML
     private void evtConfirmar(ActionEvent event) throws SQLException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Tem certeza que deseja Confirmar ?");
-        cp.setValorPago(Double.parseDouble(txValorPago.getText()));
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            if (flag.equals("pendente")) {
-                if (ctrQ.pagarAScontas(cp, dpDataPagamento.getValue())) {
-                    JOptionPane.showMessageDialog(null, "Quitar Conta realisada com sucesso");
+        
+        if (Double.parseDouble(txValorPago.getText()) <= Double.parseDouble(txValorContas.getText())) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Tem certeza que deseja Confirmar ?");
+            cp.setValorPago(Double.parseDouble(txValorPago.getText()));
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                if (flag.equals("pendente")) {
+                    if (ctrQ.pagarAScontas(cp, dpDataPagamento.getValue())) {
+                        JOptionPane.showMessageDialog(null, "Quitar Conta realisada com sucesso");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Quitar Conta falho");
+                    }
+                } else {
+                    if (ctrQ.estronarConta(cp)) {
+                        JOptionPane.showMessageDialog(null, "Estornar Conta realisada com sucesso");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Estornar Conta falho");
+                    }
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "Quitar Conta falho");
-            } else {
-                if(ctrQ.estronarConta(cp)){
-                    JOptionPane.showMessageDialog(null, "Estornar Conta realisada com sucesso");
-                }
-                else
-                    JOptionPane.showMessageDialog(null, "Estornar Conta falho");
             }
+            cp = null;
+            dpDataPagamento.setValue(LocalDate.now());
+            btCancelar.setDisable(true);
+            btConfirmar.setDisable(true);
+            btEstornar.setDisable(false);
+            txValorContas.setText("");
+            txValorPago.setText("");
+            txPesquisa.setText("");
+            listaContas.clear();
+            tbContas.getItems().clear();
+            flag = "pendente";
+            listaContas.addAll(ctrQ.addTabelaContas(flag));
+            tbContas.getItems().addAll(listaContas);
         }
-        cp = null;
-        dpDataPagamento.setValue(LocalDate.now());
-        btCancelar.setDisable(true);
-        btConfirmar.setDisable(true);
-        btEstornar.setDisable(false);
-        txValorContas.setText("");
-        txValorPago.setText("");
-        txPesquisa.setText("");
-        listaContas.clear();
-        tbContas.getItems().clear();
-        flag = "pendente";
-        listaContas.addAll(ctrQ.addTabelaContas(flag));
-        tbContas.getItems().addAll(listaContas);
+        else
+           JOptionPane.showMessageDialog(null, "valor a ser pago e maior que valor da conta");
+        
     }
 
     @FXML
@@ -179,7 +188,7 @@ public class QuitarContasPagarController implements Initializable {
     private void evtEstornar(ActionEvent event) {
         cp = null;
         dpDataPagamento.setValue(LocalDate.now());
-        btCancelar.setDisable(true);
+        btCancelar.setDisable(false);
         btConfirmar.setDisable(true);
         btEstornar.setDisable(true);
         txValorContas.setText("");

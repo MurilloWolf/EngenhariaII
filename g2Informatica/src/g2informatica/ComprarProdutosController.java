@@ -116,22 +116,36 @@ public class ComprarProdutosController implements Initializable {
         cbTipoPesq.getSelectionModel().select(0);
         
         dpDataVencimento.setValue(LocalDate.now());
+        ctrCP.inicializaCP(p, pe, f);
+        listaProdutosEscolhidos.clear();
+        tbProdutosEscolhidos.getItems().clear();
+        btRemover.setDisable(true);
+        btCancelar.setDisable(true);
+        btAdicionar.setDisable(true);
         btConfirma.setDisable(true);
-        ctrCP.inicializaCP(p,pe,f);
+        cbPagamento.setDisable(true);
+        txQtde.setDisable(true);
+        txValorCompra.setDisable(true);
     }    
 
     @FXML
     private void evtConfirmaCompra(ActionEvent event) throws SQLException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Tem certeza que deseja Confirmar ?");
-        f = cbFornecedor.getSelectionModel().getSelectedItem();//ver se tudo esta selecionado
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos, f.getCodigo())) {
-                listaProdutosEscolhidos.clear();
-                tbProdutosEscolhidos.getItems().clear();
-                btConfirma.setDisable(true);
-                JOptionPane.showMessageDialog(null, "Compra realisada com sucesso");
+        if(cbFornecedor.getSelectionModel().getSelectedIndex()>=0){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Tem certeza que deseja Confirmar ?");
+            f = cbFornecedor.getSelectionModel().getSelectedItem();//ver se tudo esta selecionado
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos, f.getCodigo())) {
+                    listaProdutosEscolhidos.clear();
+                    tbProdutosEscolhidos.getItems().clear();
+                    btConfirma.setDisable(true);
+                    JOptionPane.showMessageDialog(null, "Compra realisada com sucesso");
+                }
             }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Escolha um fonecedor");
         }
     }
 
@@ -210,21 +224,30 @@ public class ComprarProdutosController implements Initializable {
     private void evtadicionar(ActionEvent event) {
         p.setQuantidade(Integer.parseInt(txQtde.getText()));
         p.setPreco(Integer.parseInt(txValorCompra.getText()));
-        if(!listaProdutosEscolhidos.equals(p)){
-            valorTotal = valorTotal + p.getPreco();
-            listaProdutosEscolhidos.add(p);
-            tbProdutosEscolhidos.getItems().clear();
-            tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
-            btConfirma.setDisable(false);
-            btCancelar.setDisable(true);
-            btAdicionar.setDisable(true);
-            txQtde.setDisable(true);
-            txQtde.setText("");
-            txValorCompra.setDisable(true);
-            txValorCompra.setText("");
-            txValorTotal.setText(valorTotal+"");
-            p=null;
+        if (!txQtde.getText().isEmpty() && !txValorCompra.getText().isEmpty()) {
+            if (!listaProdutosEscolhidos.equals(p)) {
+                if (!listaProdutosEscolhidos.equals(p)) {
+                    valorTotal = valorTotal + p.getPreco();
+                    listaProdutosEscolhidos.add(p);
+                    tbProdutosEscolhidos.getItems().clear();
+                    tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
+                    btConfirma.setDisable(false);
+                    btCancelar.setDisable(true);
+                    btAdicionar.setDisable(true);
+                    txQtde.setDisable(true);
+                    txQtde.setText("");
+                    txValorCompra.setDisable(true);
+                    txValorCompra.setText("");
+                    txValorTotal.setText(valorTotal + "");
+                    p = null;
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Produto ja foi selecionado");
+            }
         }
+        
     }
 
     @FXML
