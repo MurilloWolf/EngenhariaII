@@ -176,8 +176,11 @@ public class EmpresaController implements Initializable {
                     alert.setContentText("SUCESSO");
                     alert.showAndWait();
                     
-                    Stage stage = (Stage) txtNome.getScene().getWindow(); //Obtendo a janela atual
-                    stage.close(); 
+                    if(!btnCancelar.isDisable()){
+                        //abrir tela de login 
+                        FXMLprincipalController._pndados.getChildren().clear();
+                    }
+                   
                 }
                 
                 
@@ -237,7 +240,7 @@ public class EmpresaController implements Initializable {
         }
         /* ==================================== CNPJ ====================================*/
 
-         if(txtCNPJ.getText().trim().isEmpty())
+         if(txtCNPJ.getText().trim().isEmpty() || !MaskFieldUtil.isCNPJ(txtCNPJ.getText().trim()))
         {
             index = txtCNPJ.getStyleClass().size() -1;
           

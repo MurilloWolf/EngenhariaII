@@ -260,7 +260,7 @@ public abstract class MaskFieldUtil {
                 || CNPJ.equals("66666666666666") || CNPJ.equals("77777777777777")
                 || CNPJ.equals("88888888888888") || CNPJ.equals("99999999999999")
                 || (CNPJ.length() != 14)) {
-            return (false);
+            return false;
         }
 
         char dig13, dig14;
@@ -311,12 +311,12 @@ public abstract class MaskFieldUtil {
 
 // Verifica se os dígitos calculados conferem com os dígitos informados.
             if ((dig13 == CNPJ.charAt(12)) && (dig14 == CNPJ.charAt(13))) {
-                return (true);
+                return true;
             } else {
-                return (false);
+                return false;
             }
         } catch (Exception erro) {
-            return (false);
+            return false;
         }
     }
     
