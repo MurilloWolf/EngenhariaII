@@ -22,6 +22,18 @@ public class Cliente {
         this.codigo = codigo;
     }
 
+    public Cliente(int codigo) {
+        Cliente c = Cliente.getCliente(codigo);
+        if(c!=null){
+            
+            this.codigo = c.getCodigo();
+            this.nome = c.getNome();
+        }
+    }
+    public Cliente(){
+        
+    }
+
     public String getNome() {
         return nome;
     }
@@ -67,6 +79,35 @@ public class Cliente {
      
      
      return lista;
+    }
+    
+     public static Cliente getCliente(int codigo){
+     String sql= "select * from Cliente where cli_cod = "+codigo+";";
+     Cliente c = new Cliente();
+     
+     try{
+         ResultSet rs = Banco.con.consultar(sql);
+        
+        try
+        {
+            if(rs.next())
+            { 
+               c.setCodigo(rs.getInt("cli_cod"));
+               c.setNome(rs.getString("cli_nome"));
+            }
+        }
+        catch(Exception e)
+        {
+            c = null;
+            System.out.println(e);
+        }
+         
+     }catch(Exception ex){
+         c = null;   
+     }
+     
+     
+     return c;
     }
     
 }

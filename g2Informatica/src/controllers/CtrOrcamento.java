@@ -30,4 +30,8 @@ public class CtrOrcamento {
     public ArrayList<Servico> getAllServicos() {
         return Servico.buscarTodosServicos();
     }
+    
+    public ArrayList<Orcamento> getAllOrcamentos(){
+        return Orcamento.getTodosOrcamentos();
+    }
 }

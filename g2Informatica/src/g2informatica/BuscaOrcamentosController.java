@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,6 +37,10 @@ public class BuscaOrcamentosController implements Initializable {
     private TableColumn<?, ?> clPreco;
     @FXML
     private TableColumn<?, ?> clStatus;
+    @FXML
+    private Button btnAlterar;
+    @FXML
+    private Button btnExcluir;
 
     /**
      * Initializes the controller class.
@@ -48,6 +53,31 @@ public class BuscaOrcamentosController implements Initializable {
     @FXML
     private void clickBuscar(ActionEvent event) {
         
+        try{
+            
+        }catch(Exception e){
+            
+        }
+    }
+
+    @FXML
+    private void clickAlterar(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickExcluir(ActionEvent event) {
+    }
+    
+    
+    // ========================================= TELA =========================================
+    private void botoesEstadoInicial(){
+        btnAlterar.setDisable(true);
+        btnExcluir.setDisable(true);
+    }
+    
+    private void botoesEstadoAlterar(){
+        btnAlterar.setDisable(false);
+        btnExcluir.setDisable(false);
     }
     
 }

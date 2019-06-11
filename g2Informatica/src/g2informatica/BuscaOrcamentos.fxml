@@ -53,8 +53,8 @@
             </TableView>
             <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" prefWidth="120.0" styleClass="background-g2" text="Alterar" />
-                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="120.0" styleClass="button-alterar" text="Excluir" />
+                  <Button fx:id="btnAlterar" mnemonicParsing="false" onAction="#clickAlterar" prefWidth="120.0" styleClass="background-g2" text="Alterar" />
+                  <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#clickExcluir" prefHeight="39.0" prefWidth="120.0" styleClass="button-alterar" text="Excluir" />
                </children>
                <VBox.margin>
                   <Insets />
