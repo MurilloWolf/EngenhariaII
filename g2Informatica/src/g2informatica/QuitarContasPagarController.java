@@ -90,7 +90,7 @@ public class QuitarContasPagarController implements Initializable {
     private void evtConfirmar(ActionEvent event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Tem certeza que deseja Confirmar ?");
-
+        cp.setValorPago(Double.parseDouble(txValorPago.getText()));
         if (alert.showAndWait().get() == ButtonType.OK) {
             if (flag.equals("pendente")) {
                 if (ctrQ.pagarAScontas(cp, dpDataPagamento.getValue())) {

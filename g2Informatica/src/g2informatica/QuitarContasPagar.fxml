@@ -46,14 +46,14 @@
                   <TableColumn fx:id="colDataReg" prefWidth="150.0" text="Data reg" />
               </columns>
             </TableView>
-            <TextField fx:id="txValorContas" editable="false" layoutX="128.0" layoutY="366.0" />
-            <TextField fx:id="txValorPago" editable="false" layoutX="506.0" layoutY="366.0" />
-            <Label layoutX="395.0" layoutY="366.0" text="Valor a ser Pago" />
+            <TextField fx:id="txValorContas" editable="false" layoutX="155.0" layoutY="366.0" />
+            <TextField fx:id="txValorPago" layoutX="506.0" layoutY="366.0" />
+            <Label layoutX="347.0" layoutY="366.0" text="Valor a ser Pago" />
             <Label layoutX="25.0" layoutY="366.0" text="Valor Da Conta" />
             <ComboBox fx:id="cbFiltro" layoutX="25.0" layoutY="45.0" prefHeight="25.0" prefWidth="184.0" promptText="Filtro" />
             <TextField fx:id="txPesquisa" layoutX="224.0" layoutY="45.0" prefHeight="25.0" prefWidth="342.0" />
             <Button fx:id="btPesquisa" layoutX="581.0" layoutY="38.0" mnemonicParsing="false" onAction="#evtPesquisa" prefHeight="39.0" prefWidth="156.0" text="Pesquisa" />
-            <DatePicker fx:id="dpDataPagamento" layoutX="128.0" layoutY="422.0" />
+            <DatePicker fx:id="dpDataPagamento" layoutX="162.0" layoutY="419.0" />
             <Label layoutX="14.0" layoutY="422.0" text="Data Pagamento" />
          </children></AnchorPane>
    </children>

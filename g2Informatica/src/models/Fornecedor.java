@@ -8,6 +8,8 @@ package models;
 import db.Banco;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -175,5 +177,28 @@ public class Fornecedor {
         }
         return null;
     }
-    
+    public static ObservableList<Fornecedor> buscarTodosFornecedores2(){
+        //ArrayList<String> retorno = new ArrayList();
+        ObservableList<Fornecedor> fornecedores = FXCollections.observableArrayList();
+        String sql ="";
+        try{
+            sql = "select * from Fornecedor";
+            
+            ResultSet rs = Banco.con.consultar(sql);
+            
+            while(rs.next()){
+                
+                    Fornecedor f = new Fornecedor();
+                    f.setNome(rs.getString("for_nome"));
+                    f.setCodigo(rs.getInt("for_cod"));
+                    fornecedores.add(f);
+                //retorno.add(rs.getString("for_nome"));
+            }
+            
+            return fornecedores; 
+        }catch(Exception ex){
+            
+        }
+        return null;
+    }
 }

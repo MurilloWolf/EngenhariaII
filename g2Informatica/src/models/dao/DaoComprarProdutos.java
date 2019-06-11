@@ -11,7 +11,8 @@ public class DaoComprarProdutos {
     
     public boolean RegistrarCompra(ObservableList <Produto> lista, int codFor) throws SQLException
     {
-        boolean flag =true;
+        boolean flag1, flag2, flag3;
+        flag1=flag2=flag3=true;
         double aux =0 ;
         int aux2 = 0;
         for(int i=0; i < lista.size(); i++)
@@ -22,11 +23,11 @@ public class DaoComprarProdutos {
             Banco.conectar();
             Banco.con.getConnect().setAutoCommit(false);
             
-            String sql = "insert into Compra (com_data, com_valorTotal, com_for_cod) values (SYSDATE(), %1, %2";
+            String sql = "insert into Compra (com_data, com_valorTotal, com_for_cod) values (SYSDATE(), %1, %2);";
             sql = sql.replace("%1", aux+"");
             sql = sql.replace("%2", codFor+"");
             System.out.println("Compra insere:"+sql);
-            Banco.con.manipular(sql);
+            flag1=Banco.con.manipular(sql);
             
             for(int i=0; i < lista.size(); i++)
             {
@@ -37,22 +38,22 @@ public class DaoComprarProdutos {
                 sql2 = sql2.replace("%4", lista.get(i).getPreco()+"");
                     
                 System.out.println("Compra_Produto insere:"+sql2);
-                Banco.con.manipular(sql2);
+                flag2=Banco.con.manipular(sql2);
             }
             for(int i=0; i < lista.size(); i++)
             {
                 Produto p =new Produto();
                 p = p.buscarPorCodigo(lista.get(i).getCod());
-                aux2= p.getQuantidade()-lista.get(i).getQuantidade();
-                String sql3 = "update Produtos set pro_quantidade="+aux2+" where pro_cod="+lista.get(i).getCod();
+                aux2 = p.getQuantidade() + lista.get(i).getQuantidade();
+                String sql3 = "update Produto set pro_quantidade="+aux2+" where pro_cod="+lista.get(i).getCod();
                 System.out.println("Compra_Produto insere:"+sql3);
-                Banco.con.manipular(sql3);
+                flag3=Banco.con.manipular(sql3);
             }
             Banco.con.getConnect().commit();
         } catch (SQLException ex) 
         {
             Banco.con.getConnect().rollback();
-            flag= false;
+            return false;
         }
         finally
         {
@@ -60,7 +61,7 @@ public class DaoComprarProdutos {
         }
         
             
-        return flag;
+        return flag1 && flag2 && flag3;
     }
     
 }

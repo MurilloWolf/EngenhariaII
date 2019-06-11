@@ -103,7 +103,7 @@ public class ComprarProdutosController implements Initializable {
         colQuantidadePE.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         colQuantidadeP.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         
-        cbFornecedor.getItems().addAll((ObservableList)ctrF.getListaDeFornecedores());
+        cbFornecedor.getItems().addAll(ctrF.getListaDeFornecedores2());
         
         cbPagamento.getItems().add("Forma de Pagamento");
         cbPagamento.getItems().add("A Prazo");
@@ -116,7 +116,7 @@ public class ComprarProdutosController implements Initializable {
         cbTipoPesq.getSelectionModel().select(0);
         
         dpDataVencimento.setValue(LocalDate.now());
-        
+        btConfirma.setDisable(true);
         ctrCP.inicializaCP(p,pe,f);
     }    
 
@@ -124,7 +124,7 @@ public class ComprarProdutosController implements Initializable {
     private void evtConfirmaCompra(ActionEvent event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Tem certeza que deseja Confirmar ?");
-
+        f = cbFornecedor.getSelectionModel().getSelectedItem();//ver se tudo esta selecionado
         if (alert.showAndWait().get() == ButtonType.OK) {
             if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos, f.getCodigo())) {
                 listaProdutosEscolhidos.clear();
@@ -205,7 +205,7 @@ public class ComprarProdutosController implements Initializable {
         pe=null;
         txValorTotal.setText(valorTotal+"");
     }
-
+ 
     @FXML
     private void evtadicionar(ActionEvent event) {
         p.setQuantidade(Integer.parseInt(txQtde.getText()));
@@ -215,7 +215,7 @@ public class ComprarProdutosController implements Initializable {
             listaProdutosEscolhidos.add(p);
             tbProdutosEscolhidos.getItems().clear();
             tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
-            btConfirma.setDisable(true);
+            btConfirma.setDisable(false);
             btCancelar.setDisable(true);
             btAdicionar.setDisable(true);
             txQtde.setDisable(true);
@@ -261,7 +261,7 @@ public class ComprarProdutosController implements Initializable {
 
     @FXML
     private void evtCbFormaPagamento(ActionEvent event) {
-        f = cbFornecedor.getSelectionModel().getSelectedItem();
+        tipopagamento = cbPagamento.getSelectionModel().getSelectedIndex();
     }
 
     @FXML
@@ -284,7 +284,7 @@ public class ComprarProdutosController implements Initializable {
     @FXML
     private void evtCbFornecedor(ActionEvent event) {
         
-        tipopagamento = cbFornecedor.getSelectionModel().getSelectedIndex();
+        f = cbFornecedor.getSelectionModel().getSelectedItem();
         
     }
     

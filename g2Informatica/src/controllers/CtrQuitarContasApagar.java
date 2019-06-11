@@ -38,8 +38,8 @@ public class CtrQuitarContasApagar {
     public boolean pagarAScontas(ContasPagar cp, LocalDate datav) throws SQLException
     {
         Timestamp dtv = toTimestamp(datav);
-        cp.setDataVencimento(dtv);
-        boolean flag = true;
+        cp.setDataPagamento(dtv);
+        boolean flag = false;
         DaoContasApagar dao = new DaoContasApagar();
         if(dao.pagar(cp))
             flag=true;
@@ -47,7 +47,7 @@ public class CtrQuitarContasApagar {
     }
     public boolean estronarConta(ContasPagar cp) throws SQLException
     {
-        boolean flag = true;
+        boolean flag = false;
         DaoContasApagar dao = new DaoContasApagar();
         if(dao.Estronar(cp))
             flag=true;

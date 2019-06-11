@@ -6,6 +6,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
 import models.Fornecedor;
 
 /**
@@ -17,5 +18,7 @@ public class CtrFornecedor {
     public ArrayList<String> getListaDeFornecedores(){
         return Fornecedor.buscarTodosFornecedores();
     }
-    
+    public ObservableList<Fornecedor> getListaDeFornecedores2(){
+        return Fornecedor.buscarTodosFornecedores2();
+    }
 }
