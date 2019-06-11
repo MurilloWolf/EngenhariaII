@@ -6,6 +6,8 @@ import controllers.CtrProduto;
 import db.Banco;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javax.swing.JOptionPane;
 import models.Fornecedor;
 import models.Produto;
 
@@ -41,7 +44,7 @@ public class ComprarProdutosController implements Initializable {
     @FXML
     private TextField txPesquisa;
     @FXML
-    private ComboBox<?> cbTipoPesq;
+    private ComboBox<String> cbTipoPesq;
     @FXML
     private Button btAdicionar;
     @FXML
@@ -55,41 +58,66 @@ public class ComprarProdutosController implements Initializable {
     @FXML
     private TableColumn colCodPE;
     @FXML
-    private TableColumn colDescPE;
-    @FXML
     private TableColumn colValorPE;
     @FXML
     private TableView<Produto> tbProdutos;
     @FXML
     private TableColumn colCodP;
     @FXML
-    private TableColumn colDescP;
-    @FXML
-    private TableColumn colValorP;
-    @FXML
     private TextField txValorTotal;
-    @FXML
-    private Spinner<Integer> spQtde;
     @FXML
     private ComboBox<String> cbPagamento;
     @FXML
     private DatePicker dpDataVencimento;
-
+    @FXML
+    private TableColumn colQuantidadePE;
+    @FXML
+    private TableColumn colQuantidadeP;
+    @FXML
+    private TextField txValorCompra;
+    @FXML
+    private TableColumn colNomePE;
+    @FXML
+    private TableColumn colNomeP;
+    @FXML
+    private TextField txQtde;
+    
     CtrComprarProdutos ctrCP = new CtrComprarProdutos();
     ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
     ObservableList<Produto> listaProdutosEscolhidos = FXCollections.observableArrayList();
     Produto p, pe;
+    Fornecedor f;
+    int tipopagamento;
+    double valorTotal = 0;
+    
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         CtrFornecedor ctrF = new CtrFornecedor();
         colCodP.setCellValueFactory(new PropertyValueFactory<>("cod"));
         colCodPE.setCellValueFactory(new PropertyValueFactory<>("cod"));
-        colDescP.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        colDescPE.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        colValorP.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        colNomeP.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colNomePE.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colValorPE.setCellValueFactory(new PropertyValueFactory<>("preco"));
-        //cbFornecedor.getItems().addAll((ObservableList)ctrF.getListaDeFornecedores());
+        colQuantidadePE.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colQuantidadeP.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        
+        cbFornecedor.getItems().addAll((ObservableList)ctrF.getListaDeFornecedores());
+        
+        cbPagamento.getItems().add("Forma de Pagamento");
+        cbPagamento.getItems().add("A Prazo");
+        cbPagamento.getItems().add("A Vista");
+        cbPagamento.getSelectionModel().select(0);
+        
+        cbTipoPesq.getItems().add("Filtro");
+        cbTipoPesq.getItems().add("Cod");
+        cbTipoPesq.getItems().add("Nome");
+        cbTipoPesq.getSelectionModel().select(0);
+        
+        dpDataVencimento.setValue(LocalDate.now());
+        
+        ctrCP.inicializaCP(p,pe,f);
     }    
 
     @FXML
@@ -98,35 +126,17 @@ public class ComprarProdutosController implements Initializable {
         alert.setContentText("Tem certeza que deseja Confirmar ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            //if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos, cbFornecedor.getItems().get(cbFornecedor.getSelectionModel().getSelectedIndex()))) {
-            if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos)) {
+            if (ctrCP.ConfirmarCompra(listaProdutosEscolhidos, f.getCodigo())) {
                 listaProdutosEscolhidos.clear();
                 tbProdutosEscolhidos.getItems().clear();
                 btConfirma.setDisable(true);
-                
+                JOptionPane.showMessageDialog(null, "Compra realisada com sucesso");
             }
         }
     }
 
     @FXML
     private void evtLimpaProdutos(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Tem certeza que deseja Limpar ?");
-
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            listaProdutosEscolhidos.clear();
-            tbProdutosEscolhidos.getItems().clear();
-            pe = null;
-            btRemover.setDisable(true);
-            btCancelar.setDisable(true);
-            btAdicionar.setDisable(true);
-            btConfirma.setDisable(true);
-            spQtde.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void evtLimpaComprar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Tem certeza que deseja Limpar ?");
 
@@ -138,7 +148,35 @@ public class ComprarProdutosController implements Initializable {
             btCancelar.setDisable(true);
             btAdicionar.setDisable(true);
             btConfirma.setDisable(true);
+            txQtde.setDisable(true);
+            txValorCompra.setDisable(true);
+            txValorCompra.setText("");
+            txQtde.setText("");
+        }
+    }
+
+    @FXML
+    private void evtLimpaComprar(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem certeza que deseja Limpar ?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            
+            listaProdutosEscolhidos.clear();
+            tbProdutosEscolhidos.getItems().clear();
+            pe = null;
+            btRemover.setDisable(true);
+            btCancelar.setDisable(true);
+            btAdicionar.setDisable(true);
+            btConfirma.setDisable(true);
             cbPagamento.setDisable(true);
+            txQtde.setDisable(true);
+            txValorCompra.setDisable(true);
+            txValorCompra.setText("");
+            txQtde.setText("");
+            valorTotal=0;
+            txValorTotal.setText("");
+            
         }
     }
 
@@ -159,23 +197,34 @@ public class ComprarProdutosController implements Initializable {
         tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
         btRemover.setDisable(true);
         btCancelar.setDisable(true);
+        valorTotal = valorTotal - pe.getPreco();
         if(listaProdutosEscolhidos.isEmpty())
         {
             btConfirma.setDisable(true);
         }
         pe=null;
+        txValorTotal.setText(valorTotal+"");
     }
 
     @FXML
     private void evtadicionar(ActionEvent event) {
-        //p.setQuantidade(spQtde.getValue());
-        listaProdutosEscolhidos.add(p);
-        tbProdutosEscolhidos.getItems().clear();
-        tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
-        btConfirma.setDisable(false);
-        btCancelar.setDisable(true);
-        btAdicionar.setDisable(true);
-        p=null;
+        p.setQuantidade(Integer.parseInt(txQtde.getText()));
+        p.setPreco(Integer.parseInt(txValorCompra.getText()));
+        if(!listaProdutosEscolhidos.equals(p)){
+            valorTotal = valorTotal + p.getPreco();
+            listaProdutosEscolhidos.add(p);
+            tbProdutosEscolhidos.getItems().clear();
+            tbProdutosEscolhidos.getItems().addAll(listaProdutosEscolhidos);
+            btConfirma.setDisable(true);
+            btCancelar.setDisable(true);
+            btAdicionar.setDisable(true);
+            txQtde.setDisable(true);
+            txQtde.setText("");
+            txValorCompra.setDisable(true);
+            txValorCompra.setText("");
+            txValorTotal.setText(valorTotal+"");
+            p=null;
+        }
     }
 
     @FXML
@@ -191,16 +240,13 @@ public class ComprarProdutosController implements Initializable {
 
     @FXML
     private void evtCancelar(ActionEvent event) {
-        /*btRemover.setDisable(true);
-        btCancelar.setDisable(true);
-        btAdicionar.setDisable(true);
-        p = null;
-        pe = null;*/
         if(!btAdicionar.isDisable())
         {
             p = null;
             btAdicionar.setDisable(true);
             btCancelar.setDisable(true);
+            txQtde.setText("");
+            txValorCompra.setText("");
         }
         else
             if(!btRemover.isDisable())
@@ -208,11 +254,14 @@ public class ComprarProdutosController implements Initializable {
                 pe = null;
                 btRemover.setDisable(true);
                 btCancelar.setDisable(true);
+                txQtde.setText("");
+                txValorCompra.setText("");
             }
     }
 
     @FXML
     private void evtCbFormaPagamento(ActionEvent event) {
+        f = cbFornecedor.getSelectionModel().getSelectedItem();
     }
 
     @FXML
@@ -220,14 +269,23 @@ public class ComprarProdutosController implements Initializable {
         pe = tbProdutosEscolhidos.getSelectionModel().getSelectedItem();
         btRemover.setDisable(false);
         btCancelar.setDisable(false);
+        
     }
 
     @FXML
     private void evtTabelaProdutos(MouseEvent event) {
         p = tbProdutos.getSelectionModel().getSelectedItem();
-        
+        txQtde.setDisable(false);
+        txValorCompra.setDisable(false);
         btAdicionar.setDisable(false);
         btCancelar.setDisable(false);
+    }
+
+    @FXML
+    private void evtCbFornecedor(ActionEvent event) {
+        
+        tipopagamento = cbFornecedor.getSelectionModel().getSelectedIndex();
+        
     }
     
 }
