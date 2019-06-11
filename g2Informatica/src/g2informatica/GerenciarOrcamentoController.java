@@ -199,7 +199,7 @@ public class GerenciarOrcamentoController implements Initializable {
         clPrecoProdutos.setCellValueFactory(new PropertyValueFactory<>("preco"));
         
         clServico.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        clPrecoServico.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        clPrecoServico.setCellValueFactory(new PropertyValueFactory<>("valor"));
     }
     
     private void botoesEstadoInicial(){
