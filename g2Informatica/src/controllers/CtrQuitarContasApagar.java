@@ -41,8 +41,18 @@ public class CtrQuitarContasApagar {
         cp.setDataPagamento(dtv);
         boolean flag = false;
         DaoContasApagar dao = new DaoContasApagar();
-        if(dao.pagar(cp))
-            flag=true;
+        if(cp.getValorPago() == cp.getValorConta()){
+            if(dao.pagar(cp, 1)){
+                flag=true;
+            }
+        }
+        else
+        {
+            if(dao.pagar(cp, 2)){
+                flag=true;
+            }
+        }
+        
         return flag;
     }
     public boolean estronarConta(ContasPagar cp) throws SQLException
