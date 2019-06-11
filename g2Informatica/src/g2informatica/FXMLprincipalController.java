@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -39,6 +40,8 @@ public class FXMLprincipalController implements Initializable {
     private Button btComprarProdutos;
     @FXML
     private Button btnOrcamento;
+    @FXML
+    private Accordion menuLateral;
     
     
     void disabilita()
@@ -47,6 +50,8 @@ public class FXMLprincipalController implements Initializable {
         btnParametrizacao.setDisable(true);
         btnProduto.setDisable(true);
         _pndados.getChildren().clear();
+        menuLateral.setDisable(true);
+        
     }
     
     void abilita()
@@ -54,17 +59,21 @@ public class FXMLprincipalController implements Initializable {
         btnCadFunc.setDisable(false);
         btnParametrizacao.setDisable(false);
         btnProduto.setDisable(false);
+        menuLateral.setDisable(false);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         _pndados = pnDados;
         disabilita();
+        
         //evtLogar(null);
     }    
 
     @FXML
     private void evtLogar(ActionEvent event) {
+        
+        if (btnLoguar.getText().equals("Logar")) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("TelaLogin.fxml"));
             Stage stage = new Stage();
@@ -78,9 +87,8 @@ public class FXMLprincipalController implements Initializable {
         }
         if (TelaLoginController.login.equals(""))
             JOptionPane.showMessageDialog(null, "Usuario Invalido");
-        else
-        {
-            if (btnLoguar.getText().equals("Logar")) {
+            else {
+
                 lbLoguin.setText(TelaLoginController.login);
                 if (TelaLoginController.ni == 2) {
                     abilita();
@@ -93,13 +101,12 @@ public class FXMLprincipalController implements Initializable {
                     disabilita();
                 }
                 btnLoguar.setText("Deslogar");
+
             }
-            else
-            {
-                disabilita();
-                btnLoguar.setText("Logar");
-                lbLoguin.setText("");
-            }
+        } else {
+            disabilita();
+            btnLoguar.setText("Logar");
+            lbLoguin.setText("");
         }
     }
 

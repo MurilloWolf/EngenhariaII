@@ -86,7 +86,7 @@ public class QuitarContasPagarController implements Initializable {
         dpDataPagamento.setValue(LocalDate.now());
         btEstornar.setDisable(false);
         btLimpar.setDisable(false);
-        
+        cbFiltro.getItems().add("codigo");
     }    
 
     @FXML
@@ -146,6 +146,7 @@ public class QuitarContasPagarController implements Initializable {
             txPesquisa.setText("");
             listaContas.clear();
             tbContas.getItems().clear();
+            btEstornar.setDisable(false);
             flag = "pendente";
         }
     }
@@ -170,6 +171,7 @@ public class QuitarContasPagarController implements Initializable {
         dpDataPagamento.setValue(LocalDate.now());
         btCancelar.setDisable(true);
         btConfirmar.setDisable(true);
+        btEstornar.setDisable(false);
         flag = "pendente";
     }
 
@@ -196,17 +198,21 @@ public class QuitarContasPagarController implements Initializable {
         txPesquisa.setText("");
         listaContas.clear();
         tbContas.getItems().clear();
-        flag = "paga";
+        flag = "pago";
         listaContas.addAll(ctrQ.addTabelaContas(flag));
+        tbContas.getItems().addAll(listaContas);
+        btEstornar.setDisable(false);
     }
 
     @FXML
     private void evtPesquisa(ActionEvent event) {
         
-        if (cbFiltro.getSelectionModel().getSelectedIndex()!=0 && !txPesquisa.getText().isEmpty()) {
+        listaContas.clear();
+        tbContas.getItems().clear();
+        if (cbFiltro.getSelectionModel().getSelectedIndex()>=0 && !txPesquisa.getText().isEmpty()) {
             switch (cbFiltro.getSelectionModel().getSelectedItem()) {
                 case "codigo":
-                    listaContas.addAll(ctrQ.addTabelaContasFiltro("Compra_com_cod", txPesquisa.getText(), flag));
+                    listaContas.addAll(ctrQ.addTabelaContasFiltro("conp_cod", txPesquisa.getText(), flag));
                     break;
             }
         } 
