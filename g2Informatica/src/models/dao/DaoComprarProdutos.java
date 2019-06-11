@@ -9,10 +9,11 @@ import models.Produto;
 
 public class DaoComprarProdutos {
     
-    public boolean RegistrarCompra(ObservableList <Produto> lista) throws SQLException
+    public boolean RegistrarCompra(ObservableList <Produto> lista, int codFor) throws SQLException
     {
         boolean flag =true;
-        double aux =0;
+        double aux =0 ;
+        int aux2 = 0;
         for(int i=0; i < lista.size(); i++)
         {
             aux +=lista.get(i).getPreco();
@@ -23,7 +24,7 @@ public class DaoComprarProdutos {
             
             String sql = "insert into Compra (com_data, com_valorTotal, com_for_cod) values (SYSDATE(), %1, %2";
             sql = sql.replace("%1", aux+"");
-            sql = sql.replace("%2", 1+"");
+            sql = sql.replace("%2", codFor+"");
             System.out.println("Compra insere:"+sql);
             Banco.con.manipular(sql);
             
@@ -38,7 +39,15 @@ public class DaoComprarProdutos {
                 System.out.println("Compra_Produto insere:"+sql2);
                 Banco.con.manipular(sql2);
             }
-
+            for(int i=0; i < lista.size(); i++)
+            {
+                Produto p =new Produto();
+                p = p.buscarPorCodigo(lista.get(i).getCod());
+                aux2= p.getQuantidade()-lista.get(i).getQuantidade();
+                String sql3 = "update Produtos set pro_quantidade="+aux2+" where pro_cod="+lista.get(i).getCod();
+                System.out.println("Compra_Produto insere:"+sql3);
+                Banco.con.manipular(sql3);
+            }
             Banco.con.getConnect().commit();
         } catch (SQLException ex) 
         {

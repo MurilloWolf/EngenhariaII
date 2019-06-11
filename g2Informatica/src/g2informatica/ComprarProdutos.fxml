@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -27,11 +26,6 @@
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btLimpaC" mnemonicParsing="false" onAction="#evtLimpaComprar" prefHeight="33.0" prefWidth="183.0" text="Limpar Compras">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </HBox.margin>
-            </Button>
             <Button fx:id="btSair" mnemonicParsing="false" onAction="#evtSair" prefWidth="90.0" styleClass="button-cancel" text="Sair">
                <HBox.margin>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -41,34 +35,38 @@
       </HBox>
       <AnchorPane prefHeight="650.0" prefWidth="800.0">
          <children>
-            <Button fx:id="btRemover" layoutX="176.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtRemover" prefHeight="33.0" prefWidth="127.0" text="Remover" />
-            <TableView fx:id="tbProdutosEscolhidos" layoutX="48.0" layoutY="367.0" onMouseClicked="#evtTabelaCompras" prefHeight="200.0" prefWidth="764.0">
+            <Button fx:id="btRemover" layoutX="43.0" layoutY="283.0" mnemonicParsing="false" onAction="#evtRemover" prefHeight="33.0" prefWidth="127.0" text="Remover" />
+            <TableView fx:id="tbProdutosEscolhidos" layoutX="38.0" layoutY="338.0" onMouseClicked="#evtTabelaCompras" prefHeight="229.0" prefWidth="764.0">
                <columns>
                   <TableColumn fx:id="colCodPE" prefWidth="100.0" text="Cod" />
-                  <TableColumn fx:id="colDescPE" prefWidth="475.0" text="Descrição" />
-                  <TableColumn fx:id="colValorPE" prefWidth="200.0" text="Valor" />
+                  <TableColumn fx:id="colNomePE" prefWidth="300.0" text="Nome" />
+                  <TableColumn fx:id="colQuantidadePE" prefWidth="100.0" text="Quantidade" />
+                  <TableColumn fx:id="colValorPE" prefWidth="100.0" text="Valor" />
                </columns>
             </TableView>
-            <TableView fx:id="tbProdutos" layoutX="38.0" layoutY="50.0" onMouseClicked="#evtTabelaProdutos" prefHeight="219.0" prefWidth="775.0">
+            <TableView fx:id="tbProdutos" layoutX="38.0" layoutY="50.0" onMouseClicked="#evtTabelaProdutos" prefHeight="219.0" prefWidth="500.0">
                <columns>
                   <TableColumn fx:id="colCodP" prefWidth="100.0" text="Cod" />
-                  <TableColumn fx:id="colDescP" prefWidth="475.0" text="Descrição" />
-                  <TableColumn fx:id="colValorP" minWidth="0.0" prefWidth="200.0" text="Valor" />
+                  <TableColumn fx:id="colNomeP" prefWidth="300.0" text="Nome" />
+                  <TableColumn fx:id="colQuantidadeP" minWidth="0.0" prefWidth="100.0" text="Quantidade" />
                </columns>
             </TableView>
-            <TextField fx:id="txPesquisa" layoutX="245.0" layoutY="13.0" prefHeight="26.0" prefWidth="422.0" />
-            <ComboBox fx:id="cbTipoPesq" layoutX="39.0" layoutY="13.0" prefHeight="26.0" prefWidth="200.0" promptText="Filtro" />
-            <Button fx:id="btAdicionar" layoutX="39.0" layoutY="282.0" mnemonicParsing="false" onAction="#evtadicionar" prefHeight="33.0" prefWidth="118.0" styleClass="button-success" text="Adicionar" />
-            <Button fx:id="btPesquisar" layoutX="679.0" layoutY="10.0" mnemonicParsing="false" onAction="#evtPesquisar" prefHeight="33.0" prefWidth="47.0" styleClass="icon-search" />
-            <ComboBox fx:id="cbFornecedor" layoutX="518.0" layoutY="286.0" prefHeight="26.0" prefWidth="295.0" promptText="Fornecedor" />
-            <Button fx:id="btCancelar" layoutX="327.0" layoutY="283.0" mnemonicParsing="false" onAction="#evtCancelar" prefHeight="33.0" prefWidth="118.0" text="Cancelar" />
+            <TextField fx:id="txPesquisa" layoutX="196.0" layoutY="13.0" prefHeight="26.0" prefWidth="422.0" />
+            <ComboBox fx:id="cbTipoPesq" layoutX="39.0" layoutY="13.0" prefHeight="26.0" prefWidth="150.0" promptText="Filtro" />
+            <Button fx:id="btAdicionar" layoutX="609.0" layoutY="283.0" mnemonicParsing="false" onAction="#evtadicionar" prefHeight="33.0" prefWidth="118.0" styleClass="button-success" text="Adicionar" />
+            <Button fx:id="btPesquisar" layoutX="641.0" layoutY="7.0" mnemonicParsing="false" onAction="#evtPesquisar" prefHeight="33.0" prefWidth="47.0" styleClass="icon-search" />
+            <ComboBox fx:id="cbFornecedor" layoutX="560.0" layoutY="50.0" onAction="#evtCbFornecedor" prefHeight="26.0" prefWidth="250.0" promptText="Fornecedor" />
+            <Button fx:id="btCancelar" layoutX="196.0" layoutY="283.0" mnemonicParsing="false" onAction="#evtCancelar" prefHeight="33.0" prefWidth="118.0" text="Cancelar" />
             <TextField fx:id="txValorTotal" editable="false" layoutX="118.0" layoutY="589.0" prefHeight="25.0" prefWidth="185.0" />
-            <Spinner fx:id="spQtde" editable="true" layoutX="593.0" layoutY="325.0" />
-            <Label layoutX="543.0" layoutY="329.0" text="Qtde" />
+            <Label layoutX="557.0" layoutY="190.0" text="Qtde" />
             <Label layoutX="33.0" layoutY="589.0" text="Valor Total" />
             <ComboBox fx:id="cbPagamento" layoutX="319.0" layoutY="589.0" onAction="#evtCbFormaPagamento" prefHeight="25.0" prefWidth="223.0" promptText="Forma de Pagamento" />
             <DatePicker fx:id="dpDataVencimento" layoutX="644.0" layoutY="589.0" />
             <Label layoutX="560.0" layoutY="589.0" text="Vencimento" />
+            <TextField fx:id="txValorCompra" layoutX="650.0" layoutY="244.0" prefHeight="25.0" prefWidth="160.0" />
+            <Label layoutX="552.0" layoutY="244.0" text="Valor Compra" />
+            <Button fx:id="btLimpaC" layoutX="339.0" layoutY="283.0" mnemonicParsing="false" onAction="#evtLimpaComprar" prefHeight="33.0" prefWidth="183.0" text="Limpar Compras" />
+            <TextField fx:id="txQtde" layoutX="599.0" layoutY="190.0" prefHeight="25.0" prefWidth="200.0" />
          </children>
       </AnchorPane>
    </children>

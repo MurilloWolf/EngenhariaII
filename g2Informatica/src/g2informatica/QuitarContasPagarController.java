@@ -4,6 +4,8 @@ package g2informatica;
 import controllers.CtrQuitarContasApagar;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,11 +15,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javax.swing.JOptionPane;
 import models.ContasPagar;
 
 
@@ -30,53 +35,54 @@ public class QuitarContasPagarController implements Initializable {
     @FXML
     private Button btSair;
     @FXML
-    private Button btAdicionar;
-    @FXML
     private Button btCancelar;
-    @FXML
-    private Button btRemover;
     @FXML
     private TextField txValorPago;
     @FXML
     private TableView<ContasPagar> tbContas;
     @FXML
-    private TableColumn colCodC;
+    private Button btEstornar;
     @FXML
-    private TableColumn colValoC;
+    private TableColumn colCod;
     @FXML
-    private TableColumn colDataC;
+    private TableColumn colValoConta;
     @FXML
-    private TableView<ContasPagar> tbContasEscolhidas;
+    private TableColumn colDataVenci;
     @FXML
-    private TableColumn colCodCE;
+    private TableColumn colValorPago;
     @FXML
-    private TableColumn colValorCE;
+    private TableColumn colDataPagamento;
     @FXML
-    private TableColumn colDataCE;
-
-
+    private TableColumn colDataReg;
+    @FXML
+    private TextField txValorContas;
+    @FXML
+    private ComboBox<String> cbFiltro;
+    @FXML
+    private TextField txPesquisa;
+    @FXML
+    private Button btPesquisa;
+    @FXML
+    private DatePicker dpDataPagamento;
+    
     CtrQuitarContasApagar ctrQ = new CtrQuitarContasApagar();
     ObservableList<ContasPagar> listaContas = FXCollections.observableArrayList();
-    ObservableList<ContasPagar> ListaCEscolidas = FXCollections.observableArrayList();
-    ContasPagar cp , cpE;
-    
+    ContasPagar cp;
+    String flag = "pendente";
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        listaContas.addAll(ctrQ.addTabelaContas());
+        listaContas.addAll(ctrQ.addTabelaContas(flag));
         tbContas.getItems().addAll(listaContas);
-        ctrQ.IniciaEntidades(cp,cpE);
-        colCodC.setCellValueFactory(new PropertyValueFactory<>("cod"));
-        colCodCE.setCellValueFactory(new PropertyValueFactory<>("cod"));
-        colDataC.setCellValueFactory(new PropertyValueFactory<>("dataVencimento"));
-        colDataCE.setCellValueFactory(new PropertyValueFactory<>("dataVencimento"));
-        colValoC.setCellValueFactory(new PropertyValueFactory<>("valorConta"));
-        colValorCE.setCellValueFactory(new PropertyValueFactory<>("valorConta"));
-        btAdicionar.setDisable(true);
+        ctrQ.IniciaEntidades(cp);
+        colCod.setCellValueFactory(new PropertyValueFactory<>("cod"));
+        colValoConta.setCellValueFactory(new PropertyValueFactory<>("valorConta"));
+        colDataVenci.setCellValueFactory(new PropertyValueFactory<>("dataVencimento"));
+        colValorPago.setCellValueFactory(new PropertyValueFactory<>("valorPago"));
+        colDataPagamento.setCellValueFactory(new PropertyValueFactory<>("dataPagamento"));
+        colDataReg.setCellValueFactory(new PropertyValueFactory<>("dataConta"));
         btCancelar.setDisable(true);
         btConfirmar.setDisable(true);
-        btRemover.setDisable(true);
         
     }    
 
@@ -86,33 +92,52 @@ public class QuitarContasPagarController implements Initializable {
         alert.setContentText("Tem certeza que deseja Confirmar ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            if (ctrQ.pagarAScontas(ListaCEscolidas)) {
-                ListaCEscolidas.clear();
-                tbContasEscolhidas.getItems().clear();
-                btConfirmar.setDisable(true);
-                listaContas.addAll(ctrQ.addTabelaContas());
-                tbContas.getItems().addAll(listaContas);
+            if (flag.equals("pendente")) {
+                if (ctrQ.pagarAScontas(cp, dpDataPagamento.getValue())) {
+                    JOptionPane.showMessageDialog(null, "Quitar Conta realisada com sucesso");
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Quitar Conta falho");
+            } else {
+                if(ctrQ.estronarConta(cp)){
+                    JOptionPane.showMessageDialog(null, "Estornar Conta realisada com sucesso");
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Estornar Conta falho");
             }
         }
-      
+        cp = null;
+        dpDataPagamento.setValue(LocalDate.now());
+        btCancelar.setDisable(true);
+        btConfirmar.setDisable(true);
+        btEstornar.setDisable(false);
+        txValorContas.setText("");
+        txValorPago.setText("");
+        txPesquisa.setText("");
+        listaContas.clear();
+        tbContas.getItems().clear();
+        flag = "pendente";
+        listaContas.addAll(ctrQ.addTabelaContas(flag));
+        tbContas.getItems().addAll(listaContas);
     }
 
     @FXML
     private void evtLImpar(ActionEvent event) {
-
-        ListaCEscolidas.clear();
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Tem certeza que deseja Limpar ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            ListaCEscolidas.clear();
-            tbContasEscolhidas.getItems().clear();
             cp = null;
-            btRemover.setDisable(true);
+            dpDataPagamento.setValue(LocalDate.now());
             btCancelar.setDisable(true);
-            btAdicionar.setDisable(true);
             btConfirmar.setDisable(true);
+            btEstornar.setDisable(false);
+            txValorContas.setText("");
+            txValorPago.setText("");
+            txPesquisa.setText("");
+            listaContas.clear();
+            tbContas.getItems().clear();
+            flag = "pendente";
         }
     }
 
@@ -127,64 +152,60 @@ public class QuitarContasPagarController implements Initializable {
     }
 
     @FXML
-    private void evtAdiconar(ActionEvent event) {
-        cp=tbContas.getSelectionModel().getSelectedItem();
-        
-        if(!tbContasEscolhidas.getItems().equals(cp))
-        {
-            ListaCEscolidas.add(cp);
-            tbContasEscolhidas.getItems().clear();
-            tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
-            btAdicionar.setDisable(true);
-            btCancelar.setDisable(true);
-            btConfirmar.setDisable(false);
-        }
-    }
-
-    @FXML
     private void evtCancelar(ActionEvent event) {
-        if(!btAdicionar.isDisable())
-        {
-            cp = null;
-            btAdicionar.setDisable(true);
-            btCancelar.setDisable(true);
-        }
-        else
-            if(!btRemover.isDisable())
-            {
-                cpE = null;
-                btRemover.setDisable(true);
-                btCancelar.setDisable(true);
-            }
-    }
-
-    @FXML
-    private void evtRemovar(ActionEvent event) {
-        ListaCEscolidas.remove(tbContasEscolhidas.getSelectionModel().getSelectedItem().hashCode());
-        tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
-        ListaCEscolidas.remove(cpE);
-        tbContasEscolhidas.getItems().clear();
-        tbContasEscolhidas.getItems().addAll(ListaCEscolidas);
-        btRemover.setDisable(true);
+        
+        cp=null;
+        txValorContas.setText("");
+        txValorPago.setText("");
+        txPesquisa.setText("");
+        dpDataPagamento.setValue(LocalDate.now());
         btCancelar.setDisable(true);
-        if(ListaCEscolidas.isEmpty())
-        {
-            btConfirmar.setDisable(true);
-        }
+        btConfirmar.setDisable(true);
+        flag = "pendente";
     }
 
     @FXML
     private void evtTabelasContas(MouseEvent event) {
         cp = tbContas.getSelectionModel().getSelectedItem();
-        btAdicionar.setDisable(false);
         btCancelar.setDisable(false);
+        txValorContas.setText(cp.getValorConta()+"");
+        txValorPago.setText(cp.getValorPago()+"");
+        
+        btConfirmar.setDisable(false);
+    }
+
+
+    @FXML
+    private void evtEstornar(ActionEvent event) {
+        cp = null;
+        dpDataPagamento.setValue(LocalDate.now());
+        btCancelar.setDisable(true);
+        btConfirmar.setDisable(true);
+        btEstornar.setDisable(true);
+        txValorContas.setText("");
+        txValorPago.setText("");
+        txPesquisa.setText("");
+        listaContas.clear();
+        tbContas.getItems().clear();
+        flag = "paga";
+        listaContas.addAll(ctrQ.addTabelaContas(flag));
     }
 
     @FXML
-    private void evtTabelaContasEscolhidas(MouseEvent event) {
-        cpE = tbContasEscolhidas.getSelectionModel().getSelectedItem();
-        btRemover.setDisable(false);
-        btCancelar.setDisable(false);
+    private void evtPesquisa(ActionEvent event) {
+        
+        if (cbFiltro.getSelectionModel().getSelectedIndex()!=0 && !txPesquisa.getText().isEmpty()) {
+            switch (cbFiltro.getSelectionModel().getSelectedItem()) {
+                case "codigo":
+                    listaContas.addAll(ctrQ.addTabelaContasFiltro("Compra_com_cod", txPesquisa.getText(), flag));
+                    break;
+            }
+        } 
+        else{
+            listaContas.addAll(ctrQ.addTabelaContas(flag));
+        }
+        
+        tbContas.getItems().addAll(listaContas);
     }
     
 }
